@@ -4,6 +4,7 @@ project (Test)
 set (Test_VERSION_MAJOR 0)
 set (Test_VERSION_MINOR 1)
 
+add_subdirectory(src)
 
 # configure a header file to pass some of the CMake settings
 # to the source code
