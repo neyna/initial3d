@@ -1,8 +1,12 @@
 # temporary vim files
 *.swp
+
 #eclipse
 .project
 .cproject
+
+#build directory
+build
 
 #CMake
 #CMakeCache.txt
