@@ -13,6 +13,12 @@ if(NOT OPENGL_FOUND)
   return()
 endif()
 
+set(ALL_LIBS
+	${OPENGL_LIBRARY}
+	${SDL_LIBRARY}
+)
+
+
 include_directories(${OPENGL_INCLUDE_DIR})
 include_directories(${SDL_INCLUDE_DIR})
 
@@ -27,9 +33,7 @@ configure_file (
 # This enable us to find the test.h generated ealier
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
-link_libraries(
-    ${SDL_LIBRARY}
-    ${OPENGL_LIBRARY}
-)
+link_libraries(${ALL_LIBS})
 
-add_executable(test base.c version.c)
+add_executable(launcher base.c version.c)
+target_link_libraries(launcher ${ALL_LIBS})
