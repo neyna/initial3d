@@ -2,3 +2,13 @@
 *.swp
 #eclipse
 .project
+.cproject
+
+#CMake
+#CMakeCache.txt
+#Makefile
+#cmake_install.cmake
+#CMakeFiles
+#temp
+#version.h
+#launcher
