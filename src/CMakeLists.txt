@@ -33,7 +33,5 @@ configure_file (
 # This enable us to find the test.h generated ealier
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
-link_libraries(${ALL_LIBS})
-
 add_executable(launcher base.c version.c)
 target_link_libraries(launcher ${ALL_LIBS})
