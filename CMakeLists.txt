@@ -4,6 +4,9 @@ project (Test)
 set (TEST_VERSION_MAJOR 0)
 set (TEST_VERSION_MINOR 1)
 
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
+                      ${CMAKE_MODULE_PATH})
+
 # To put all executables to the specified directory
 # this line creates a bug with the eclipse project file generation plugin
 #SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
