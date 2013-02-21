@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.6)
 
-project (Test)
+project (INITIAL3D)
 set (TEST_VERSION_MAJOR 0)
 set (TEST_VERSION_MINOR 1)
 

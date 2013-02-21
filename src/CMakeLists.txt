@@ -38,14 +38,21 @@ include_directories(${GLFW_INCLUDE_DIR})
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
-  "${CMAKE_CURRENT_SOURCE_DIR}/version.h.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/version.h"
+  ${CMAKE_CURRENT_SOURCE_DIR}/version.h.in
+  ${CMAKE_CURRENT_BINARY_DIR}/version.h
   )
 
 # add the binary tree to the search path for include files
 # This enable us to find the test.h generated ealier
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(launcher launcher.cpp version.cpp)
+set(INITIAL3D_HEADER ${CMAKE_CURRENT_BINARY_DIR}/version.h                     
+   )
+
+set(INITIAL3D_SOURCE launcher.cpp
+                     version.cpp
+   )
+
+add_executable(launcher ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE})
 
 target_link_libraries(launcher ${ALL_LIBS})
