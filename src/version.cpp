@@ -4,6 +4,6 @@
 
 void print_version() {
   fprintf(stdout,"Software version : %d.%d\n",
-            TEST_VERSION_MAJOR,
-            TEST_VERSION_MINOR);
+		  INITIAL3D_VERSION_MAJOR,
+		  INITIAL3D_VERSION_MINOR);
 }

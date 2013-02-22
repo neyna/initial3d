@@ -1,8 +1,11 @@
 cmake_minimum_required (VERSION 2.6)
 
+set(GLM_PACKAGE_DIR ${INITIAL3D_EXTERNAL_PATH}/glm-0.9.2.4)
+
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLFW REQUIRED)
+find_package(GLM REQUIRED)
 
 if(NOT OPENGL_FOUND)
   message(FATAL_ERROR "OpenGL required !")
@@ -19,6 +22,11 @@ if(NOT GLFW_FOUND)
   return()
 endif()
 
+if(NOT GLM_FOUND)
+  message(FATAL_ERROR "GLM required !")
+  return()
+endif()
+
 set(ALL_LIBS
 	${OPENGL_LIBRARY}
 	${GLEW_LIBRARY}
@@ -29,6 +37,7 @@ set(ALL_INCLUDES
     ${OPENGL_INCLUDE_DIR}
     ${GLEW_INCLUDE_DIR}
     ${GLFW_INCLUDE_DIR}
+    ${GLM_INCLUDE_DIR}
 )
 
 include_directories(${OPENGL_INCLUDE_DIR})
@@ -46,11 +55,16 @@ configure_file (
 # This enable us to find the test.h generated ealier
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-set(INITIAL3D_HEADER ${CMAKE_CURRENT_BINARY_DIR}/version.h                     
+set(INITIAL3D_HEADER 
+        ${CMAKE_CURRENT_BINARY_DIR}/version.h    
+        Launcher.h
+        main.h                 
    )
 
-set(INITIAL3D_SOURCE launcher.cpp
-                     version.cpp
+set(INITIAL3D_SOURCE 
+        Launcher.cpp
+        main.cpp
+        version.cpp
    )
 
 add_executable(launcher ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE})

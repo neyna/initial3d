@@ -1,16 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "Launcher.h"
 
-#include <GL/glew.h>
-#include <GL/glfw.h>
+Launcher::Launcher() {
+}
 
-#include <version.h>
+Launcher::~Launcher() {
+}
 
-// Include GLM
-//#include <glm/glm.hpp>
-//using namespace glm;
-
-int main(void) {
+int Launcher::run() {
 
 	print_version();
 
@@ -26,7 +22,7 @@ int main(void) {
 	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
-	if (!glfwOpenWindow(1024, 768, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
+	if (!glfwOpenWindow(640, 480, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
 		fprintf(stderr,
 				"Failed to open GLFW window. Cannot open OpenGL 3.3 context. If you have an Intel GPU, they are not 3.3 compatible.");
 		glfwTerminate();
@@ -45,11 +41,15 @@ int main(void) {
 	// Ensure we can capture the escape key being pressed below
 	glfwEnable(GLFW_STICKY_KEYS);
 
-	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	// Dark background
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	do {
 		// Draw nothing
+
+//		GLuint VertexArrayID;
+//		glGenVertexArrays(1, &VertexArrayID);
+//		glBindVertexArray(VertexArrayID);
 
 		// Swap buffers
 		glfwSwapBuffers();
