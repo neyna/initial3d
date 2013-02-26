@@ -3,5 +3,4 @@
 
 #include "Launcher.h"
 
-
 #endif /* MAIN_HPP_ */

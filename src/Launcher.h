@@ -1,16 +1,9 @@
 #ifndef LAUNCHER2_HPP_
 #define LAUNCHER2_HPP_
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <GL/glew.h>
-#include <GL/glfw.h>
-
+#include "standard_includes.h"
 #include <version.h>
-
-#include <glm/glm.hpp>
-using namespace glm;
+#include "objects/FirstTriangle.h"
 
 class Launcher {
 public:

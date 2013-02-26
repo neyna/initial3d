@@ -58,13 +58,17 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set(INITIAL3D_HEADER 
         ${CMAKE_CURRENT_BINARY_DIR}/version.h    
         Launcher.h
-        main.h                 
+        main.h 
+        objects/FirstTriangle.h 
+        objects/ThreeDimensionObject.h 
+        standard_includes.h              
    )
 
 set(INITIAL3D_SOURCE 
         Launcher.cpp
         main.cpp
         version.cpp
+        objects/FirstTriangle.cpp
    )
 
 add_executable(launcher ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE})

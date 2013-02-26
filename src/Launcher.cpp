@@ -1,5 +1,7 @@
 #include "Launcher.h"
 
+using namespace initial3d;
+
 Launcher::Launcher() {
 }
 
@@ -30,6 +32,7 @@ int Launcher::run() {
 	}
 
 	// Initialize GLEW
+	glewExperimental = true; // Needed for core profile
 	if (glewInit() != GLEW_OK) {
 		fprintf(stderr, "Failed to initialize GLEW\n");
 		glfwTerminate();
@@ -44,19 +47,18 @@ int Launcher::run() {
 	// Dark background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
+	FirstTriangle *firstTriangle = new FirstTriangle();
 	do {
 		// Draw nothing
-
-//		GLuint VertexArrayID;
-//		glGenVertexArrays(1, &VertexArrayID);
-//		glBindVertexArray(VertexArrayID);
-
+		firstTriangle->draw();
 		// Swap buffers
 		glfwSwapBuffers();
 
 	} // Check if the ESC key was pressed or the window was closed
 	while (glfwGetKey(GLFW_KEY_ESC) != GLFW_PRESS
 			&& glfwGetWindowParam(GLFW_OPENED));
+
+	delete firstTriangle;
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
