@@ -61,7 +61,8 @@ set(INITIAL3D_HEADER
         main.h 
         objects/FirstTriangle.h 
         objects/ThreeDimensionObject.h 
-        standard_includes.h              
+        standard_includes.h  
+        utils/FPSTimer.h            
    )
 
 set(INITIAL3D_SOURCE 
@@ -69,8 +70,16 @@ set(INITIAL3D_SOURCE
         main.cpp
         version.cpp
         objects/FirstTriangle.cpp
+        utils/FPSTimer.cpp
+        shader/shader.a
    )
 
 add_executable(launcher ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE})
 
 target_link_libraries(launcher ${ALL_LIBS})
+
+add_custom_command(
+   TARGET launcher POST_BUILD
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/launcher${CMAKE_EXECUTABLE_SUFFIX}" "${CMAKE_CURRENT_BINARY_DIR}/dist"
+)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/shader/shader.a ${CMAKE_CURRENT_BINARY_DIR}/dist/shader.a COPYONLY)

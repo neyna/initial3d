@@ -10,7 +10,8 @@ Launcher::~Launcher() {
 
 int Launcher::run() {
 
-	print_version();
+	char* softwareVersion = getVersion();
+	glfwSetWindowTitle(softwareVersion);
 
 	// Initialise GLFW
 	if (!glfwInit()) {
@@ -48,9 +49,24 @@ int Launcher::run() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	FirstTriangle *firstTriangle = new FirstTriangle();
+	FPSTimer *fpsTimer = new FPSTimer();
+	double lastTime = glfwGetTime();
 	do {
 		// Draw nothing
 		firstTriangle->draw();
+		fpsTimer->newFrame();
+
+		// updating title
+		double newTime = glfwGetTime();
+		if(newTime-lastTime>2) {
+			double fps = fpsTimer->getFps();
+			char* buff = (char*) malloc(100*sizeof(char));
+			sprintf(buff, "%s - FPS %f", softwareVersion, fps);
+			glfwSetWindowTitle(buff);
+			lastTime = newTime;
+			free(buff);
+		}
+
 		// Swap buffers
 		glfwSwapBuffers();
 
@@ -59,9 +75,11 @@ int Launcher::run() {
 			&& glfwGetWindowParam(GLFW_OPENED));
 
 	delete firstTriangle;
+	delete fpsTimer;
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
+	free(softwareVersion);
 
 	return 0;
 }

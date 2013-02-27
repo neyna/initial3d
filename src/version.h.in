@@ -2,3 +2,4 @@
 #define INITIAL3D_VERSION_MINOR @INITIAL3D_VERSION_MINOR@
 
 void print_version();
+char* getVersion();

@@ -4,6 +4,7 @@
 #include "standard_includes.h"
 #include <version.h>
 #include "objects/FirstTriangle.h"
+#include "utils/FPSTimer.h"
 
 class Launcher {
 public:

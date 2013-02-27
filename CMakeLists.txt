@@ -6,8 +6,22 @@ set (INITIAL3D_VERSION_MINOR 1)
 set (INITIAL3D_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set (INITIAL3D_EXTERNAL_PATH ${INITIAL3D_ROOT_PATH}/externals) 
 
+if (NOT CMAKE_BUILD_TYPE)
+	message(STATUS "Build type defaulting to \"Debug\"")
+	# "Release" "Debug"
+	set(CMAKE_BUILD_TYPE "Debug")
+endif()
+
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
                       ${CMAKE_MODULE_PATH})
+                      
+if(CMAKE_COMPILER_IS_GNUCXX)
+	#message("Settings options for GNUCXX")
+	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -Wall -Wextra -DDEBUG -D_DEBUG")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra -DDEBUG -D_DEBUG")
+	set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -Wall -O3")
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -O3")
+endif(CMAKE_COMPILER_IS_GNUCXX)
 
 # Downloading dependencies
 IF (WIN32)
@@ -27,7 +41,7 @@ add_custom_target(DL_DEP_TARGET ALL DEPENDS externals/glm-xxxx)
 
 # To put all executables to the specified directory
 # this line creates a bug with the eclipse project file generation plugin
-SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
+#SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
 add_subdirectory(src)
 
