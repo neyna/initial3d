@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// exceptions
+#include <exception>
+#include <iostream>
+
 #include <GL/glew.h>
 #include <GL/glfw.h>
 

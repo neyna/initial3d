@@ -21,6 +21,7 @@ FirstTriangle::~FirstTriangle() {
 	glDeleteVertexArrays(1, &vertexArrayID);
 }
 
+
 void FirstTriangle::draw() {
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT); // GL_DEPTH_BUFFER_BIT GL_STENCIL_BUFFER_BIT
@@ -40,6 +41,7 @@ void FirstTriangle::draw() {
 	glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
 
 	glDisableVertexAttribArray(0);
+
 }
 
 } /* namespace initial3d */
