@@ -47,8 +47,8 @@ include_directories(${GLFW_INCLUDE_DIR})
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
-  ${CMAKE_CURRENT_SOURCE_DIR}/version.h.in
-  ${CMAKE_CURRENT_BINARY_DIR}/version.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/version.hpp.in
+  ${CMAKE_CURRENT_BINARY_DIR}/version.hpp
   )
 
 # add the binary tree to the search path for include files
@@ -56,13 +56,14 @@ configure_file (
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set(INITIAL3D_HEADER 
-        ${CMAKE_CURRENT_BINARY_DIR}/version.h    
-        Launcher.h
-        main.h 
-        objects/FirstTriangle.h 
-        objects/ThreeDimensionObject.h 
-        standard_includes.h  
-        utils/FPSTimer.h            
+        ${CMAKE_CURRENT_BINARY_DIR}/version.hpp    
+        Launcher.hpp
+        main.hpp 
+        objects/FirstTriangle.hpp 
+        objects/ThreeDimensionObject.hpp 
+        standard_includes.hpp  
+        utils/FPSTimer.hpp  
+        scene/Scene.hpp          
    )
 
 set(INITIAL3D_SOURCE 
@@ -71,6 +72,7 @@ set(INITIAL3D_SOURCE
         version.cpp
         objects/FirstTriangle.cpp
         utils/FPSTimer.cpp
+        scene/Scene.cpp
         shader/shader.a
    )
 

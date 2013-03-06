@@ -1,6 +1,4 @@
-#include "FirstTriangle.h"
-
-using namespace glm;
+#include "FirstTriangle.hpp"
 
 namespace initial3d {
 

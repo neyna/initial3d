@@ -1,10 +1,10 @@
 #ifndef LAUNCHER2_HPP_
 #define LAUNCHER2_HPP_
 
-#include "standard_includes.h"
-#include <version.h>
-#include "objects/FirstTriangle.h"
-#include "utils/FPSTimer.h"
+#include "standard_includes.hpp"
+#include <version.hpp>
+#include "objects/FirstTriangle.hpp"
+#include "utils/FPSTimer.hpp"
 
 class Launcher {
 public:

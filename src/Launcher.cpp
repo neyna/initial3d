@@ -1,6 +1,7 @@
-#include "Launcher.h"
+#include "Launcher.hpp"
 
 using namespace initial3d;
+using namespace glm;
 
 Launcher::Launcher() {
 }
@@ -51,6 +52,7 @@ int Launcher::run() {
 	FirstTriangle *firstTriangle = new FirstTriangle();
 	FPSTimer *fpsTimer = new FPSTimer();
 	double lastTime = glfwGetTime();
+
 	do {
 		// Draw nothing
 		firstTriangle->draw();
