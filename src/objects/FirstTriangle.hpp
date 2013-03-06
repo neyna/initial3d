@@ -1,8 +1,7 @@
 #ifndef FIRSTTRIANGLE_H_
 #define FIRSTTRIANGLE_H_
 
-#include "../standard_includes.hpp"
-#include "ThreeDimensionObject.hpp"
+#include "../all_includes.hpp"
 
 namespace initial3d {
 

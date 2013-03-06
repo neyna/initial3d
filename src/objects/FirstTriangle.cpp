@@ -1,4 +1,4 @@
-#include "FirstTriangle.hpp"
+#include "../all_includes.hpp"
 
 namespace initial3d {
 

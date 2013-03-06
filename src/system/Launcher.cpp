@@ -1,7 +1,8 @@
-#include "Launcher.hpp"
+#include "../all_includes.hpp"
 
-using namespace initial3d;
 using namespace glm;
+
+namespace initial3d {
 
 Launcher::Launcher() {
 }
@@ -86,3 +87,4 @@ int Launcher::run() {
 	return 0;
 }
 
+} /* namespace initial3d */

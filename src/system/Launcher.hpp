@@ -1,10 +1,9 @@
 #ifndef LAUNCHER2_HPP_
 #define LAUNCHER2_HPP_
 
-#include "standard_includes.hpp"
-#include <version.hpp>
-#include "objects/FirstTriangle.hpp"
-#include "utils/FPSTimer.hpp"
+#include "../all_includes.hpp"
+
+namespace initial3d {
 
 class Launcher {
 public:
@@ -13,5 +12,7 @@ public:
 	int run();
 protected:
 };
+
+} /* namespace initial3d */
 
 #endif /* LAUNCHER2_HPP_ */

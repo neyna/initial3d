@@ -1,10 +1,3 @@
-/*
- * Scene.hpp
- *
- *  Created on: Mar 6, 2013
- *      Author: gregory
- */
-
 #ifndef SCENE_HPP_
 #define SCENE_HPP_
 

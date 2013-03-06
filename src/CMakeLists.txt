@@ -56,23 +56,25 @@ configure_file (
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set(INITIAL3D_HEADER 
-        ${CMAKE_CURRENT_BINARY_DIR}/version.hpp    
-        Launcher.hpp
-        main.hpp 
-        objects/FirstTriangle.hpp 
-        objects/ThreeDimensionObject.hpp 
-        standard_includes.hpp  
-        utils/FPSTimer.hpp  
-        scene/Scene.hpp          
+		all_includes.hpp
+        ${CMAKE_CURRENT_BINARY_DIR}/version.hpp
+        main.hpp
+        standard_includes.hpp
+        objects/FirstTriangle.hpp
+        objects/ThreeDimensionObject.hpp
+        scene/Scene.hpp
+        system/Launcher.hpp
+        utils/FPSTimer.hpp
    )
 
-set(INITIAL3D_SOURCE 
-        Launcher.cpp
-        main.cpp
+set(INITIAL3D_SOURCE
+		main.cpp
         version.cpp
         objects/FirstTriangle.cpp
-        utils/FPSTimer.cpp
         scene/Scene.cpp
+        system/Launcher.cpp
+        utils/FPSTimer.cpp
+        
         shader/shader.a
    )
 

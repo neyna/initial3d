@@ -1,7 +1,7 @@
 #ifndef FPSTIMER_H_
 #define FPSTIMER_H_
 
-#include "../standard_includes.hpp"
+#include "../all_includes.hpp"
 
 namespace initial3d {
 

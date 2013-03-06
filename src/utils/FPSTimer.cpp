@@ -1,4 +1,4 @@
-#include "FPSTimer.hpp"
+#include "../all_includes.hpp"
 
 namespace initial3d {
 
