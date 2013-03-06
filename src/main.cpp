@@ -4,10 +4,10 @@ using namespace initial3d;
 
 int main(void) {
 
-	//Scene *scene = new Scene();
-	Launcher *launcher = new Launcher();
+	Scene *scene = new Scene();
+	Launcher *launcher = new GLFWLauncher();
 
-	return launcher->run();
+	return launcher->run(scene);
 }
 
 

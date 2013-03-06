@@ -18,6 +18,7 @@
 #include "scene/Scene.hpp"
 
 #include "system/Launcher.hpp"
+#include "system/GLFWLauncher.hpp"
 
 #include "utils/FPSTimer.hpp"
 

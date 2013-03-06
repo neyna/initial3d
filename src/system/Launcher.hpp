@@ -7,10 +7,10 @@ namespace initial3d {
 
 class Launcher {
 public:
-	Launcher();
-	virtual ~Launcher();
-	int run();
+	virtual ~Launcher()  {};
+	virtual int run(Scene *scene) = 0;
 protected:
+	Scene *scene;
 };
 
 } /* namespace initial3d */

@@ -9,22 +9,18 @@ find_package(GLM REQUIRED)
 
 if(NOT OPENGL_FOUND)
   message(FATAL_ERROR "OpenGL required !")
-  return()
 endif()
 
 if(NOT GLEW_FOUND)
   message(FATAL_ERROR "GLEW required !")
-  return()
 endif()
 
 if(NOT GLFW_FOUND)
   message(FATAL_ERROR "GlFW required !")
-  return()
 endif()
 
 if(NOT GLM_FOUND)
   message(FATAL_ERROR "GLM required !")
-  return()
 endif()
 
 set(ALL_LIBS
@@ -64,6 +60,7 @@ set(INITIAL3D_HEADER
         objects/ThreeDimensionObject.hpp
         scene/Scene.hpp
         system/Launcher.hpp
+        system/GLFWLauncher.hpp
         utils/FPSTimer.hpp
    )
 
@@ -72,7 +69,7 @@ set(INITIAL3D_SOURCE
         version.cpp
         objects/FirstTriangle.cpp
         scene/Scene.cpp
-        system/Launcher.cpp
+        system/GLFWLauncher.cpp
         utils/FPSTimer.cpp
         
         shader/shader.a

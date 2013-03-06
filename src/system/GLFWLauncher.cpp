@@ -4,13 +4,13 @@ using namespace glm;
 
 namespace initial3d {
 
-Launcher::Launcher() {
+GLFWLauncher::GLFWLauncher() {
 }
 
-Launcher::~Launcher() {
+GLFWLauncher::~GLFWLauncher() {
 }
 
-int Launcher::run() {
+int GLFWLauncher::run(Scene *scene) {
 
 	char* softwareVersion = getVersion();
 	glfwSetWindowTitle(softwareVersion);
