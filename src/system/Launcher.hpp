@@ -7,8 +7,9 @@ namespace initial3d {
 
 class Launcher {
 public:
-	virtual ~Launcher()  {};
-	virtual int run(Scene *scene) = 0;
+	Launcher(Scene *scene);
+	virtual ~Launcher();
+	virtual int run();
 protected:
 	Scene *scene;
 };

@@ -4,13 +4,13 @@ using namespace glm;
 
 namespace initial3d {
 
-GLFWLauncher::GLFWLauncher() {
+GLFWLauncher::GLFWLauncher(Scene *scene) : Launcher(scene) {
 }
 
 GLFWLauncher::~GLFWLauncher() {
 }
 
-int GLFWLauncher::run(Scene *scene) {
+int GLFWLauncher::run() {
 
 	char* softwareVersion = getVersion();
 	glfwSetWindowTitle(softwareVersion);
@@ -42,6 +42,8 @@ int GLFWLauncher::run(Scene *scene) {
 		return -1;
 	}
 
+	scene->initAfterOpenGLLoaded();
+
 	glfwSetWindowTitle("Launcher");
 
 	// Ensure we can capture the escape key being pressed below
@@ -50,14 +52,13 @@ int GLFWLauncher::run(Scene *scene) {
 	// Dark background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	FirstTriangle *firstTriangle = new FirstTriangle();
 	FPSTimer *fpsTimer = new FPSTimer();
 	double lastTime = glfwGetTime();
 
 	do {
 		// Draw nothing
-		firstTriangle->draw();
 		fpsTimer->newFrame();
+		scene->draw();
 
 		// updating title
 		double newTime = glfwGetTime();
@@ -77,7 +78,6 @@ int GLFWLauncher::run(Scene *scene) {
 	while (glfwGetKey(GLFW_KEY_ESC) != GLFW_PRESS
 			&& glfwGetWindowParam(GLFW_OPENED));
 
-	delete firstTriangle;
 	delete fpsTimer;
 
 	// Close OpenGL window and terminate GLFW

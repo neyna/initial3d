@@ -43,7 +43,7 @@ include_directories(${GLFW_INCLUDE_DIR})
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
-  ${CMAKE_CURRENT_SOURCE_DIR}/version.hpp.in
+  ${CMAKE_CURRENT_SOURCE_DIR}/utils/version.hpp.in
   ${CMAKE_CURRENT_BINARY_DIR}/version.hpp
   )
 
@@ -54,7 +54,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 set(INITIAL3D_HEADER 
 		all_includes.hpp
         ${CMAKE_CURRENT_BINARY_DIR}/version.hpp
-        main.hpp
         standard_includes.hpp
         objects/FirstTriangle.hpp
         objects/ThreeDimensionObject.hpp
@@ -62,15 +61,20 @@ set(INITIAL3D_HEADER
         system/Launcher.hpp
         system/GLFWLauncher.hpp
         utils/FPSTimer.hpp
+        
+       	projects/simple_triangle/SimpleTriangleScene.hpp
    )
 
 set(INITIAL3D_SOURCE
-		main.cpp
-        version.cpp
         objects/FirstTriangle.cpp
         scene/Scene.cpp
+        system/Launcher.cpp
         system/GLFWLauncher.cpp
         utils/FPSTimer.cpp
+        utils/version.cpp
+        
+        projects/simple_triangle/main.cpp
+        projects/simple_triangle/SimpleTriangleScene.cpp
         
         shader/shader.a
    )
@@ -88,5 +92,5 @@ add_custom_command(
 )
 add_custom_command(
    TARGET launcher POST_BUILD
-   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/shader/shader.a" "${CMAKE_CURRENT_BINARY_DIR}/dist/shader.a"
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/shader/*.a" "${DIST_DIRECTORY}"
 )

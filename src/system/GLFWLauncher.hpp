@@ -8,9 +8,9 @@ namespace initial3d {
 
 class GLFWLauncher : public Launcher {
 public:
-	GLFWLauncher();
+	GLFWLauncher(Scene *scene);
 	virtual ~GLFWLauncher();
-	int run(Scene *scene);
+	virtual int run();
 protected:
 };
 

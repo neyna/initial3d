@@ -2,22 +2,15 @@
 
 namespace initial3d {
 
-Scene::Scene() {
+Launcher::Launcher(Scene *scene) {
+	this->scene = scene;
 }
 
-Scene::~Scene() {
+Launcher::~Launcher() {
 }
 
-void Scene::draw() {
+int Launcher::run() {
 	throw "Should never get here because this is an abstract class.";
-}
-
-void Scene::computeNextFrame() {
-
-}
-
-void Scene::initAfterOpenGLLoaded() {
-
 }
 
 } /* namespace initial3d */
