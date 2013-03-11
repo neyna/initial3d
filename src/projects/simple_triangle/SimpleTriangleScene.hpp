@@ -2,6 +2,7 @@
 #define SIMPLETRIANGLESCENE_H_
 
 #include "../../all_includes.hpp"
+#include "FirstTriangle.hpp"
 
 namespace initial3d {
 

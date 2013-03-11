@@ -55,42 +55,56 @@ set(INITIAL3D_HEADER
 		all_includes.hpp
         ${CMAKE_CURRENT_BINARY_DIR}/version.hpp
         standard_includes.hpp
-        objects/FirstTriangle.hpp
+       
         objects/ThreeDimensionObject.hpp
         scene/Scene.hpp
         system/Launcher.hpp
         system/GLFWLauncher.hpp
-        utils/FPSTimer.hpp
-        
-       	projects/simple_triangle/SimpleTriangleScene.hpp
-   )
+        utils/FPSTimer.hpp    
+	)
 
 set(INITIAL3D_SOURCE
-        objects/FirstTriangle.cpp
         scene/Scene.cpp
         system/Launcher.cpp
         system/GLFWLauncher.cpp
         utils/FPSTimer.cpp
-        utils/version.cpp
-        
+        utils/version.cpp        
+	)
+
+
+set(DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/)
+file(MAKE_DIRECTORY ${DIST_DIRECTORY})   
+   
+# SIMPLE TRIANGLE
+set(SIMPLE_TRIANGLE_SHADERS
+	projects/simple_triangle/shader.a
+	)
+set(SIMPLE_TRIANGLE_SOURCES
+		projects/simple_triangle/FirstTriangle.hpp
+       	projects/simple_triangle/SimpleTriangleScene.hpp
+       	
+       	projects/simple_triangle/FirstTriangle.cpp
         projects/simple_triangle/main.cpp
         projects/simple_triangle/SimpleTriangleScene.cpp
         
-        shader/shader.a
-   )
+        ${SIMPLE_TRIANGLE_SHADERS}
+	)
 
-add_executable(launcher ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE})
+add_executable(launcher ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE} ${SIMPLE_TRIANGLE_SOURCES})
 
 target_link_libraries(launcher ${ALL_LIBS})
 
-set(DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/)
-file(MAKE_DIRECTORY ${DIST_DIRECTORY})
+set(SIMPLE_TRIANGLE_DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/01_simple_triangle)
+file(MAKE_DIRECTORY ${SIMPLE_TRIANGLE_DIST_DIRECTORY})
 
 add_custom_command(
    TARGET launcher POST_BUILD
-   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/launcher${CMAKE_EXECUTABLE_SUFFIX}" "${DIST_DIRECTORY}"
+   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/launcher${CMAKE_EXECUTABLE_SUFFIX}" "${SIMPLE_TRIANGLE_DIST_DIRECTORY}"
 )
-add_custom_command(
-   TARGET launcher POST_BUILD
-   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/shader/*.a" "${DIST_DIRECTORY}"
-)
+
+FOREACH(SHADER ${SIMPLE_TRIANGLE_SHADERS})
+	add_custom_command(
+   		TARGET launcher POST_BUILD
+   		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/${SHADER}" "${SIMPLE_TRIANGLE_DIST_DIRECTORY}"
+	)
+ENDFOREACH()

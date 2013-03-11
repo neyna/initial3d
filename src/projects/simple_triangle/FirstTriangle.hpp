@@ -1,7 +1,7 @@
 #ifndef FIRSTTRIANGLE_H_
 #define FIRSTTRIANGLE_H_
 
-#include "../all_includes.hpp"
+#include "../../all_includes.hpp"
 
 namespace initial3d {
 

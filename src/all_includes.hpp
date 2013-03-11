@@ -13,7 +13,6 @@
 
 
 #include "objects/ThreeDimensionObject.hpp"
-#include "objects/FirstTriangle.hpp"
 
 #include "scene/Scene.hpp"
 
