@@ -72,8 +72,12 @@ set(INITIAL3D_SOURCE
 	)
 
 
+# Set and create dist directory
 set(DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/)
-file(MAKE_DIRECTORY ${DIST_DIRECTORY})   
+file(MAKE_DIRECTORY ${DIST_DIRECTORY})  
+
+# add files to clean
+set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_CURRENT_BINARY_DIR}/dist) 
    
 # SIMPLE TRIANGLE
 set(SIMPLE_TRIANGLE_SHADERS
