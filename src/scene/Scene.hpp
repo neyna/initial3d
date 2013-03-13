@@ -2,6 +2,7 @@
 #define SCENE_HPP_
 
 namespace initial3d {
+namespace scene {
 
 class Scene {
 public:
@@ -24,5 +25,6 @@ public:
 	virtual void draw();
 };
 
+}
 } /* namespace initial3d */
 #endif /* SCENE_HPP_ */

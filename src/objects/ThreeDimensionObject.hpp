@@ -2,6 +2,7 @@
 #define THREEDIMENSIONOBJECT_H_
 
 namespace initial3d {
+namespace objects {
 
 class ThreeDimensionObject {
 public:
@@ -9,5 +10,6 @@ public:
 	virtual void draw() = 0;
 };
 
+}
 } /* namespace initial3d */
 #endif /* THREEDIMENSIONOBJECT_H_ */

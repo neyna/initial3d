@@ -1,6 +1,7 @@
 #include "../all_includes.hpp"
 
 namespace initial3d {
+namespace scene {
 
 Scene::Scene() {
 }
@@ -20,4 +21,5 @@ void Scene::initAfterOpenGLLoaded() {
 
 }
 
+}
 } /* namespace initial3d */

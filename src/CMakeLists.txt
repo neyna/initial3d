@@ -6,6 +6,8 @@ find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLFW REQUIRED)
 find_package(GLM REQUIRED)
+
+# log libs
 find_package(LOG4CXX REQUIRED)
 find_package(APR REQUIRED)
 
@@ -26,7 +28,11 @@ if(NOT GLM_FOUND)
 endif()
 
 if(NOT LOG4CXX_FOUND)
-  message(FATAL_ERROR "LIBLOG4CXX required !")
+  message(FATAL_ERROR "LOG4CXX required !")
+endif()
+
+if(NOT APR_FOUND)
+  message(FATAL_ERROR "APR required !")
 endif()
 
 
@@ -86,7 +92,8 @@ set(INITIAL3D_SOURCE
 
 # Set and create dist directory
 set(DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/)
-file(MAKE_DIRECTORY ${DIST_DIRECTORY})  
+#file(MAKE_DIRECTORY ${DIST_DIRECTORY})  
+execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${DIST_DIRECTORY})
 
 # add files to clean
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_CURRENT_BINARY_DIR}/dist) 
@@ -104,15 +111,18 @@ set(SIMPLE_TRIANGLE_SOURCES
         projects/simple_triangle/main.cpp
         projects/simple_triangle/SimpleTriangleScene.cpp
         
-        ${SIMPLE_TRIANGLE_SHADERS}
+        ${SIMPLE_TRIANGLE_ADDITIONNAL_FILES}
 	)
-
+	
+set(SIMPLE_TRIANGLE_DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/01_simple_triangle/)
 add_executable(launcher ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE} ${SIMPLE_TRIANGLE_SOURCES})
 
 target_link_libraries(launcher ${ALL_LIBS})
 
-set(SIMPLE_TRIANGLE_DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/01_simple_triangle)
-file(MAKE_DIRECTORY ${SIMPLE_TRIANGLE_DIST_DIRECTORY})
+add_custom_command(
+   TARGET launcher PRE_BUILD
+   COMMAND ${CMAKE_COMMAND} -E make_directory ${SIMPLE_TRIANGLE_DIST_DIRECTORY}
+)
 
 add_custom_command(
    TARGET launcher POST_BUILD

@@ -1,6 +1,8 @@
 #include "SimpleTriangleScene.hpp"
 
 namespace initial3d {
+namespace projects {
+namespace simpletriangle {
 
 SimpleTriangleScene::SimpleTriangleScene() {
 	firstTriangle = NULL;
@@ -20,4 +22,6 @@ void SimpleTriangleScene::initAfterOpenGLLoaded() {
 	firstTriangle = new FirstTriangle();
 }
 
+}
+}
 } /* namespace initial3d */

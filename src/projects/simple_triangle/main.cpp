@@ -1,11 +1,13 @@
 #include "../../all_includes.hpp"
 #include "SimpleTriangleScene.hpp"
 
-using namespace initial3d;
-using namespace log4cxx;
-using namespace log4cxx::helpers;
+using namespace initial3d::scene;
+using namespace initial3d::system;
+using namespace initial3d::projects::simpletriangle;
 
-LoggerPtr logger(Logger::getLogger("SimpleTriangleMain"));
+using namespace log4cxx;
+
+LoggerPtr logger(Logger::getLogger("initial3d.projects.simpletriangle.main"));
 
 int main(void) {
 
@@ -15,8 +17,6 @@ int main(void) {
 
 	return launcher->run();
 }
-
-
 
 
 

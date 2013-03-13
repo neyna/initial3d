@@ -4,7 +4,11 @@
 #include "../../all_includes.hpp"
 #include "FirstTriangle.hpp"
 
+using namespace initial3d::scene;
+
 namespace initial3d {
+namespace projects {
+namespace simpletriangle {
 
 class SimpleTriangleScene : public Scene {
 public:
@@ -16,5 +20,7 @@ private:
 	FirstTriangle *firstTriangle;
 };
 
+}
+}
 } /* namespace initial3d */
 #endif /* SIMPLETRIANGLESCENE_H_ */

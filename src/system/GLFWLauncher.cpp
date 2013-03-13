@@ -1,8 +1,10 @@
 #include "../all_includes.hpp"
 
-using namespace glm;
+using namespace initial3d::utils;
+using namespace initial3d::scene;
 
 namespace initial3d {
+namespace system {
 
 GLFWLauncher::GLFWLauncher(Scene *scene) : Launcher(scene) {
 }
@@ -87,4 +89,5 @@ int GLFWLauncher::run() {
 	return 0;
 }
 
+} /* namespace system */
 } /* namespace initial3d */

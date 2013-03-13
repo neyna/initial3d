@@ -4,7 +4,10 @@
 #include "../all_includes.hpp"
 #include <GL/glfw.h>
 
+using namespace initial3d::scene;
+
 namespace initial3d {
+namespace system {
 
 class GLFWLauncher : public Launcher {
 public:
@@ -14,6 +17,7 @@ public:
 protected:
 };
 
+} /* namespace system */
 } /* namespace initial3d */
 
 #endif /* LFWLAUNCHER_ */

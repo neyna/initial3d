@@ -2,6 +2,8 @@
 #include "FirstTriangle.hpp"
 
 namespace initial3d {
+namespace projects {
+namespace simpletriangle {
 
 FirstTriangle::FirstTriangle() {
 	// vertex array
@@ -43,4 +45,6 @@ void FirstTriangle::draw() {
 
 }
 
+}
+}
 } /* namespace initial3d */

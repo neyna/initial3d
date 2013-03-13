@@ -3,7 +3,12 @@
 
 #include "../../all_includes.hpp"
 
+using namespace initial3d::objects;
+
 namespace initial3d {
+namespace projects {
+namespace simpletriangle {
+
 
 static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f, -1.0f, 0.0f,
@@ -21,5 +26,7 @@ protected:
 	GLuint vertexbuffer;
 };
 
+}
+}
 } /* namespace initial3d */
 #endif /* FIRSTTRIANGLE_H_ */

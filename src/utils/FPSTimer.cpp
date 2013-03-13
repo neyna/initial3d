@@ -1,6 +1,7 @@
 #include "../all_includes.hpp"
 
 namespace initial3d {
+namespace utils {
 
 FPSTimer::FPSTimer() {
 	lastTime = glfwGetTime();
@@ -23,5 +24,6 @@ double FPSTimer::getFps() {
 	return fps;
 }
 
+}
 }
 

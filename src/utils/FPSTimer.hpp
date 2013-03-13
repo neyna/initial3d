@@ -4,6 +4,7 @@
 #include "../all_includes.hpp"
 
 namespace initial3d {
+namespace utils {
 
 class FPSTimer {
 public:
@@ -16,6 +17,7 @@ protected:
 	int numberOfFrame;
 };
 
+}
 }
 
 #endif /* FPSTIMER_H_ */
