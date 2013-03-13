@@ -6,16 +6,19 @@ set (INITIAL3D_VERSION_MINOR 1)
 set (INITIAL3D_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set (INITIAL3D_EXTERNAL_PATH ${INITIAL3D_ROOT_PATH}/externals) 
 
+# set build type
 if (NOT CMAKE_BUILD_TYPE)
 	message(STATUS "Build type defaulting to \"Debug\"")
 	# "Release" "Debug"
 	set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
+# tell cmake where to find modules
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
                       ${CMAKE_MODULE_PATH})
                       
 
+# set flags for compiler
 if(CMAKE_COMPILER_IS_GNUCXX)
 	message("Settings options for GNUCXX")
 	set(COMMON_GNUCXX_FLAGS "-std=c++0x -Wall")

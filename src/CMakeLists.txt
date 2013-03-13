@@ -6,6 +6,8 @@ find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(GLFW REQUIRED)
 find_package(GLM REQUIRED)
+find_package(LOG4CXX REQUIRED)
+find_package(APR REQUIRED)
 
 if(NOT OPENGL_FOUND)
   message(FATAL_ERROR "OpenGL required !")
@@ -23,10 +25,18 @@ if(NOT GLM_FOUND)
   message(FATAL_ERROR "GLM required !")
 endif()
 
+if(NOT LOG4CXX_FOUND)
+  message(FATAL_ERROR "LIBLOG4CXX required !")
+endif()
+
+
 set(ALL_LIBS
 	${OPENGL_LIBRARY}
 	${GLEW_LIBRARY}
 	${GLFW_LIBRARY}
+	${LOG4CXX_LIBRARY}
+	${APR_LIBRARY}
+	${APRUTIL_LIBRARY}
 )
 
 set(ALL_INCLUDES
@@ -68,7 +78,9 @@ set(INITIAL3D_SOURCE
         system/Launcher.cpp
         system/GLFWLauncher.cpp
         utils/FPSTimer.cpp
-        utils/version.cpp        
+        utils/version.cpp  
+        
+        log4cxx.properties      
 	)
 
 
@@ -80,7 +92,8 @@ file(MAKE_DIRECTORY ${DIST_DIRECTORY})
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_CURRENT_BINARY_DIR}/dist) 
    
 # SIMPLE TRIANGLE
-set(SIMPLE_TRIANGLE_SHADERS
+set(SIMPLE_TRIANGLE_ADDITIONNAL_FILES
+	log4cxx.properties
 	projects/simple_triangle/shader.a
 	)
 set(SIMPLE_TRIANGLE_SOURCES
@@ -106,7 +119,7 @@ add_custom_command(
    COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/launcher${CMAKE_EXECUTABLE_SUFFIX}" "${SIMPLE_TRIANGLE_DIST_DIRECTORY}"
 )
 
-FOREACH(SHADER ${SIMPLE_TRIANGLE_SHADERS})
+FOREACH(SHADER ${SIMPLE_TRIANGLE_ADDITIONNAL_FILES})
 	add_custom_command(
    		TARGET launcher POST_BUILD
    		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/${SHADER}" "${SIMPLE_TRIANGLE_DIST_DIRECTORY}"

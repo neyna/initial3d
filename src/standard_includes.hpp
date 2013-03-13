@@ -11,5 +11,6 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include <log4cxx/logger.h>
 
 #endif /* STANDARD_INCLUDES_H_ */
