@@ -5,21 +5,21 @@ namespace projects {
 namespace simpletriangle {
 
 SimpleTriangleScene::SimpleTriangleScene() {
-	firstTriangle = NULL;
+	simpleTriangle = NULL;
 }
 
 SimpleTriangleScene::~SimpleTriangleScene() {
-	if(firstTriangle != NULL) {
-		delete firstTriangle;
+	if(simpleTriangle != NULL) {
+		delete simpleTriangle;
 	}
 }
 
 void SimpleTriangleScene::draw() {
-	firstTriangle->draw();
+	simpleTriangle->draw();
 }
 
 void SimpleTriangleScene::initAfterOpenGLLoaded() {
-	firstTriangle = new FirstTriangle();
+	simpleTriangle = new SimpleTriangle();
 }
 
 }

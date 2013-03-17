@@ -1,11 +1,13 @@
 #include "../../all_includes.hpp"
-#include "FirstTriangle.hpp"
+#include "SimpleTriangle.hpp"
+
+using namespace initial3d::utils;
 
 namespace initial3d {
 namespace projects {
 namespace simpletriangle {
 
-FirstTriangle::FirstTriangle() {
+SimpleTriangle::SimpleTriangle() {
 	// vertex array
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
@@ -14,18 +16,23 @@ FirstTriangle::FirstTriangle() {
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
+	programId = ShaderLoader::loadShaders("SimpleTriangleShader.vert", "SimpleTriangleShader.frag");
 }
 
-FirstTriangle::~FirstTriangle() {
+SimpleTriangle::~SimpleTriangle() {
 	// release buffers
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteVertexArrays(1, &vertexArrayID);
 }
 
 
-void FirstTriangle::draw() {
+void SimpleTriangle::draw() {
 	// Clear the screen
-	glClear(GL_COLOR_BUFFER_BIT); // GL_DEPTH_BUFFER_BIT GL_STENCIL_BUFFER_BIT
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // GL_DEPTH_BUFFER_BIT GL_STENCIL_BUFFER_BIT
+
+	// use the shaders
+	glUseProgram(programId);
 
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);

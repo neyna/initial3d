@@ -2,7 +2,7 @@
 #define SIMPLETRIANGLESCENE_H_
 
 #include "../../all_includes.hpp"
-#include "FirstTriangle.hpp"
+#include "SimpleTriangle.hpp"
 
 using namespace initial3d::scene;
 
@@ -17,7 +17,7 @@ public:
 	virtual void initAfterOpenGLLoaded();
 	virtual void draw();
 private:
-	FirstTriangle *firstTriangle;
+	SimpleTriangle *simpleTriangle;
 };
 
 }

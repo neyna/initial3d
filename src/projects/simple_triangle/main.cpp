@@ -1,6 +1,7 @@
 #include "../../all_includes.hpp"
 #include "SimpleTriangleScene.hpp"
 
+using namespace initial3d::exception;
 using namespace initial3d::scene;
 using namespace initial3d::system;
 using namespace initial3d::projects::simpletriangle;
@@ -15,7 +16,12 @@ int main(void) {
 	Scene *scene = new SimpleTriangleScene();
 	Launcher *launcher = new GLFWLauncher(scene);
 
-	return launcher->run();
+	try {
+		return launcher->run();
+	} catch(Initial3dException &e) {
+		LOG4CXX_FATAL(logger, std::string(e.getMessage()));
+		return -1;
+	}
 }
 
 

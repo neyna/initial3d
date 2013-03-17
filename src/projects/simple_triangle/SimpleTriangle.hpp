@@ -16,14 +16,15 @@ static const GLfloat g_vertex_buffer_data[] = {
 		 0.0f,  1.0f, 0.0f,
 	};
 
-class FirstTriangle : ThreeDimensionObject {
+class SimpleTriangle : ThreeDimensionObject {
 public:
-	FirstTriangle();
-	virtual ~FirstTriangle();
+	SimpleTriangle();
+	virtual ~SimpleTriangle();
 	void draw();
 protected:
 	GLuint vertexArrayID;
 	GLuint vertexbuffer;
+	GLuint programId;
 };
 
 }
