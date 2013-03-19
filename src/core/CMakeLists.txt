@@ -13,31 +13,10 @@ configure_file (
 # This enable us to find the test.h generated ealier
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
+FILE(GLOB_RECURSE INITIAL3D_HEADER *.hpp)
+SET(INITIAL3D_HEADER ${INITIAL3D_HEADER} ${CMAKE_CURRENT_BINARY_DIR}/version.hpp)
 
-#TODO cmake file GLOB
-set(INITIAL3D_HEADER
-		initial3d.hpp
-        ${CMAKE_CURRENT_BINARY_DIR}/version.hpp
-        standard_includes.hpp
-
-		exception/Initial3dException.hpp
-        objects/ThreeDimensionObject.hpp
-        scene/Scene.hpp
-        system/Launcher.hpp
-        system/GLFWLauncher.hpp
-        utils/FPSTimer.hpp
-        utils/ShaderLoader.hpp
-	)
-
-set(INITIAL3D_SOURCE
-		exception/Initial3dException.cpp
-        scene/Scene.cpp
-        system/Launcher.cpp
-        system/GLFWLauncher.cpp
-        utils/FPSTimer.cpp
-        utils/ShaderLoader.cpp
-        utils/version.cpp
-	)
+FILE(GLOB_RECURSE INITIAL3D_SOURCE *.cpp)
 
 # export variable to parent, but care it is undefined for us
 # we add ${CMAKE_CURRENT_BINARY_DIR for version.hpp (TODO : need to look for a nicer solution)

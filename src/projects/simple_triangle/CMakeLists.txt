@@ -5,39 +5,23 @@ set(ALL_INCLUDES ${INITIAL3D_INCLUDE_DIR} ${ALL_INCLUDES})
 
 include_directories(${ALL_INCLUDES})
 
-#TODO cmake file GLOB
-# SIMPLE TRIANGLE
-set(PROJECT_DATA_FILES
-	log4cxx.properties
-	SimpleTriangleShader.vert
-	SimpleTriangleShader.frag
-	)
-set(PROJECT_SOURCES
-		SimpleTriangle.hpp
-       	SimpleTriangleScene.hpp
-
-       	SimpleTriangle.cpp
-        main.cpp
-        SimpleTriangleScene.cpp
-
-        ${PROJECT_DATA_FILES}
-	)
+FILE(GLOB_RECURSE MY_PROJECT_HEADERS *.hpp)
+FILE(GLOB_RECURSE MY_PROJECT_SOURCES *.cpp)
+FILE(GLOB_RECURSE MY_PROJECT_DATA_FILES *.properties *.vert *.frag)
 
 
-
-FOREACH(PROJECT_FILE ${PROJECT_DATA_FILES})
-	configure_file(${PROJECT_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_FILE} COPYONLY)
+FOREACH(PROJECT_DATA_FILE ${MY_PROJECT_DATA_FILES})
+	configure_file(${PROJECT_DATA_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_DATA_FILE} COPYONLY)
 	#set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${ADDITIONAL_MAKE_CLEAN_FILES} ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_FILE})
 ENDFOREACH()
 
 
-
 #set(SIMPLE_TRIANGLE_DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/01_simple_triangle/)
-add_executable(launcher ${PROJECT_SOURCES})
+add_executable(simple_triangle ${MY_PROJECT_HEADERS} ${MY_PROJECT_SOURCES})
 
 set(ALL_LIBS initial3d ${ALL_LIBS})
 
-target_link_libraries(launcher ${ALL_LIBS})
+target_link_libraries(simple_triangle ${ALL_LIBS})
 
 #add_custom_command(
 #   TARGET launcher PRE_BUILD
