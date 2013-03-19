@@ -1,4 +1,4 @@
-#include "../all_includes.hpp"
+#include "../initial3d.hpp"
 
 namespace initial3d {
 namespace scene {

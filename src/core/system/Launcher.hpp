@@ -1,7 +1,7 @@
 #ifndef LAUNCHER2_HPP_
 #define LAUNCHER2_HPP_
 
-#include "../all_includes.hpp"
+#include "../initial3d.hpp"
 using namespace initial3d::scene;
 
 namespace initial3d {

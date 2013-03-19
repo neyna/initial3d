@@ -1,7 +1,7 @@
 #ifndef SIMPLETRIANGLESCENE_H_
 #define SIMPLETRIANGLESCENE_H_
 
-#include "../../all_includes.hpp"
+#include <initial3d.hpp>
 #include "SimpleTriangle.hpp"
 
 using namespace initial3d::scene;

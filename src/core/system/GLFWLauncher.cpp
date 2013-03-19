@@ -1,4 +1,4 @@
-#include "../all_includes.hpp"
+#include "../initial3d.hpp"
 
 using namespace initial3d::utils;
 using namespace initial3d::scene;

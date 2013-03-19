@@ -1,4 +1,4 @@
-#include "../../all_includes.hpp"
+#include <initial3d.hpp>
 #include "SimpleTriangleScene.hpp"
 
 using namespace initial3d::exception;

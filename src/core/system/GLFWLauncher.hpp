@@ -1,7 +1,7 @@
 #ifndef LFWLAUNCHER_
 #define LFWLAUNCHER_
 
-#include "../all_includes.hpp"
+#include "../initial3d.hpp"
 #include <GL/glfw.h>
 
 using namespace initial3d::scene;

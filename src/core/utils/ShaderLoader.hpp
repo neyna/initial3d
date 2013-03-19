@@ -1,7 +1,7 @@
 #ifndef SHADERLOADER_HPP_
 #define SHADERLOADER_HPP_
 
-#include "../all_includes.hpp"
+#include "../initial3d.hpp"
 
 using namespace log4cxx;
 
