@@ -6,6 +6,8 @@ using namespace initial3d::scene;
 namespace initial3d {
 namespace system {
 
+void resizeWindowCallback(int, int);
+
 GLFWLauncher::GLFWLauncher(Scene *scene) : Launcher(scene) {
 }
 
@@ -25,8 +27,14 @@ int GLFWLauncher::run() {
 
 	glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
 	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
-	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
-	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 0);
+	// openGL profiles are for openGL > 3.1
+	/*
+	 * v3.1 removed most of those functions from the API[1]. This also divided the specification into
+	 * 2 variations (called profiles): core and compatibility. The compatibility profile retains all
+	 * of the functions removed in 3.1, while the core profile does not.
+	 */
+	//glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
 	if (!glfwOpenWindow(640, 480, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
@@ -35,6 +43,9 @@ int GLFWLauncher::run() {
 		glfwTerminate();
 		return -1;
 	}
+	// callback for window (version 3.0) : http://www.glfw.org/docs/3.0/window.html
+	// for 2.7
+	glfwSetWindowSizeCallback(resizeWindowCallback);
 
 	// Initialize GLEW
 	glewExperimental = true; // Needed for core profile
@@ -87,6 +98,10 @@ int GLFWLauncher::run() {
 	free(softwareVersion);
 
 	return 0;
+}
+
+void GLFWCALL resizeWindowCallback(int width, int height) {
+	glViewport(0, 0, width, height);
 }
 
 } /* namespace system */

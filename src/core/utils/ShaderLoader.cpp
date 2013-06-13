@@ -84,6 +84,9 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 	GLuint programId = glCreateProgram();
 	glAttachShader(programId, vertexShaderId);
 	glAttachShader(programId, fragmentShaderID);
+
+	//glBindAttribLocation(vertexShaderId, 0, "vertexPosition_modelspace");
+
 	glLinkProgram(programId);
 
 	// Check the program
