@@ -7,7 +7,7 @@ using namespace initial3d::objects;
 
 namespace initial3d {
 namespace projects {
-namespace simpletriangle {
+namespace simplecamera {
 
 
 static const GLfloat g_vertex_buffer_data[] = {
@@ -16,10 +16,10 @@ static const GLfloat g_vertex_buffer_data[] = {
 		 0.0f,  1.0f, 0.0f,
 	};
 
-class SimpleTriangle : ThreeDimensionObject {
+class Tetrahedron : ThreeDimensionObject {
 public:
-	SimpleTriangle();
-	virtual ~SimpleTriangle();
+	Tetrahedron();
+	virtual ~Tetrahedron();
 	void draw(glm::mat4 modelViewProjectionMatrix);
 protected:
 	GLuint vertexArrayID;

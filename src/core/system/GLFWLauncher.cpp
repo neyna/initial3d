@@ -2,9 +2,12 @@
 
 using namespace initial3d::utils;
 using namespace initial3d::scene;
+using boost::format;
 
 namespace initial3d {
 namespace system {
+
+LoggerPtr glfwLauncherlogger(Logger::getLogger("initial3d.system.GLFWLauncher"));
 
 void resizeWindowCallback(int, int);
 
@@ -14,14 +17,17 @@ GLFWLauncher::GLFWLauncher(Scene *scene) : Launcher(scene) {
 GLFWLauncher::~GLFWLauncher() {
 }
 
+GLFWLauncher::GLFWLauncher(Scene* scene, WindowProperties* windowProperties) : Launcher(scene, windowProperties) {
+}
+
 int GLFWLauncher::run() {
 
-	char* softwareVersion = getVersion();
-	glfwSetWindowTitle(softwareVersion);
+	assert(windowProperties!=NULL);
 
+	LOG4CXX_INFO(glfwLauncherlogger, "Initializing GLFW");
 	// Initialise GLFW
 	if (!glfwInit()) {
-		fprintf(stderr, "Failed to initialize GLFW\n");
+		LOG4CXX_ERROR(glfwLauncherlogger, "Failed to initialize GLFW");
 		return -1;
 	}
 
@@ -37,9 +43,10 @@ int GLFWLauncher::run() {
 	//glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
-	if (!glfwOpenWindow(640, 480, 0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
-		fprintf(stderr,
-				"Failed to open GLFW window. Cannot open OpenGL 3.3 context. If you have an Intel GPU, they are not 3.3 compatible.");
+	LOG4CXX_DEBUG(glfwLauncherlogger, "Opening GLFW window");
+	if (!glfwOpenWindow(windowProperties->getWidth(), windowProperties->getHeight(),
+			0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
+		LOG4CXX_ERROR(glfwLauncherlogger, "Failed to open GLFW window. Cannot open OpenGL 3.3 context. If you have an Intel GPU, they are not 3.3 compatible.");
 		glfwTerminate();
 		return -1;
 	}
@@ -50,14 +57,14 @@ int GLFWLauncher::run() {
 	// Initialize GLEW
 	glewExperimental = true; // Needed for core profile
 	if (glewInit() != GLEW_OK) {
-		fprintf(stderr, "Failed to initialize GLEW\n");
+		LOG4CXX_ERROR(glfwLauncherlogger, "Failed to initialize GLEW");
 		glfwTerminate();
 		return -1;
 	}
 
 	scene->initAfterOpenGLLoaded();
 
-	glfwSetWindowTitle("Launcher");
+	glfwSetWindowTitle(windowProperties->getWindowTitle()->c_str());
 
 	// Ensure we can capture the escape key being pressed below
 	glfwEnable(GLFW_STICKY_KEYS);
@@ -68,6 +75,7 @@ int GLFWLauncher::run() {
 	FPSTimer *fpsTimer = new FPSTimer();
 	double lastTime = glfwGetTime();
 
+	LOG4CXX_DEBUG(glfwLauncherlogger, "Beginning loop");
 	do {
 		// Draw nothing
 		fpsTimer->newFrame();
@@ -78,7 +86,7 @@ int GLFWLauncher::run() {
 		if(newTime-lastTime>2) {
 			double fps = fpsTimer->getFps();
 			char* buff = (char*) malloc(100*sizeof(char));
-			sprintf(buff, "%s - FPS %f", softwareVersion, fps);
+			sprintf(buff, "%s - FPS %f", windowProperties->getWindowTitle()->c_str(), fps);
 			glfwSetWindowTitle(buff);
 			lastTime = newTime;
 			free(buff);
@@ -93,9 +101,9 @@ int GLFWLauncher::run() {
 
 	delete fpsTimer;
 
+	LOG4CXX_INFO(glfwLauncherlogger, "Closing GLFW");
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
-	free(softwareVersion);
 
 	return 0;
 }

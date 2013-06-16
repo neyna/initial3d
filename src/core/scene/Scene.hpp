@@ -23,6 +23,12 @@ public:
 	 * Render the current frame to the screen
 	 */
 	virtual void draw();
+
+	const Camera* getCamera() const;
+	void setCamera(Camera* camera);
+
+protected:
+	Camera *camera;
 };
 
 }

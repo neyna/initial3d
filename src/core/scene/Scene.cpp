@@ -3,7 +3,7 @@
 namespace initial3d {
 namespace scene {
 
-Scene::Scene() {
+Scene::Scene() : camera(new Camera()) {
 }
 
 Scene::~Scene() {
@@ -19,6 +19,14 @@ void Scene::computeNextFrame() {
 
 void Scene::initAfterOpenGLLoaded() {
 
+}
+
+const Camera* Scene::getCamera() const {
+	return camera;
+}
+
+void Scene::setCamera(Camera* camera) {
+	this->camera = camera;
 }
 
 }

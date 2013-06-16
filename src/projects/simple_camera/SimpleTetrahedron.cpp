@@ -1,13 +1,13 @@
 #include <initial3d.hpp>
-#include "SimpleTriangle.hpp"
+#include "SimpleTetrahedron.hpp"
 
 using namespace initial3d::utils;
 
 namespace initial3d {
 namespace projects {
-namespace simpletriangle {
+namespace simplecamera {
 
-SimpleTriangle::SimpleTriangle() {
+Tetrahedron::Tetrahedron() {
 	// vertex array
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
@@ -17,22 +17,31 @@ SimpleTriangle::SimpleTriangle() {
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
-	programId = ShaderLoader::loadShaders("SimpleTriangleShader.vert", "SimpleTriangleShader.frag");
+	programId = ShaderLoader::loadShaders("SimpleTetrahedronShader.vert", "SimpleTetrahedronShader.frag");
 }
 
-SimpleTriangle::~SimpleTriangle() {
+Tetrahedron::~Tetrahedron() {
 	// release buffers
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteVertexArrays(1, &vertexArrayID);
 }
 
 
-void SimpleTriangle::draw(glm::mat4 modelViewProjectionMatrix) {
+void Tetrahedron::draw(glm::mat4 modelViewProjectionMatrix) {
+
+	// We don't have model computed by the scene at the moment
+	mat4 model = mat4(1.0f);  // Changes for each model !
+	mat4 MVP = modelViewProjectionMatrix * model;
+
+
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // GL_DEPTH_BUFFER_BIT GL_STENCIL_BUFFER_BIT
 
 	// use the shaders
 	glUseProgram(programId);
+
+	GLuint matrixID = glGetUniformLocation(programId, "MVP");
+	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &MVP[0][0]);
 
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);

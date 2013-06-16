@@ -22,6 +22,8 @@ int main(void) {
 		LOG4CXX_FATAL(logger, std::string(e.getMessage()));
 		return -1;
 	}
+	delete scene;
+	delete launcher;
 }
 
 

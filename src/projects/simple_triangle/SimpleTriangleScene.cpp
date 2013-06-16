@@ -15,7 +15,7 @@ SimpleTriangleScene::~SimpleTriangleScene() {
 }
 
 void SimpleTriangleScene::draw() {
-	simpleTriangle->draw();
+	simpleTriangle->draw(camera->getViewProjectionMatrix());
 }
 
 void SimpleTriangleScene::initAfterOpenGLLoaded() {

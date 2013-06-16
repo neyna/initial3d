@@ -5,9 +5,15 @@ namespace system {
 
 Launcher::Launcher(Scene *scene) {
 	this->scene = scene;
+	this->windowProperties = new WindowProperties();
 }
 
 Launcher::~Launcher() {
+}
+
+Launcher::Launcher(Scene* scene, WindowProperties* windowProperties) {
+	this->scene = scene;
+	this->windowProperties = windowProperties;
 }
 
 int Launcher::run() {
