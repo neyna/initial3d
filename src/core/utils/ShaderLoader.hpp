@@ -3,8 +3,6 @@
 
 #include "../initial3d.hpp"
 
-using namespace log4cxx;
-
 namespace initial3d {
 namespace utils {
 

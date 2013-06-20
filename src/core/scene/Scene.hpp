@@ -24,12 +24,14 @@ public:
 	 */
 	virtual void draw();
 
-	const Camera* getCamera() const;
-	void setCamera(Camera* camera);
+	std::shared_ptr<Camera> getCamera();
+	void setCamera(std::shared_ptr<Camera> &camera);
 
 protected:
-	Camera *camera;
+	std::shared_ptr<Camera> camera;
 };
+
+typedef std::shared_ptr<Scene> ScenePtr;
 
 }
 } /* namespace initial3d */

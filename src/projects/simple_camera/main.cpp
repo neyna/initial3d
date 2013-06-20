@@ -1,31 +1,34 @@
 #include <initial3d.hpp>
 #include "SimpleCameraScene.hpp"
 
+using namespace initial3d;
 using namespace initial3d::exception;
 using namespace initial3d::scene;
 using namespace initial3d::system;
 using namespace initial3d::projects::simplecamera;
 
 using namespace log4cxx;
+using namespace std;
 
 LoggerPtr logger(Logger::getLogger("initial3d.projects.simplecamera.main"));
 
-string computeWindowTitle() {
-	char* softwareVersion = getVersion();
-	std::stringstream stringstream;
-	stringstream << "Simple camera v" << softwareVersion;
-	free(softwareVersion);
-	return stringstream.str();
+void computeWindowTitle(stringPtr &windowTitle) {
+	stringPtr softwareVersion;
+	getVersion(softwareVersion);
+	stringstream stringstream;
+	stringstream << "Simple camera v" << *softwareVersion.get();
+	windowTitle.reset(new string(stringstream.str()));
 }
 
 int main(void) {
 
 	LOG4CXX_INFO(logger, "Entering application.");
-	Scene *scene = new SimpleCameraScene();
+	ScenePtr scene = ScenePtr(new SimpleCameraScene());
 
-	string windowTitle = computeWindowTitle();
-	WindowProperties *windowProperties = new WindowProperties(320, 240, &windowTitle);
-	Launcher *launcher = new GLFWLauncher(scene, windowProperties);
+	stringPtr windowTitle;
+	computeWindowTitle(windowTitle);
+	WindowPropertiesPtr windowProperties = WindowPropertiesPtr(new WindowProperties(320, 240, windowTitle));
+	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene, windowProperties));
 
 	try {
 		return launcher->run();
@@ -33,8 +36,6 @@ int main(void) {
 		LOG4CXX_FATAL(logger, std::string(e.getMessage()));
 		return -1;
 	}
-	delete scene;
-	delete launcher;
 }
 
 

@@ -11,7 +11,7 @@ public:
 	FPSTimer();
 	virtual ~FPSTimer();
 	void newFrame();
-	double getFps();
+	double getAndResetFps();
 protected:
 	double lastTime;
 	int numberOfFrame;

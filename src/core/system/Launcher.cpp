@@ -3,17 +3,17 @@
 namespace initial3d {
 namespace system {
 
-Launcher::Launcher(Scene *scene) {
+Launcher::Launcher(ScenePtr &scene) {
 	this->scene = scene;
-	this->windowProperties = new WindowProperties();
+	this->windowPropertiesPtr = WindowPropertiesPtr(new WindowProperties());
 }
 
 Launcher::~Launcher() {
 }
 
-Launcher::Launcher(Scene* scene, WindowProperties* windowProperties) {
+Launcher::Launcher(ScenePtr &scene, WindowPropertiesPtr &windowProperties) {
 	this->scene = scene;
-	this->windowProperties = windowProperties;
+	this->windowPropertiesPtr = windowProperties;
 }
 
 int Launcher::run() {

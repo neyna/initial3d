@@ -1,10 +1,12 @@
 #include "../initial3d.hpp"
 
+using namespace initial3d::system;
+
 namespace initial3d {
 namespace utils {
 
 FPSTimer::FPSTimer() {
-	lastTime = glfwGetTime();
+	lastTime = getTime();
 	numberOfFrame = 0;
 }
 
@@ -15,8 +17,8 @@ void FPSTimer::newFrame() {
 	numberOfFrame++;
 }
 
-double FPSTimer::getFps() {
-	double newTime = glfwGetTime();
+double FPSTimer::getAndResetFps() {
+	double newTime = getTime();
 	double timeDifference = newTime - lastTime;
 	double fps = numberOfFrame / timeDifference;
 	lastTime = newTime;

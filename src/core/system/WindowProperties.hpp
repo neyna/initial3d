@@ -3,8 +3,6 @@
 
 #include "../initial3d.hpp"
 
-using namespace std;
-
 namespace initial3d {
 namespace system {
 
@@ -12,17 +10,19 @@ class WindowProperties {
 public:
 	WindowProperties();
 	WindowProperties(int width, int height);
-	WindowProperties(int width, int height, string *windowTitle);
+	WindowProperties(int width, int height, stringPtr windowTitle);
 	virtual ~WindowProperties();
 	int getHeight() const;
 	int getWidth() const;
-	const string* getWindowTitle() const;
+	const stringPtr getWindowTitle() const;
 
 protected:
 	int width;
 	int height;
-	string *windowTitle;
+	stringPtr windowTitle;
 };
+
+typedef std::shared_ptr<WindowProperties> WindowPropertiesPtr;
 
 } /* namespace system */
 } /* namespace initial3d */

@@ -4,6 +4,7 @@
 
 using namespace initial3d::exception;
 using namespace std;
+using namespace log4cxx;
 using boost::format;
 
 namespace initial3d {

@@ -1,15 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <version.hpp>
+#include "../initial3d.hpp"
+
+using boost::format;
+using namespace std;
+
+const char* VERION_TEXT = "%d.%d";
 
 void print_version() {
-  fprintf(stdout,"Software version : %d.%d\n",
-		  INITIAL3D_VERSION_MAJOR,
-		  INITIAL3D_VERSION_MINOR);
+  cout << "Software version : " << (format(VERION_TEXT) % INITIAL3D_VERSION_MAJOR % INITIAL3D_VERSION_MINOR).str().c_str() << endl;
 }
 
-char* getVersion() {
-	char* buff = (char*)malloc(100*sizeof(char));
-	sprintf(buff, "%d.%d", INITIAL3D_VERSION_MAJOR, INITIAL3D_VERSION_MINOR);
-	return buff;
+void getVersion(shared_ptr<string> &computedVersion) {
+	string version = (format(VERION_TEXT) % INITIAL3D_VERSION_MAJOR % INITIAL3D_VERSION_MINOR).str();
+	computedVersion.reset(new string(version));
 }

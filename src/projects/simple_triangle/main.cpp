@@ -13,8 +13,8 @@ LoggerPtr logger(Logger::getLogger("initial3d.projects.simpletriangle.main"));
 int main(void) {
 
 	LOG4CXX_INFO(logger, "Entering application.");
-	Scene *scene = new SimpleTriangleScene();
-	Launcher *launcher = new GLFWLauncher(scene);
+	ScenePtr scene = ScenePtr(new SimpleTriangleScene());
+	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene));
 
 	try {
 		return launcher->run();
@@ -22,8 +22,6 @@ int main(void) {
 		LOG4CXX_FATAL(logger, std::string(e.getMessage()));
 		return -1;
 	}
-	delete scene;
-	delete launcher;
 }
 
 

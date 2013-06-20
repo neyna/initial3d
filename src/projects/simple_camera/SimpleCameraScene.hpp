@@ -1,5 +1,5 @@
-#ifndef SIMPLETRIANGLESCENE_H_
-#define SIMPLETRIANGLESCENE_H_
+#ifndef SIMPLECAMERASCENE_H_
+#define SIMPLECAMERASCENE_H_
 
 #include <initial3d.hpp>
 #include "SimpleTetrahedron.hpp"
@@ -23,4 +23,4 @@ private:
 }
 }
 } /* namespace initial3d */
-#endif /* SIMPLETRIANGLESCENE_H_ */
+#endif /* SIMPLECAMERASCENE_H_ */

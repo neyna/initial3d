@@ -1,5 +1,7 @@
 #include "../initial3d.hpp"
 
+using namespace std;
+using namespace log4cxx;
 using namespace initial3d::utils;
 using namespace initial3d::scene;
 using boost::format;
@@ -11,18 +13,18 @@ LoggerPtr glfwLauncherlogger(Logger::getLogger("initial3d.system.GLFWLauncher"))
 
 void resizeWindowCallback(int, int);
 
-GLFWLauncher::GLFWLauncher(Scene *scene) : Launcher(scene) {
+GLFWLauncher::GLFWLauncher(ScenePtr &scene) : Launcher(scene) {
 }
 
 GLFWLauncher::~GLFWLauncher() {
 }
 
-GLFWLauncher::GLFWLauncher(Scene* scene, WindowProperties* windowProperties) : Launcher(scene, windowProperties) {
+GLFWLauncher::GLFWLauncher(ScenePtr &scene, WindowPropertiesPtr &windowProperties) : Launcher(scene, windowProperties) {
 }
 
 int GLFWLauncher::run() {
 
-	assert(windowProperties!=NULL);
+	assert(windowPropertiesPtr!=NULL);
 
 	LOG4CXX_INFO(glfwLauncherlogger, "Initializing GLFW");
 	// Initialise GLFW
@@ -44,7 +46,7 @@ int GLFWLauncher::run() {
 
 	// Open a window and create its OpenGL context
 	LOG4CXX_DEBUG(glfwLauncherlogger, "Opening GLFW window");
-	if (!glfwOpenWindow(windowProperties->getWidth(), windowProperties->getHeight(),
+	if (!glfwOpenWindow(windowPropertiesPtr->getWidth(), windowPropertiesPtr->getHeight(),
 			0, 0, 0, 0, 32, 0, GLFW_WINDOW)) {
 		LOG4CXX_ERROR(glfwLauncherlogger, "Failed to open GLFW window. Cannot open OpenGL 3.3 context. If you have an Intel GPU, they are not 3.3 compatible.");
 		glfwTerminate();
@@ -64,7 +66,7 @@ int GLFWLauncher::run() {
 
 	scene->initAfterOpenGLLoaded();
 
-	glfwSetWindowTitle(windowProperties->getWindowTitle()->c_str());
+	glfwSetWindowTitle(windowPropertiesPtr->getWindowTitle()->c_str());
 
 	// Ensure we can capture the escape key being pressed below
 	glfwEnable(GLFW_STICKY_KEYS);
@@ -73,7 +75,7 @@ int GLFWLauncher::run() {
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	FPSTimer *fpsTimer = new FPSTimer();
-	double lastTime = glfwGetTime();
+	double lastTime = getTime();
 
 	LOG4CXX_DEBUG(glfwLauncherlogger, "Beginning loop");
 	do {
@@ -82,11 +84,11 @@ int GLFWLauncher::run() {
 		scene->draw();
 
 		// updating title
-		double newTime = glfwGetTime();
+		double newTime = getTime();
 		if(newTime-lastTime>2) {
-			double fps = fpsTimer->getFps();
+			double fps = fpsTimer->getAndResetFps();
 			char* buff = (char*) malloc(100*sizeof(char));
-			sprintf(buff, "%s - FPS %f", windowProperties->getWindowTitle()->c_str(), fps);
+			sprintf(buff, "%s - FPS %f", windowPropertiesPtr->getWindowTitle()->c_str(), fps);
 			glfwSetWindowTitle(buff);
 			lastTime = newTime;
 			free(buff);

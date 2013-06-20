@@ -6,6 +6,11 @@
 // it is if we use forward declare of all project class used
 
 #include "standard_includes.hpp"
+
+namespace initial3d {
+	typedef std::shared_ptr<std::string> stringPtr;
+}
+
 #include <version.hpp>
 
 #include "exception/Initial3dException.hpp"
@@ -15,12 +20,15 @@
 #include "scene/Camera.hpp"
 #include "scene/Scene.hpp"
 
+#include "system/System.hpp"
 #include "system/WindowProperties.hpp"
 #include "system/Launcher.hpp"
 #include "system/GLFWLauncher.hpp"
 
 #include "utils/FPSTimer.hpp"
 #include "utils/ShaderLoader.hpp"
+
+
 
 
 

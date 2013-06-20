@@ -9,7 +9,7 @@ WindowProperties::WindowProperties() : width(640), height(480), windowTitle(new 
 WindowProperties::WindowProperties(int width, int height) : width(width), height(height), windowTitle(new std::string("Launcher")) {
 }
 
-WindowProperties::WindowProperties(int width, int height, string* windowTitle) : width(width), height(height), windowTitle(windowTitle) {
+WindowProperties::WindowProperties(int width, int height, stringPtr windowTitle) : width(width), height(height), windowTitle(windowTitle) {
 }
 
 WindowProperties::~WindowProperties() {
@@ -23,7 +23,7 @@ int WindowProperties::getWidth() const {
 	return width;
 }
 
-const string* WindowProperties::getWindowTitle() const {
+const stringPtr WindowProperties::getWindowTitle() const {
 	return windowTitle;
 }
 

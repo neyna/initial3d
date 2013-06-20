@@ -11,8 +11,8 @@ namespace system {
 
 class GLFWLauncher : public Launcher {
 public:
-	GLFWLauncher(Scene *scene);
-	GLFWLauncher(Scene *scene, WindowProperties *windowProperties);
+	GLFWLauncher(ScenePtr &scene);
+	GLFWLauncher(ScenePtr &scene, WindowPropertiesPtr &windowProperties);
 	virtual ~GLFWLauncher();
 	virtual int run();
 protected:

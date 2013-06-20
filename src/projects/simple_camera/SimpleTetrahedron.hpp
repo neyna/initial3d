@@ -1,5 +1,5 @@
-#ifndef FIRSTTRIANGLE_H_
-#define FIRSTTRIANGLE_H_
+#ifndef SIMPLETETRAHEDRON_H_
+#define SIMPLETETRAHEDRON_H_
 
 #include <initial3d.hpp>
 
@@ -30,4 +30,4 @@ protected:
 }
 }
 } /* namespace initial3d */
-#endif /* FIRSTTRIANGLE_H_ */
+#endif /* SIMPLETETRAHEDRON_H_ */

@@ -1,5 +1,8 @@
 #define INITIAL3D_VERSION_MAJOR @INITIAL3D_VERSION_MAJOR@
 #define INITIAL3D_VERSION_MINOR @INITIAL3D_VERSION_MINOR@
 
+#include <string>
+#include <boost/format.hpp>
+
 void print_version();
-char* getVersion();
+void getVersion(std::shared_ptr<std::string> &computedVersion);

@@ -1,5 +1,7 @@
 #include "../initial3d.hpp"
 
+using namespace std;
+
 namespace initial3d {
 namespace scene {
 
@@ -7,6 +9,7 @@ Scene::Scene() : camera(new Camera()) {
 }
 
 Scene::~Scene() {
+	this->camera = NULL;
 }
 
 void Scene::draw() {
@@ -21,11 +24,11 @@ void Scene::initAfterOpenGLLoaded() {
 
 }
 
-const Camera* Scene::getCamera() const {
+shared_ptr<Camera> Scene::getCamera() {
 	return camera;
 }
 
-void Scene::setCamera(Camera* camera) {
+void Scene::setCamera(shared_ptr<Camera> &camera) {
 	this->camera = camera;
 }
 

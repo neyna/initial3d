@@ -8,17 +8,20 @@ namespace initial3d {
 namespace system {
 
 class WindowProperties;
+typedef std::shared_ptr<WindowProperties> WindowPropertiesPtr;
 
 class Launcher {
 public:
-	Launcher(Scene *scene);
-	Launcher(Scene *scene, WindowProperties *windowProperties);
+	Launcher(ScenePtr &scene);
+	Launcher(ScenePtr &scene, WindowPropertiesPtr &windowProperties);
 	virtual ~Launcher();
 	virtual int run();
 protected:
-	Scene *scene = NULL;
-	WindowProperties *windowProperties = NULL;
+	ScenePtr scene;
+	WindowPropertiesPtr windowPropertiesPtr;
 };
+
+typedef std::shared_ptr<Launcher> LauncherPtr;
 
 } /* namespace system */
 } /* namespace initial3d */
