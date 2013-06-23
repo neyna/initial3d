@@ -12,7 +12,8 @@ public:
 	 * Load vertex/fragment files and compile them
 	 * Returns the programId
 	 */
-	static GLuint loadShaders(const char *vertexFilePath,const char *fragmentFilePath);
+	static GLuint loadShaders(const char *vertexFilePath,const char *fragmentFilePath,
+			const std::shared_ptr<std::vector<std::string>> parametersToBind = nullptr);
 private:
 	ShaderLoader();
 	virtual ~ShaderLoader();

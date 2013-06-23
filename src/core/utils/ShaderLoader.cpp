@@ -64,7 +64,8 @@ void ShaderLoader::loadAndCompileShader(GLuint shaderId,
 }
 
 GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
-		const char* fragmentShaderFilePath) {
+		const char* fragmentShaderFilePath, const std::shared_ptr<std::vector<std::string>> parametersToBind) {
+
 	LOG4CXX_DEBUG(shaderLoaderlogger,
 			format("Loading vertex shader %s and fragment shader %s") % vertexShaderFilePath % fragmentShaderFilePath);
 
@@ -86,7 +87,15 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 	glAttachShader(programId, vertexShaderId);
 	glAttachShader(programId, fragmentShaderID);
 
-	//glBindAttribLocation(vertexShaderId, 0, "vertexPosition_modelspace");
+	int attribLocationIndex = 0;
+	if (parametersToBind != nullptr) {
+		//glBindAttribLocation(programId, 0, "vertexPosition");
+		//glBindAttribLocation(programId, 1, "vertexColor");
+		for (string parameterToBind : *parametersToBind.get()) {
+			glBindAttribLocation(programId, attribLocationIndex++, parameterToBind.c_str());
+		}
+	}
+
 
 	glLinkProgram(programId);
 

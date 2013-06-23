@@ -11,10 +11,37 @@ namespace simplecamera {
 
 
 static const GLfloat g_vertex_buffer_data[] = {
+		// 1st triangle
+		0.0f,  1.0f, 0.0f,
 		-1.0f, -1.0f, 0.0f,
-		 1.0f, -1.0f, 0.0f,
-		 0.0f,  1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		// 2nd
+		0.0f,  1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f, -1.0f, -1.0f,
+		// 3rd
+		0.0f,  1.0f, 0.0f,
+		-1.0f, -1.0f, 0.0f,
+		0.0f, -1.0f, -1.0f,
+		// bottom
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f, -1.0f, -1.0f,
 	};
+
+static const GLfloat g_color_buffer_data[] = {
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+
+		0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f,
+
+		0.3f, 0.3f, 0.3f,
+		0.3f, 0.3f, 0.3f,
+		0.3f, 0.3f, 0.3f,
+};
 
 class Tetrahedron : ThreeDimensionObject {
 public:
@@ -22,7 +49,8 @@ public:
 	virtual ~Tetrahedron();
 	void draw(glm::mat4 modelViewProjectionMatrix);
 protected:
-	GLuint vertexArrayID;
+	GLuint vertexArrayId;
+	GLuint colorArrayId;
 	GLuint vertexbuffer;
 	GLuint programId;
 };

@@ -9,6 +9,7 @@
 
 namespace initial3d {
 	typedef std::shared_ptr<std::string> stringPtr;
+	//template<typename _Tp> using strvector = std::vector<_Tp>;
 }
 
 #include <version.hpp>
@@ -27,6 +28,8 @@ namespace initial3d {
 
 #include "utils/FPSTimer.hpp"
 #include "utils/ShaderLoader.hpp"
+#include "utils/OpenGLUtils.hpp"
+
 
 
 
