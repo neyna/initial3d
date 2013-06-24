@@ -28,8 +28,8 @@ void Camera::lookAt(vec3 &eye, vec3 &center, vec3 &up) {
 	view = glm::lookAt(	eye, center, up);
 }
 
-mat4 Camera::getViewProjectionMatrix() {
-	return projection * view;
+std::shared_ptr<glm::mat4> Camera::getViewProjectionMatrix() {
+	return std::shared_ptr<mat4>(new mat4(projection * view));
 }
 
 void Camera::update() {

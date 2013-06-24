@@ -7,7 +7,7 @@ namespace objects {
 class ThreeDimensionObject {
 public:
 	virtual ~ThreeDimensionObject() {};
-	virtual void draw(glm::mat4 modelViewProjectionMatrix) = 0;
+	virtual void draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix) = 0;
 };
 
 }

@@ -15,7 +15,7 @@ public:
 	/// @param center Position where the camera is looking at
 	/// @param up vector (does not need to be normalized), how the camera is oriented). Typically (0, 0, 1)
 	void lookAt(glm::vec3 &eye, glm::vec3 &center, glm::vec3 &up);
-	glm::mat4 getViewProjectionMatrix();
+	std::shared_ptr<glm::mat4> getViewProjectionMatrix();
 	/**
 	 * This function is called every frame.
 	 * Implementations should update position, lookAt, etc ...

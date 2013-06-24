@@ -17,7 +17,8 @@ SimpleCameraScene::~SimpleCameraScene() {
 
 void SimpleCameraScene::draw() {
 	camera->update();
-	simpleTetrahedronPtr->draw(camera->getViewProjectionMatrix());
+	std::shared_ptr<glm::mat4> viewProjectionMatrix = camera->getViewProjectionMatrix();
+	simpleTetrahedronPtr->draw(viewProjectionMatrix);
 }
 
 void SimpleCameraScene::initAfterOpenGLLoaded() {

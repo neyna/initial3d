@@ -45,12 +45,12 @@ Tetrahedron::~Tetrahedron() {
 }
 
 
-void Tetrahedron::draw(glm::mat4 modelViewProjectionMatrix) {
+void Tetrahedron::draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix) {
 
 	// We don't have model computed by the scene at the moment
 	// it will be computed by the engine when objets will have coordinates
 	mat4 model = mat4(1.0f);  // Changes for each model !
-	mat4 MVP = modelViewProjectionMatrix * model;
+	mat4 MVP = (*modelViewProjectionMatrix.get()) * model;
 
 
 	// Clear the screen

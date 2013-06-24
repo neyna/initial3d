@@ -15,7 +15,8 @@ SimpleTriangleScene::~SimpleTriangleScene() {
 }
 
 void SimpleTriangleScene::draw() {
-	simpleTriangle->draw(camera->getViewProjectionMatrix());
+	std::shared_ptr<glm::mat4> viewProjectionMatrix = camera->getViewProjectionMatrix();
+	simpleTriangle->draw(viewProjectionMatrix);
 }
 
 void SimpleTriangleScene::initAfterOpenGLLoaded() {

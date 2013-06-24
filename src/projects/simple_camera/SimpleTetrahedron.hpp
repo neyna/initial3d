@@ -52,7 +52,7 @@ class Tetrahedron : ThreeDimensionObject {
 public:
 	Tetrahedron();
 	virtual ~Tetrahedron();
-	void draw(glm::mat4 modelViewProjectionMatrix);
+	void draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix);
 protected:
 	GLuint vertexArrayId;
 	GLuint colorArrayId;

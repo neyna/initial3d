@@ -27,7 +27,7 @@ SimpleTriangle::~SimpleTriangle() {
 }
 
 
-void SimpleTriangle::draw(glm::mat4 modelViewProjectionMatrix) {
+void SimpleTriangle::draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix) {
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // GL_DEPTH_BUFFER_BIT GL_STENCIL_BUFFER_BIT
 
