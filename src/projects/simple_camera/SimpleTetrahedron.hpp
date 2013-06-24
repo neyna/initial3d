@@ -9,6 +9,7 @@ namespace initial3d {
 namespace projects {
 namespace simplecamera {
 
+static const int triangleNumber = 4;
 
 static const GLfloat g_vertex_buffer_data[] = {
 		// 1st triangle
@@ -30,9 +31,9 @@ static const GLfloat g_vertex_buffer_data[] = {
 	};
 
 static const GLfloat g_color_buffer_data[] = {
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
+		0.8f, 0.3f, 0.0f,
+		0.8f, 0.3f, 0.0f,
+		0.8f, 0.3f, 0.0f,
 
 		0.0f, 0.0f, 1.0f,
 		0.0f, 0.0f, 1.0f,
@@ -41,6 +42,10 @@ static const GLfloat g_color_buffer_data[] = {
 		0.3f, 0.3f, 0.3f,
 		0.3f, 0.3f, 0.3f,
 		0.3f, 0.3f, 0.3f,
+
+		0.1f, 0.3f, 0.4f,
+		0.1f, 0.3f, 0.4f,
+		0.1f, 0.3f, 0.4f,
 };
 
 class Tetrahedron : ThreeDimensionObject {

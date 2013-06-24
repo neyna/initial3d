@@ -10,6 +10,7 @@ public:
 	 * Do not use any openGL function in this constructor because openGL context won't be initialized yet
 	 */
 	Scene();
+	Scene(std::shared_ptr<Camera> camera);
 	virtual ~Scene();
 	/**
 	 * Must be called by Launcher after OpenGL is initialized.

@@ -1,8 +1,6 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
-using namespace glm;
-
 namespace initial3d {
 namespace scene {
 
@@ -15,12 +13,17 @@ public:
 	///
 	/// @param eye Position of the camera
 	/// @param center Position where the camera is looking at
-	/// @param up Normalized up vector, how the camera is oriented. Typically (0, 0, 1)
-	void lookAt(vec3 &eye, vec3 &center, vec3 &up);
-	mat4 getViewProjectionMatrix();
-private:
-	mat4 projection;
-	mat4 view;
+	/// @param up vector (does not need to be normalized), how the camera is oriented). Typically (0, 0, 1)
+	void lookAt(glm::vec3 &eye, glm::vec3 &center, glm::vec3 &up);
+	glm::mat4 getViewProjectionMatrix();
+	/**
+	 * This function is called every frame.
+	 * Implementations should update position, lookAt, etc ...
+	 */
+	virtual void update();
+protected:
+	glm::mat4 projection;
+	glm::mat4 view;
 };
 
 } /* namespace scene */

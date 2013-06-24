@@ -8,6 +8,9 @@ namespace scene {
 Scene::Scene() : camera(new Camera()) {
 }
 
+Scene::Scene(std::shared_ptr<Camera> camera) : camera(camera) {
+}
+
 Scene::~Scene() {
 	this->camera = NULL;
 }

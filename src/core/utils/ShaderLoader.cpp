@@ -89,8 +89,6 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 
 	int attribLocationIndex = 0;
 	if (parametersToBind != nullptr) {
-		//glBindAttribLocation(programId, 0, "vertexPosition");
-		//glBindAttribLocation(programId, 1, "vertexColor");
 		for (string parameterToBind : *parametersToBind.get()) {
 			glBindAttribLocation(programId, attribLocationIndex++, parameterToBind.c_str());
 		}

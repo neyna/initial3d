@@ -1,6 +1,8 @@
 #include <initial3d.hpp>
 #include "SimpleTetrahedron.hpp"
 
+using glm::vec3;
+using glm::mat4;
 using namespace std;
 using namespace initial3d::utils;
 
@@ -85,7 +87,7 @@ void Tetrahedron::draw(glm::mat4 modelViewProjectionMatrix) {
 	);
 
 	// Draw the triangle !
-	glDrawArrays(GL_TRIANGLES, 0, 3*3); // 3 * 3 vertices
+	glDrawArrays(GL_TRIANGLES, 0, triangleNumber * 3); // triangleNumber * 3 vertices
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

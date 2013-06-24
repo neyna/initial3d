@@ -17,7 +17,7 @@ public:
 	virtual void initAfterOpenGLLoaded();
 	virtual void draw();
 private:
-	Tetrahedron *simpleTetrahedron;
+	std::shared_ptr<Tetrahedron> simpleTetrahedronPtr;
 };
 
 }
