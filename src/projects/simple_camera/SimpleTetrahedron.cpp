@@ -16,6 +16,9 @@ Tetrahedron::Tetrahedron() {
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
+	// Cull triangles which normal is not towards the camera
+	glEnable(GL_CULL_FACE);
+
 	// vertex array
 	glGenVertexArrays(1, &vertexArrayId);
 	glBindVertexArray(vertexArrayId);
