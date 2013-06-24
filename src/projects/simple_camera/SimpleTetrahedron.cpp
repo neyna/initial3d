@@ -19,10 +19,6 @@ Tetrahedron::Tetrahedron() {
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
 
-	// vertex array
-	glGenVertexArrays(1, &vertexArrayId);
-	glBindVertexArray(vertexArrayId);
-
 	// vertex buffer
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -44,7 +40,6 @@ Tetrahedron::~Tetrahedron() {
 	// release buffers
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteBuffers(1, &colorArrayId);
-	glDeleteVertexArrays(1, &vertexArrayId);
 }
 
 

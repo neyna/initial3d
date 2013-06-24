@@ -8,10 +8,6 @@ namespace projects {
 namespace simpletriangle {
 
 SimpleTriangle::SimpleTriangle() {
-	// vertex array
-	glGenVertexArrays(1, &vertexArrayID);
-	glBindVertexArray(vertexArrayID);
-
 	// vertex buffer
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -23,7 +19,6 @@ SimpleTriangle::SimpleTriangle() {
 SimpleTriangle::~SimpleTriangle() {
 	// release buffers
 	glDeleteBuffers(1, &vertexbuffer);
-	glDeleteVertexArrays(1, &vertexArrayID);
 }
 
 

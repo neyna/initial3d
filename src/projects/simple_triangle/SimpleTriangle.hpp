@@ -22,7 +22,6 @@ public:
 	virtual ~SimpleTriangle();
 	void draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix);
 protected:
-	GLuint vertexArrayID;
 	GLuint vertexbuffer;
 	GLuint programId;
 };

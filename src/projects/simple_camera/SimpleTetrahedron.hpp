@@ -54,7 +54,6 @@ public:
 	virtual ~Tetrahedron();
 	void draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix);
 protected:
-	GLuint vertexArrayId;
 	GLuint colorArrayId;
 	GLuint vertexbuffer;
 	GLuint programId;
