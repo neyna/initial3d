@@ -1,29 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 
-# add initial3d includes
-set(ALL_INCLUDES ${INITIAL3D_INCLUDE_DIR} ${ALL_INCLUDES})
+set(EXECUTABLE_NAME simple_triangle)
 
-include_directories(${ALL_INCLUDES})
-
-FILE(GLOB_RECURSE MY_PROJECT_HEADERS *.hpp)
-FILE(GLOB_RECURSE MY_PROJECT_SOURCES *.cpp)
-FILE(GLOB_RECURSE MY_PROJECT_DATA_FILES *.properties *.vert *.frag)
-
-
-FOREACH(PROJECT_DATA_FILE ${MY_PROJECT_DATA_FILES})
-    # extract file name from absolute path
-    get_filename_component(DATA_FILE_NAME ${PROJECT_DATA_FILE} NAME)
-	configure_file(${PROJECT_DATA_FILE} ${CMAKE_CURRENT_BINARY_DIR}/${DATA_FILE_NAME} COPYONLY)
-	#set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${ADDITIONAL_MAKE_CLEAN_FILES} ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_FILE})
-ENDFOREACH()
-
-
-#set(SIMPLE_TRIANGLE_DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/01_simple_triangle/)
-add_executable(simple_triangle ${MY_PROJECT_HEADERS} ${MY_PROJECT_SOURCES})
-
-set(ALL_LIBS initial3d ${ALL_LIBS})
-
-target_link_libraries(simple_triangle ${ALL_LIBS})
+BuildInitial3dProject(${EXECUTABLE_NAME})
 
 #add_custom_command(
 #   TARGET launcher PRE_BUILD
@@ -35,9 +14,3 @@ target_link_libraries(simple_triangle ${ALL_LIBS})
 #   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/launcher${CMAKE_EXECUTABLE_SUFFIX}" "${SIMPLE_TRIANGLE_DIST_DIRECTORY}"
 #)
 #
-#FOREACH(ADDITIONNAL_FILE ${SIMPLE_TRIANGLE_ADDITIONNAL_FILES})
-#	add_custom_command(
-#   		TARGET launcher POST_BUILD
-#   		COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/${ADDITIONNAL_FILE}" "${SIMPLE_TRIANGLE_DIST_DIRECTORY}"
-#	)
-#ENDFOREACH()
