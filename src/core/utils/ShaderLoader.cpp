@@ -71,11 +71,11 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 
 	// Create the shaders
 	GLuint vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
-	GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+	GLuint fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// Compile shaders
 	ShaderLoader::loadAndCompileShader(vertexShaderId, vertexShaderFilePath);
-	ShaderLoader::loadAndCompileShader(fragmentShaderID, fragmentShaderFilePath);
+	ShaderLoader::loadAndCompileShader(fragmentShaderId, fragmentShaderFilePath);
 
 	// Link the program
 	LOG4CXX_DEBUG(shaderLoaderlogger, "Linking program");
@@ -85,7 +85,7 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 
 	GLuint programId = glCreateProgram();
 	glAttachShader(programId, vertexShaderId);
-	glAttachShader(programId, fragmentShaderID);
+	glAttachShader(programId, fragmentShaderId);
 
 	int attribLocationIndex = 0;
 	if (parametersToBind != nullptr) {
@@ -108,7 +108,7 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 	}
 
 	glDeleteShader(vertexShaderId);
-	glDeleteShader(fragmentShaderID);
+	glDeleteShader(fragmentShaderId);
 
 	LOG4CXX_DEBUG(shaderLoaderlogger, "Loading shader done");
 	return programId;

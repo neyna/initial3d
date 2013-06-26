@@ -19,6 +19,7 @@ namespace initial3d {
 #include "objects/ThreeDimensionObject.hpp"
 
 #include "scene/Camera.hpp"
+#include "scene/SphericalCamera.hpp"
 #include "scene/Scene.hpp"
 
 #include "system/System.hpp"
