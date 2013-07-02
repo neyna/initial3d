@@ -15,10 +15,6 @@ Scene::~Scene() {
 	this->camera = NULL;
 }
 
-void Scene::draw() {
-	throw "Should never get here because this is an abstract class.";
-}
-
 void Scene::computeNextFrame() {
 
 }
@@ -33,6 +29,12 @@ shared_ptr<Camera> Scene::getCamera() {
 
 void Scene::setCamera(shared_ptr<Camera> &camera) {
 	this->camera = camera;
+}
+
+void Scene::keyPressed(KeyCode keyCode) {
+}
+
+void Scene::keyReleased(KeyCode keyCode) {
 }
 
 }

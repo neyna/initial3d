@@ -10,7 +10,7 @@ using boost::format;
 namespace initial3d {
 namespace utils {
 
-LoggerPtr shaderLoaderlogger(Logger::getLogger("initial3d.utils.ShaderLoader"));
+LoggerPtr ShaderLoader::logger = LoggerPtr(Logger::getLogger("initial3d.utils.ShaderLoader"));
 
 ShaderLoader::ShaderLoader() {
 }
@@ -20,7 +20,7 @@ ShaderLoader::~ShaderLoader() {
 
 string* ShaderLoader::readShaderSource(const char* fileName) {
 
-	LOG4CXX_DEBUG(shaderLoaderlogger, format("Reading file : %s") % fileName);
+	LOG4CXX_DEBUG(logger, format("Reading file : %s") % fileName);
 
 	std::string *result = new string("");
 	std::ifstream fileIfStream(fileName, std::ios::in);
@@ -31,7 +31,7 @@ string* ShaderLoader::readShaderSource(const char* fileName) {
 		}
 		fileIfStream.close();
 	} else {
-		LOG4CXX_ERROR(shaderLoaderlogger, format("Impossible to open file %s") % fileName);
+		LOG4CXX_ERROR(logger, format("Impossible to open file %s") % fileName);
 		throw Initial3dException((format("Impossible to open file %s") % fileName).str().c_str());
 	}
 
@@ -45,7 +45,7 @@ void ShaderLoader::loadAndCompileShader(GLuint shaderId,
 	// Compile Vertex Shader
 	GLint result = GL_FALSE;
 	int infoLogLength;
-	LOG4CXX_DEBUG(shaderLoaderlogger, format("Compiling shader : %s") % shaderFilePath);
+	LOG4CXX_DEBUG(logger, format("Compiling shader : %s") % shaderFilePath);
 	const char* cStr = shaderSource->c_str();
 	glShaderSource(shaderId, 1, &cStr, NULL);
 	delete shaderSource;
@@ -58,7 +58,7 @@ void ShaderLoader::loadAndCompileShader(GLuint shaderId,
 		std::vector<char> shaderErrorMessage(infoLogLength + 1);
 		glGetShaderInfoLog(shaderId, infoLogLength, NULL,
 				&shaderErrorMessage[0]);
-		LOG4CXX_ERROR(shaderLoaderlogger, format("Shader compilation problem : %s") % &shaderErrorMessage[0]);
+		LOG4CXX_ERROR(logger, format("Shader compilation problem : %s") % &shaderErrorMessage[0]);
 		throw Initial3dException((format("Shader compilation problem : %s") % &shaderErrorMessage[0]).str().c_str());
 	}
 }
@@ -66,7 +66,7 @@ void ShaderLoader::loadAndCompileShader(GLuint shaderId,
 GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 		const char* fragmentShaderFilePath, const std::shared_ptr<std::vector<std::string>> parametersToBind) {
 
-	LOG4CXX_DEBUG(shaderLoaderlogger,
+	LOG4CXX_DEBUG(logger,
 			format("Loading vertex shader %s and fragment shader %s") % vertexShaderFilePath % fragmentShaderFilePath);
 
 	// Create the shaders
@@ -78,7 +78,7 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 	ShaderLoader::loadAndCompileShader(fragmentShaderId, fragmentShaderFilePath);
 
 	// Link the program
-	LOG4CXX_DEBUG(shaderLoaderlogger, "Linking program");
+	LOG4CXX_DEBUG(logger, "Linking program");
 
 	GLint result = GL_FALSE;
 	int infoLogLength;
@@ -103,14 +103,14 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 	if ( result != GL_TRUE ) {
 		std::vector<char> ProgramErrorMessage(infoLogLength + 1);
 		glGetProgramInfoLog(programId, infoLogLength, NULL, &ProgramErrorMessage[0]);
-		LOG4CXX_ERROR(shaderLoaderlogger, format("Shader compilation problem : %s") % &ProgramErrorMessage[0]);
+		LOG4CXX_ERROR(logger, format("Shader compilation problem : %s") % &ProgramErrorMessage[0]);
 		throw Initial3dException((format("Shader compilation problem : %s") % &ProgramErrorMessage[0]).str().c_str());
 	}
 
 	glDeleteShader(vertexShaderId);
 	glDeleteShader(fragmentShaderId);
 
-	LOG4CXX_DEBUG(shaderLoaderlogger, "Loading shader done");
+	LOG4CXX_DEBUG(logger, "Loading shader done");
 	return programId;
 
 }

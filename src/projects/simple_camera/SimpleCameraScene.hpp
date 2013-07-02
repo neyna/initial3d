@@ -16,6 +16,8 @@ public:
 	virtual ~SimpleCameraScene();
 	virtual void initAfterOpenGLLoaded();
 	virtual void draw();
+	virtual void keyPressed(KeyCode keyCode);
+	virtual void keyReleased(KeyCode keyCode);
 private:
 	std::shared_ptr<Tetrahedron> simpleTetrahedronPtr;
 };

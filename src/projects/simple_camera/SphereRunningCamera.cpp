@@ -1,45 +1,51 @@
 #include <initial3d.hpp>
 #include "SphereRunningCamera.hpp"
 
+using log4cxx::LoggerPtr;
+using log4cxx::Logger;
 using glm::vec3;
+using boost::format;
 using namespace initial3d::system;
 
 namespace initial3d {
 namespace projects {
 namespace simplecamera {
 
+LoggerPtr SphereRunningCamera::logger = LoggerPtr(Logger::getLogger("initial3d.projects.simplecamera.SphereRunningCamera"));
 
-SphereRunningCamera::SphereRunningCamera(const vec3 &initialPosition, const vec3 &lookAtPoint, double zAngularSpeed, double xAngularSpeed) :
-		SphericalCamera(initialPosition, lookAtPoint), zAngularSpeed(zAngularSpeed), xAngularSpeed(xAngularSpeed) {
+
+SphereRunningCamera::SphereRunningCamera(const vec3 &initialPosition, const vec3 &lookAtPoint, const glm::vec3 &up, double vecticalSpeed, double horizontalSpeed) :
+		SphericalCamera(initialPosition, lookAtPoint, up), vecticalSpeed(vecticalSpeed), horizontalSpeed(horizontalSpeed), isMoving(true) {
 	currentTime = getTime();
 }
 
 void SphereRunningCamera::update() {
 	double newTime = getTime();
 	double deltaTime = newTime - currentTime;
+	currentTime = newTime;
 
 	if( ! (deltaTime)>0 ) {
 		return;
 	}
 
-	theta += zAngularSpeed * deltaTime;
-	phi += xAngularSpeed * deltaTime;
-
-	currentTime = newTime;
-
-	vec3 position(radius * sin(theta)*cos(phi),
-			radius * sin(theta)*sin(phi),
-			radius * cos(theta));
-	// computing up vector, we will use the direction
-	vec3 up = position - this->position;
-	// update new position
-	this->position = position;
+	if(isMoving) {
+		this->moveRight(horizontalSpeed);
+		this->moveUp(vecticalSpeed);
+	}
 
 	this->lookAt(position, lookAtPoint, up);
 }
 
 SphereRunningCamera::~SphereRunningCamera() {
 
+}
+
+void SphereRunningCamera::stopRotation() {
+	isMoving = false;
+}
+
+void SphereRunningCamera::continueRotation() {
+	isMoving = true;
 }
 
 } /* namespace simplecamera */

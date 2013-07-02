@@ -8,37 +8,34 @@ namespace scene {
 
 /**
  * Camera that rotates around a center point
- *
- * We use a spherical coordinates system (the physical one). It means theta is the angle around the Z-Axis
- * and that phi is the one around the X-Axis. In such system we have :
- * x = radius * sin(theta)*cos(phi)
- * y = radius * sin(theta)*sin(phi)
- * z = radius * cos(theta)
- *
- * @See : https://fr.wikipedia.org/wiki/Coordonnées_polaires
  */
 class SphericalCamera : public Camera {
 public:
-	SphericalCamera(const glm::vec3 &initialPosition = glm::vec3(4,3,3), const glm::vec3 &lookAtPoint = glm::vec3(0,0,0));
+	SphericalCamera(const glm::vec3 &initialPosition = glm::vec3(4,3,3), const glm::vec3 &lookAtPoint = glm::vec3(0,0,0),
+			const glm::vec3 &up = glm::vec3(0,0,1));
 	virtual ~SphericalCamera();
+	void moveRight(double unitsToMove);
+	void moveLeft(double unitsToMove);
+	void moveUp(double unitsToMove);
+	void moveDown(double unitsToMove);
 protected:
+	static log4cxx::LoggerPtr logger;
 	/**
 	 * Position of the camera
 	 */
 	glm::vec3 position;
 	/**
-	 * Position to which the camera is looking at
+	 * Position to which the camera is looking at. I.e. center of the sphere
 	 */
 	glm::vec3 lookAtPoint;
+	/**
+	 * Up vector for the camera
+	 */
+	glm::vec3 up;
+
 	double radius;
-	/**
-	 * Angle around the Z-Axis
-	 */
-	double theta;
-	/**
-	 * Angle around the X-Axis
-	 */
-	double phi;
+private:
+	void horizontalMove(const glm::vec3& rightVector, double distance);
 };
 
 } /* namespace scene */

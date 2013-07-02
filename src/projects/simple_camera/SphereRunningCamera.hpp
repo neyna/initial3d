@@ -13,20 +13,25 @@ namespace simplecamera {
  */
 class SphereRunningCamera : public SphericalCamera {
 public:
-	SphereRunningCamera(const glm::vec3 &initialPosition = glm::vec3(4,3,3), const glm::vec3 &lookAtPoint = glm::vec3(0,0,0),
-			double zAngularSpeed = 0.3f, double xAngularSpeed = -0.3f);
+	static log4cxx::LoggerPtr logger;
+	/**
+	 * horizontalSpeed : speed to the right of the camera
+	 * vecticalSpeed : speed to the up of the camera
+	 */
+	SphereRunningCamera(const glm::vec3 &initialPosition = glm::vec3(4,3,3),
+			const glm::vec3 &lookAtPoint = glm::vec3(0,0,0), const glm::vec3 &up = glm::vec3(0,0,1),
+			double vecticalSpeed = 0.1f, double horizontalSpeed = -0.1f);
 	virtual ~SphereRunningCamera();
 	virtual void update();
+
+	void stopRotation();
+	void continueRotation();
+
+	double vecticalSpeed;
+	double horizontalSpeed;
 protected:
 	double currentTime = 0.0f;
-	/**
-	 * Angular speed around the Z-Axis in rad.s^-1
-	 */
-	double zAngularSpeed;
-	/**
-	 * Angular speed around the X-Axis in rad.s^-1
-	 */
-	double xAngularSpeed;
+	bool isMoving = false;
 };
 
 } /* namespace simplecamera */

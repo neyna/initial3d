@@ -22,6 +22,9 @@ void computeWindowTitle(stringPtr &windowTitle) {
 
 int main(void) {
 
+	LOG4CXX_INFO(logger, "Controls :");
+	LOG4CXX_INFO(logger, "Esc to exit / P to pause");
+
 	LOG4CXX_INFO(logger, "Entering application.");
 	ScenePtr scene = ScenePtr(new SimpleCameraScene());
 

@@ -23,10 +23,13 @@ public:
 	/**
 	 * Render the current frame to the screen
 	 */
-	virtual void draw();
+	virtual void draw() =0;
 
 	std::shared_ptr<Camera> getCamera();
 	void setCamera(std::shared_ptr<Camera> &camera);
+
+	virtual void keyPressed(KeyCode keyCode);
+	virtual void keyReleased(KeyCode keyCode);
 
 protected:
 	std::shared_ptr<Camera> camera;

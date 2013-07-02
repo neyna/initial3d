@@ -6,8 +6,10 @@
 namespace initial3d {
 namespace utils {
 
+
 class ShaderLoader {
 public:
+	static log4cxx::LoggerPtr logger;
 	/**
 	 * Load vertex/fragment files and compile them
 	 * Returns the programId
