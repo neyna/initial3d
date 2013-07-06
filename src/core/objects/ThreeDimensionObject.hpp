@@ -6,7 +6,15 @@ namespace objects {
 
 class ThreeDimensionObject {
 public:
+	/**
+	 * Object constructor, do not put any openGL code here because the context may not have been initialized !
+	 * Put such code in afterOpenGLInit method.
+	 */
 	virtual ~ThreeDimensionObject() {};
+	/**
+	 * Here comes openGL code for the object initialization
+	 */
+	virtual void initAfterOpenGLLoaded() = 0;
 	virtual void draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix) = 0;
 };
 

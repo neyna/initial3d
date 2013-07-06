@@ -10,7 +10,10 @@ namespace initial3d {
 namespace projects {
 namespace simplecamera {
 
-Tetrahedron::Tetrahedron() {
+Tetrahedron::Tetrahedron() : colorArrayId(0), vertexbuffer(0), programId(0)  {
+}
+
+void Tetrahedron::initAfterOpenGLLoaded() {
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
@@ -29,11 +32,10 @@ Tetrahedron::Tetrahedron() {
 	glBindBuffer(GL_ARRAY_BUFFER, colorArrayId);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 
-	shared_ptr<vector<string>> sharedPtrVectorString(new vector<string>({string("vertexPosition"), string("vertexColor")}));
+	shared_ptr<vector<string>> sharedPtrVectorString(new vector<string>( {string("vertexPosition"), string("vertexColor") }));
 	programId = ShaderLoader::loadShaders("SimpleTetrahedronShader.vert", "SimpleTetrahedronShader.frag", sharedPtrVectorString);
 
 	printOpenGLErrors();
-
 }
 
 Tetrahedron::~Tetrahedron() {

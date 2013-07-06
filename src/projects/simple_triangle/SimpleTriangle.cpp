@@ -7,7 +7,10 @@ namespace initial3d {
 namespace projects {
 namespace simpletriangle {
 
-SimpleTriangle::SimpleTriangle() {
+SimpleTriangle::SimpleTriangle(): vertexbuffer(0), programId(0) {
+}
+
+void SimpleTriangle::initAfterOpenGLLoaded() {
 	// vertex buffer
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);

@@ -20,6 +20,7 @@ class SimpleTriangle : ThreeDimensionObject {
 public:
 	SimpleTriangle();
 	virtual ~SimpleTriangle();
+	virtual void initAfterOpenGLLoaded();
 	void draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix);
 protected:
 	GLuint vertexbuffer;

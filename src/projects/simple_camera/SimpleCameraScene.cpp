@@ -9,7 +9,8 @@ namespace initial3d {
 namespace projects {
 namespace simplecamera {
 
-SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunningCamera())) {
+SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunningCamera())),
+		simpleTetrahedronPtr(new Tetrahedron()){
 	SphereRunningCamera *sphereRunningCamera = (SphereRunningCamera*) (camera.get());
 	sphereRunningCamera->horizontalSpeed = 0.1f;
 	sphereRunningCamera->vecticalSpeed = -0.1f;
@@ -25,7 +26,7 @@ void SimpleCameraScene::draw() {
 }
 
 void SimpleCameraScene::initAfterOpenGLLoaded() {
-	simpleTetrahedronPtr.reset(new Tetrahedron());
+	simpleTetrahedronPtr->initAfterOpenGLLoaded();
 }
 
 void SimpleCameraScene::keyPressed(KeyCode keyCode) {
