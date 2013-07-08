@@ -14,19 +14,11 @@ SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunn
 	SphereRunningCamera *sphereRunningCamera = (SphereRunningCamera*) (camera.get());
 	sphereRunningCamera->horizontalSpeed = 0.1f;
 	sphereRunningCamera->vecticalSpeed = -0.1f;
+
+	addObject(simpleTetrahedronPtr);
 }
 
 SimpleCameraScene::~SimpleCameraScene() {
-}
-
-void SimpleCameraScene::draw() {
-	camera->update();
-	std::shared_ptr<glm::mat4> viewProjectionMatrix = camera->getViewProjectionMatrix();
-	simpleTetrahedronPtr->draw(viewProjectionMatrix);
-}
-
-void SimpleCameraScene::initAfterOpenGLLoaded() {
-	simpleTetrahedronPtr->initAfterOpenGLLoaded();
 }
 
 void SimpleCameraScene::keyPressed(KeyCode keyCode) {

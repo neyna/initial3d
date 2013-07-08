@@ -14,10 +14,8 @@ class SimpleTriangleScene : public Scene {
 public:
 	SimpleTriangleScene();
 	virtual ~SimpleTriangleScene();
-	virtual void initAfterOpenGLLoaded();
-	virtual void draw();
 private:
-	SimpleTriangle *simpleTriangle;
+	std::shared_ptr<ThreeDimensionsObject> simpleTriangle;
 };
 
 }

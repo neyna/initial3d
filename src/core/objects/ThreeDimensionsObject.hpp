@@ -1,16 +1,16 @@
-#ifndef THREEDIMENSIONOBJECT_H_
-#define THREEDIMENSIONOBJECT_H_
+#ifndef THREEDIMENSIONSOBJECT_H_
+#define THREEDIMENSIONSOBJECT_H_
 
 namespace initial3d {
 namespace objects {
 
-class ThreeDimensionObject {
+class ThreeDimensionsObject {
 public:
 	/**
 	 * Object constructor, do not put any openGL code here because the context may not have been initialized !
 	 * Put such code in afterOpenGLInit method.
 	 */
-	virtual ~ThreeDimensionObject() {};
+	virtual ~ThreeDimensionsObject() {};
 	/**
 	 * Here comes openGL code for the object initialization
 	 */
@@ -18,6 +18,8 @@ public:
 	virtual void draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix) = 0;
 };
 
+typedef std::shared_ptr<ThreeDimensionsObject> ThreeDimensionObjectPtr;
+
 }
 } /* namespace initial3d */
-#endif /* THREEDIMENSIONOBJECT_H_ */
+#endif /* THREEDIMENSIONSOBJECT_H_ */

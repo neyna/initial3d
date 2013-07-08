@@ -1,6 +1,10 @@
 #ifndef SCENE_HPP_
 #define SCENE_HPP_
 
+#include "../objects/ThreeDimensionsObject.hpp"
+
+using initial3d::objects::ThreeDimensionObjectPtr;
+
 namespace initial3d {
 namespace scene {
 
@@ -23,7 +27,12 @@ public:
 	/**
 	 * Render the current frame to the screen
 	 */
-	virtual void draw() =0;
+	virtual void draw();
+
+	/**
+	 * Add object to be managed by the scene
+	 */
+	void addObject(ThreeDimensionObjectPtr &threeDimensionObjectPtr);
 
 	std::shared_ptr<Camera> getCamera();
 	void setCamera(std::shared_ptr<Camera> &camera);
@@ -33,6 +42,7 @@ public:
 
 protected:
 	std::shared_ptr<Camera> camera;
+	std::vector<ThreeDimensionObjectPtr> threeDimensionsObjects;
 };
 
 typedef std::shared_ptr<Scene> ScenePtr;

@@ -21,7 +21,7 @@ namespace initial3d {
 
 #include "exception/Initial3dException.hpp"
 
-#include "objects/ThreeDimensionObject.hpp"
+#include "objects/ThreeDimensionsObject.hpp"
 
 #include "scene/Camera.hpp"
 #include "scene/SphericalCamera.hpp"

@@ -14,12 +14,10 @@ class SimpleCameraScene : public Scene {
 public:
 	SimpleCameraScene();
 	virtual ~SimpleCameraScene();
-	virtual void initAfterOpenGLLoaded();
-	virtual void draw();
 	virtual void keyPressed(KeyCode keyCode);
 	virtual void keyReleased(KeyCode keyCode);
 private:
-	std::shared_ptr<Tetrahedron> simpleTetrahedronPtr;
+	std::shared_ptr<ThreeDimensionsObject> simpleTetrahedronPtr;
 };
 
 }

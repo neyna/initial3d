@@ -48,7 +48,7 @@ static const GLfloat g_color_buffer_data[] = {
 		0.3f, 0.8f, 0.7f,
 };
 
-class Tetrahedron : ThreeDimensionObject {
+class Tetrahedron : public ThreeDimensionsObject {
 public:
 	Tetrahedron();
 	virtual ~Tetrahedron();
