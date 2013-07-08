@@ -14,7 +14,8 @@ int main(void) {
 
 	LOG4CXX_INFO(logger, "Entering application.");
 	ScenePtr scene = ScenePtr(new SimpleTriangleScene());
-	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene));
+	WindowPropertiesPtr windowProperties = WindowPropertiesPtr(new WindowProperties(320, 240));
+	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene, windowProperties));
 
 	try {
 		return launcher->run();
