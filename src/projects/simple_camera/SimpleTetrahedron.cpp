@@ -14,14 +14,6 @@ Tetrahedron::Tetrahedron() : colorArrayId(0), vertexbuffer(0), programId(0)  {
 }
 
 void Tetrahedron::initAfterOpenGLLoaded() {
-	// Enable depth test
-	glEnable(GL_DEPTH_TEST);
-	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
-
-	// Cull triangles which normal is not towards the camera
-	glEnable(GL_CULL_FACE);
-
 	// vertex buffer
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -51,10 +43,6 @@ void Tetrahedron::draw(std::shared_ptr<glm::mat4> modelViewProjectionMatrix) {
 	// it will be computed by the engine when objets will have coordinates
 	mat4 model = mat4(1.0f);  // Changes for each model !
 	mat4 MVP = (*modelViewProjectionMatrix.get()) * model;
-
-
-	// Clear the screen
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // GL_DEPTH_BUFFER_BIT GL_STENCIL_BUFFER_BIT
 
 	// use the shaders
 	glUseProgram(programId);

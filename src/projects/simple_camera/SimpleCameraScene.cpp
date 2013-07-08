@@ -29,6 +29,12 @@ void SimpleCameraScene::keyPressed(KeyCode keyCode) {
 	case KEY_SPACE:
 		sphereRunningCamera->stopRotation();
 		break;
+	case KEY_65: //A
+		sphereRunningCamera->continueRotation();
+		break;
+	case KEY_66: //B
+		setWireFrameRendering(true);
+		break;
 	case KEY_RIGHT:
 		sphereRunningCamera->moveRight(unitsToMove);
 		break;
@@ -47,11 +53,7 @@ void SimpleCameraScene::keyPressed(KeyCode keyCode) {
 }
 
 void SimpleCameraScene::keyReleased(KeyCode keyCode) {
-	SphereRunningCamera *sphereRunningCamera = (SphereRunningCamera*) (camera.get());
 		switch(keyCode) {
-		case KEY_65: //A
-			sphereRunningCamera->continueRotation();
-			break;
 		default:
 			break;
 		}

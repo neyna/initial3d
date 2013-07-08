@@ -97,9 +97,6 @@ int GLFWLauncher::run() {
 	// Ensure we can capture the escape key being pressed below
 	glfwEnable(GLFW_STICKY_KEYS);
 
-	// Dark background
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
 	FPSTimer *fpsTimer = new FPSTimer();
 	double lastTime = getTime();
 

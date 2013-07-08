@@ -40,9 +40,19 @@ public:
 	virtual void keyPressed(KeyCode keyCode);
 	virtual void keyReleased(KeyCode keyCode);
 
+	void setWireFrameRendering(bool status);
+
 protected:
 	std::shared_ptr<Camera> camera;
 	std::vector<ThreeDimensionObjectPtr> threeDimensionsObjects;
+	bool wireframeRendering;
+
+private:
+	/**
+	 * Method called before each scene rendering (i.e. each frame)
+	 * Clean the screen, set background color, set culling mode, etc ...
+	 */
+	void initRendering();
 };
 
 typedef std::shared_ptr<Scene> ScenePtr;
