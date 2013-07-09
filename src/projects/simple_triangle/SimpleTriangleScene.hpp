@@ -2,9 +2,9 @@
 #define SIMPLETRIANGLESCENE_H_
 
 #include <initial3d.hpp>
-#include "SimpleTriangle.hpp"
 
 using namespace initial3d::scene;
+using initial3d::objects::ThreeDimensionsObject;
 
 namespace initial3d {
 namespace projects {

@@ -1,4 +1,5 @@
 #version 130
+
 // if below extension if supported, we can use the 
 // layout(location = 0) in vec3 vertexPosition_modelspace;
 // else use 
@@ -6,13 +7,15 @@
 // before linking phase
 //#extension ARB_explicit_attrib_location : require
 
-// Input vertex data, different for all executions of this shader.
-in vec3 vertexPosition_modelspace;
+in vec3 vertexPosition;
+in vec3 vertexColor;
+uniform mat4 MVP;
+
+out vec3 fragmentColor;
 
 void main(){
-
-    gl_Position.xyz = vertexPosition_modelspace;
-    gl_Position.w = 1.0;
+	vec4 v = vec4(vertexPosition, 1); // Transform an homogeneous 4D vector
+    gl_Position = MVP * v;
+    fragmentColor = vertexColor;
 
 }
-

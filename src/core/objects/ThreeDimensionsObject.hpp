@@ -13,8 +13,9 @@ public:
 	 */
 	ThreeDimensionsObject();
 	ThreeDimensionsObject(stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath,
-			size_t dataSize, ulong vextexNumber, uint numberOfComponentPerVertex, void* data);
+			size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData);
 	virtual ~ThreeDimensionsObject();
+	void addVertexColorData(void* vertexColorData);
 	/**
 	 * Here comes openGL code for the object initialization
 	 */
@@ -24,14 +25,16 @@ protected:
 	stringPtr vertexShaderFilePath;
 	stringPtr fragmentShaderFilePath;
 
-	GLuint vertexbuffer;
+	GLuint vertexbufferId;
+	GLuint colorArrayId;
 	GLuint programId;
 
 	// vertices
 	size_t dataSize;
 	ulong vertexNumber;
 	uint numberOfComponentPerVertex;
-	void* data;
+	void* vertexPostionData;
+	void* vertexColorData;
 };
 
 typedef std::shared_ptr<ThreeDimensionsObject> ThreeDimensionObjectPtr;
