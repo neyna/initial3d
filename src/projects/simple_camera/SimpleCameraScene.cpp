@@ -52,7 +52,6 @@ SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunn
 	sphereRunningCamera->vecticalSpeed = -0.1f;
 
 	simpleTetrahedronPtr = std::shared_ptr<ThreeDimensionsObject>(new ThreeDimensionsObject(
-				stringPtr(new string("SimpleTetrahedronShader.vert")),	stringPtr(new string("SimpleTetrahedronShader.frag")),
 				sizeof(GLfloat),														// size_t of vertices datatype
 				sizeof(g_vertex_buffer_data) / sizeof(GLfloat),							// number of vertices
 				3, 																		// number of data per vertex

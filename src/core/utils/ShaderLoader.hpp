@@ -10,20 +10,24 @@ namespace utils {
 class ShaderLoader {
 public:
 	static log4cxx::LoggerPtr logger;
+
 	/**
 	 * Load vertex/fragment files and compile them
 	 * Returns the programId
 	 */
-	static GLuint loadShaders(const char *vertexFilePath,const char *fragmentFilePath,
+	static GLuint loadShaders(stringPtr &vertexShaderSource, stringPtr &fragmentShaderSource,
 			const std::shared_ptr<std::vector<std::string>> parametersToBind = nullptr);
+
+	static GLuint loadShadersFromFiles(stringPtr &vertexFilePath, stringPtr &fragmentFilePath,
+				const std::shared_ptr<std::vector<std::string>> parametersToBind = nullptr);
+
 private:
 	ShaderLoader();
 	virtual ~ShaderLoader();
-	/**
-	 * Return a 2D char array representing all lines of the file (OpenGL requires it)
-	 */
-	static std::string* readShaderSource(const char* vertexFilePath);
-	static void loadAndCompileShader(GLuint vertexShaderId, const char* vertexShaderFilePath);
+
+	static void loadAndCompileShader(GLuint shaderId, stringPtr &shaderSource);
+public:
+	static std::string* readShaderSourceFromFile(stringPtr &filePath);
 };
 
 } /* namespace utils */

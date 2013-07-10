@@ -7,6 +7,7 @@
 // before linking phase
 //#extension ARB_explicit_attrib_location : require
 
+// vertexPosition and MVP names are defined by the engine
 in vec3 vertexPosition;
 uniform mat4 MVP;
 

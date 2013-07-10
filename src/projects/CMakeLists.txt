@@ -28,4 +28,5 @@ endfunction(BuildInitial3dProject)
 # initial3d projects
 add_subdirectory(simple_camera)
 add_subdirectory(simple_triangle)
+add_subdirectory(simple_triangle_with_shaders)
 add_subdirectory(test_sphere)

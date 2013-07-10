@@ -5,6 +5,7 @@ using std::shared_ptr;
 using std::vector;
 using std::string;
 using namespace initial3d::utils;
+using initial3d::utils::ShadersLibrary;
 
 namespace initial3d {
 namespace objects {
@@ -31,20 +32,38 @@ void ThreeDimensionsObject::initAfterOpenGLLoaded() {
 	}
 
 	shared_ptr<vector<string>> parameterNamesPtr(new vector<string>( {string("vertexPosition"), string("vertexColor") }));
-	programId = ShaderLoader::loadShaders(vertexShaderFilePath->c_str(), fragmentShaderFilePath->c_str(), parameterNamesPtr);
+	programId = ShaderLoader::loadShaders(vertexShaderSource, fragmentShaderSource, parameterNamesPtr);
+}
+
+ThreeDimensionsObject::ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData) :
+		vertexbufferId(0), colorArrayId(0), programId(0), dataSize(dataSize), vertexNumber(vertexNumber),
+		numberOfComponentPerVertex(numberOfComponentPerVertex), vertexPostionData(vertexPostionData), vertexColorData(NULL) {
+	// assert vertexNumber is a multiple of numberOfComponentPerVertex
+	assert((vertexNumber % numberOfComponentPerVertex) == 0);
+	colorMode = NO_COLOR;
+	vertexShaderSource = stringPtr(new string(ShadersLibrary::DEFAULT_VERTEX_SHADER));
+	fragmentShaderSource = stringPtr(new string(ShadersLibrary::DEFAULT_FRAGMENT_SHADER));
 }
 
 ThreeDimensionsObject::ThreeDimensionsObject(stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath,
 		size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData) :
-		vertexShaderFilePath(vertexShaderFilePath), fragmentShaderFilePath(fragmentShaderFilePath),
 		vertexbufferId(0), colorArrayId(0), programId(0), dataSize(dataSize), vertexNumber(vertexNumber),
 		numberOfComponentPerVertex(numberOfComponentPerVertex), vertexPostionData(vertexPostionData), vertexColorData(NULL) {
 	// assert vertexNumber is a multiple of numberOfComponentPerVertex
 	assert( (vertexNumber % numberOfComponentPerVertex) == 0);
+	colorMode = NO_COLOR;
+	vertexShaderSource = stringPtr(ShaderLoader::readShaderSourceFromFile(vertexShaderFilePath));
+	fragmentShaderSource = stringPtr(ShaderLoader::readShaderSourceFromFile(fragmentShaderFilePath));
 }
 
 void ThreeDimensionsObject::addVertexColorData(void* vertexColorData) {
 	this->vertexColorData = vertexColorData;
+	this->colorMode = ARRAY_COLOR;
+}
+
+void ThreeDimensionsObject::setColor(glm::vec3 &color) {
+	this->color = color;
+	this->colorMode = ONE_COLOR;
 }
 
 void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
@@ -52,8 +71,15 @@ void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
 	glUseProgram(programId);
 
 	GLuint matrixId = glGetUniformLocation(programId, "MVP");
-
 	glUniformMatrix4fv(matrixId, 1, GL_FALSE, &(*modelViewProjectionMatrix.get())[0][0]);
+
+	GLuint colorModeId = glGetUniformLocation(programId, "colorMode");
+	glUniform1i(colorModeId, colorMode);
+
+	if(colorMode == ONE_COLOR) {
+		GLuint simpleColorId = glGetUniformLocation(programId, "simpleColor");
+		glUniform3fv(simpleColorId, 1, &color[0]);
+	}
 
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);
@@ -67,7 +93,7 @@ void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
 			);
 
 	// 2nd attribute buffer : colors
-	if( vertexColorData != NULL ) {
+	if(colorMode == ARRAY_COLOR) {
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, colorArrayId);
 		glVertexAttribPointer(1, numberOfComponentPerVertex, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -76,7 +102,7 @@ void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
 	glDrawArrays(GL_TRIANGLES, 0, vertexNumber / numberOfComponentPerVertex);
 
 	glDisableVertexAttribArray(0);
-	if( vertexColorData != NULL ) {
+	if(colorMode == ARRAY_COLOR) {
 		glDisableVertexAttribArray(1);
 	}
 

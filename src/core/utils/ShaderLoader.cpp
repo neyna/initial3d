@@ -18,12 +18,12 @@ ShaderLoader::ShaderLoader() {
 ShaderLoader::~ShaderLoader() {
 }
 
-string* ShaderLoader::readShaderSource(const char* fileName) {
+string* ShaderLoader::readShaderSourceFromFile(stringPtr &filePath) {
 
-	LOG4CXX_DEBUG(logger, format("Reading file : %s") % fileName);
+	LOG4CXX_DEBUG(logger, format("Reading file : %s") % filePath->c_str());
 
 	std::string *result = new string("");
-	std::ifstream fileIfStream(fileName, std::ios::in);
+	std::ifstream fileIfStream(filePath->c_str(), std::ios::in);
 	if (fileIfStream.is_open()) {
 		std::string line = "";
 		while (getline(fileIfStream, line)) {
@@ -31,24 +31,21 @@ string* ShaderLoader::readShaderSource(const char* fileName) {
 		}
 		fileIfStream.close();
 	} else {
-		LOG4CXX_ERROR(logger, format("Impossible to open file %s") % fileName);
-		throw Initial3dException((format("Impossible to open file %s") % fileName).str().c_str());
+		LOG4CXX_ERROR(logger, format("Impossible to open file %s") % filePath->c_str());
+		throw Initial3dException((format("Impossible to open file %s") % filePath->c_str()).str().c_str());
 	}
 
 	return result;
 }
 
-void ShaderLoader::loadAndCompileShader(GLuint shaderId,
-		const char* shaderFilePath) {
-	// load file
-	string* shaderSource = readShaderSource(shaderFilePath);
+void ShaderLoader::loadAndCompileShader(GLuint shaderId, stringPtr &shaderSource) {
+
 	// Compile Vertex Shader
 	GLint result = GL_FALSE;
 	int infoLogLength;
-	LOG4CXX_DEBUG(logger, format("Compiling shader : %s") % shaderFilePath);
+	LOG4CXX_DEBUG(logger, format("Compiling shader : \n%s") % shaderSource->c_str());
 	const char* cStr = shaderSource->c_str();
 	glShaderSource(shaderId, 1, &cStr, NULL);
-	delete shaderSource;
 
 	glCompileShader(shaderId);
 	// Check Vertex Shader
@@ -63,19 +60,27 @@ void ShaderLoader::loadAndCompileShader(GLuint shaderId,
 	}
 }
 
-GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
-		const char* fragmentShaderFilePath, const std::shared_ptr<std::vector<std::string>> parametersToBind) {
-
+GLuint ShaderLoader::loadShadersFromFiles(stringPtr &vertexShaderFilePath,
+		stringPtr &fragmentShaderFilePath, const std::shared_ptr<std::vector<std::string>> parametersToBind) {
 	LOG4CXX_DEBUG(logger,
-			format("Loading vertex shader %s and fragment shader %s") % vertexShaderFilePath % fragmentShaderFilePath);
+			format("Loading vertex shader %s and fragment shader %s") % vertexShaderFilePath->c_str() % fragmentShaderFilePath->c_str());
 
+	// load file
+	stringPtr vertexShaderSource = stringPtr(readShaderSourceFromFile(vertexShaderFilePath));
+	stringPtr fragmentShaderSource = stringPtr(readShaderSourceFromFile(fragmentShaderFilePath));
+
+	return loadShaders(vertexShaderSource, fragmentShaderSource, parametersToBind);
+}
+
+GLuint ShaderLoader::loadShaders(stringPtr &vertexShaderSource, stringPtr &fragmentShaderSource,
+		const std::shared_ptr<std::vector<std::string> > parametersToBind) {
 	// Create the shaders
 	GLuint vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 
 	// Compile shaders
-	ShaderLoader::loadAndCompileShader(vertexShaderId, vertexShaderFilePath);
-	ShaderLoader::loadAndCompileShader(fragmentShaderId, fragmentShaderFilePath);
+	ShaderLoader::loadAndCompileShader(vertexShaderId, vertexShaderSource);
+	ShaderLoader::loadAndCompileShader(fragmentShaderId, fragmentShaderSource);
 
 	// Link the program
 	LOG4CXX_DEBUG(logger, "Linking program");
@@ -112,7 +117,6 @@ GLuint ShaderLoader::loadShaders(const char* vertexShaderFilePath,
 
 	LOG4CXX_DEBUG(logger, "Loading shader done");
 	return programId;
-
 }
 
 } /* namespace utils */

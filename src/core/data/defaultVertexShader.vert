@@ -1,16 +1,3 @@
-Readme.
-
-License : GPL
-
-To build projects :
-  cd [....]/initial3d
-  mkdir build
-  cd build
-  cmake ..
-  make
-
-
-Default Vertex Shader :
 #version 130
 
 in vec3 vertexPosition;
@@ -34,16 +21,3 @@ void main(){
     }
 
 }
-
-
-Default Fragment shader :
-
-#version 130
-
-in vec3 fragmentColor;
-out vec3 color;
-
-void main() {
-	color = fragmentColor;
-}
-

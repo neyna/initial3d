@@ -21,6 +21,7 @@ namespace initial3d {
 
 #include "exception/Initial3dException.hpp"
 
+#include "utils/ShadersLibrary.hpp"
 #include "objects/ThreeDimensionsObject.hpp"
 
 #include "scene/Camera.hpp"
