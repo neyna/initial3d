@@ -9,13 +9,14 @@ public:
 	/**
 	 * Object constructor, do not put any openGL code here because the context may not have been initialized !
 	 * Put such code in afterOpenGLInit method.
-	 * TODO : add default shaders to that constructor
+	 * TODO : add default shaders to that constructor or create a builder
 	 */
-	ThreeDimensionsObject();
 	ThreeDimensionsObject(stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath,
 			size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData);
 	virtual ~ThreeDimensionsObject();
+
 	void addVertexColorData(void* vertexColorData);
+
 	/**
 	 * Here comes openGL code for the object initialization
 	 */

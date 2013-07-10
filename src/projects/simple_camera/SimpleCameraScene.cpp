@@ -9,11 +9,57 @@ namespace initial3d {
 namespace projects {
 namespace simplecamera {
 
-SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunningCamera())),
-		simpleTetrahedronPtr(new Tetrahedron()){
+static const GLfloat g_vertex_buffer_data[] = {
+		// 1st triangle
+		0.0f,  1.0f, 0.0f,
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		// 2nd
+		0.0f,  1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f, -1.0f, -1.0f,
+		// 3rd
+		0.0f,  1.0f, 0.0f,
+		0.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, 0.0f,
+		// bottom
+		-1.0f, -1.0f, 0.0f,
+		0.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, 0.0f,
+	};
+
+static const GLfloat g_color_buffer_data[] = {
+		0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 1.0f,
+
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+
+		1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+
+		0.9f, 0.4f, 0.3f,
+		0.1f, 0.6f, 0.5f,
+		0.3f, 0.8f, 0.7f,
+};
+
+SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunningCamera())) {
 	SphereRunningCamera *sphereRunningCamera = (SphereRunningCamera*) (camera.get());
 	sphereRunningCamera->horizontalSpeed = 0.1f;
 	sphereRunningCamera->vecticalSpeed = -0.1f;
+
+	simpleTetrahedronPtr = std::shared_ptr<ThreeDimensionsObject>(new ThreeDimensionsObject(
+				stringPtr(new string("SimpleTetrahedronShader.vert")),	stringPtr(new string("SimpleTetrahedronShader.frag")),
+				sizeof(GLfloat),														// size_t of vertices datatype
+				sizeof(g_vertex_buffer_data) / sizeof(GLfloat),							// number of vertices
+				3, 																		// number of data per vertex
+				(void*) g_vertex_buffer_data 											// vertices data
+				)
+		);
+	simpleTetrahedronPtr->addVertexColorData((void*)&g_color_buffer_data);
 
 	addObject(simpleTetrahedronPtr);
 }

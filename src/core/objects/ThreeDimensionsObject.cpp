@@ -43,12 +43,6 @@ ThreeDimensionsObject::ThreeDimensionsObject(stringPtr vertexShaderFilePath, str
 	assert( (vertexNumber % numberOfComponentPerVertex) == 0);
 }
 
-ThreeDimensionsObject::ThreeDimensionsObject() :
-		vertexShaderFilePath(nullptr), fragmentShaderFilePath(nullptr),
-		vertexbufferId(0), colorArrayId(0), programId(0), dataSize(0), vertexNumber(0), numberOfComponentPerVertex(3),
-		vertexPostionData(0), vertexColorData(0) {
-}
-
 void ThreeDimensionsObject::addVertexColorData(void* vertexColorData) {
 	this->vertexColorData = vertexColorData;
 }
@@ -57,9 +51,9 @@ void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
 	// use the shaders
 	glUseProgram(programId);
 
-	GLuint matrixID = glGetUniformLocation(programId, "MVP");
+	GLuint matrixId = glGetUniformLocation(programId, "MVP");
 
-	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &(*modelViewProjectionMatrix.get())[0][0]);
+	glUniformMatrix4fv(matrixId, 1, GL_FALSE, &(*modelViewProjectionMatrix.get())[0][0]);
 
 	// 1rst attribute buffer : vertices
 	glEnableVertexAttribArray(0);
