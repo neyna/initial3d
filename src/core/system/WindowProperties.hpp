@@ -1,7 +1,7 @@
 #ifndef WINDOWPROPERTIES_H_
 #define WINDOWPROPERTIES_H_
 
-#include "../initial3d.hpp"
+#include "../initial3d_basics.hpp"
 
 namespace initial3d {
 namespace system {

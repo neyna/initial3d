@@ -1,10 +1,14 @@
-#include "../initial3d.hpp"
+#include "ThreeDimensionsObject.hpp"
+#include "../utils/ShaderLoader.hpp"
+#include "../utils/ShadersLibrary.hpp"
+#include "../utils/OpenGLUtils.hpp"
 
 using glm::mat4;
 using std::shared_ptr;
 using std::vector;
 using std::string;
-using namespace initial3d::utils;
+using initial3d::utils::printOpenGLErrors;
+using initial3d::utils::ShaderLoader;
 using initial3d::utils::ShadersLibrary;
 
 namespace initial3d {
@@ -64,6 +68,13 @@ void ThreeDimensionsObject::addVertexColorData(void* vertexColorData) {
 void ThreeDimensionsObject::setColor(glm::vec3 &color) {
 	this->color = color;
 	this->colorMode = ONE_COLOR;
+}
+
+void ThreeDimensionsObject::setPosition(glm::vec3 &position) {
+	this->position = position;
+}
+
+ThreeDimensionsObject::ThreeDimensionsObject() {
 }
 
 void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {

@@ -1,8 +1,9 @@
-#include "../initial3d.hpp"
+#include "ShaderLoader.hpp"
+#include "../exception/Initial3dException.hpp"
 
 #include <fstream>
 
-using namespace initial3d::exception;
+using initial3d::exception::Initial3dException;
 using namespace std;
 using namespace log4cxx;
 using boost::format;

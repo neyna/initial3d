@@ -1,7 +1,7 @@
 #ifndef INITIAL3DEXCEPTION_HPP_
 #define INITIAL3DEXCEPTION_HPP_
 
-#include "../initial3d.hpp"
+#include "../initial3d_basics.hpp"
 
 namespace initial3d {
 namespace exception {

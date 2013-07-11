@@ -1,7 +1,10 @@
 #ifndef LAUNCHER_HPP_
 #define LAUNCHER_HPP_
 
-#include "../initial3d.hpp"
+#include "../initial3d_basics.hpp"
+#include "../scene/Scene.hpp"
+#include "../system/WindowProperties.hpp"
+
 using namespace initial3d::scene;
 
 namespace initial3d {

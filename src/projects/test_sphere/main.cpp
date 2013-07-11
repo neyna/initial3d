@@ -11,11 +11,12 @@ LoggerPtr logger(Logger::getLogger("initial3d.projects.testsphere.main"));
 int main(void) {
 
 	LOG4CXX_INFO(logger, "Entering application.");
-	//ScenePtr scene = ScenePtr(new SimpleTriangleScene());
-	//LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene));
+	ScenePtr scene = ScenePtr(new Scene());
+	WindowPropertiesPtr windowProperties = WindowPropertiesPtr(new WindowProperties(320, 240));
+	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene, windowProperties));
 
 	try {
-		//return launcher->run();
+		return launcher->run();
 		return 0;
 	} catch(Initial3dException &e) {
 		LOG4CXX_FATAL(logger, std::string(e.getMessage()));

@@ -1,4 +1,7 @@
-#include "../initial3d.hpp"
+#include "GLFWLauncher.hpp"
+#include "../exception/Initial3dException.hpp"
+#include "../utils/FPSTimer.hpp"
+#include "../system/System.hpp"
 
 using namespace std;
 

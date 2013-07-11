@@ -1,6 +1,7 @@
-#include "../initial3d.hpp"
+#include "FPSTimer.hpp"
+#include "../system/System.hpp"
 
-using namespace initial3d::system;
+using initial3d::system::getTime;
 
 namespace initial3d {
 namespace utils {

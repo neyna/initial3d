@@ -1,7 +1,8 @@
 #ifndef SPHERICALCAMERA_HPP_
 #define SPHERICALCAMERA_HPP_
 
-#include "../standard_includes.hpp"
+#include "../initial3d_basics.hpp"
+#include "Camera.hpp"
 
 namespace initial3d {
 namespace scene {

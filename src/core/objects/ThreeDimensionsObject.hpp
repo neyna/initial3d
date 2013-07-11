@@ -1,6 +1,8 @@
 #ifndef THREEDIMENSIONSOBJECT_H_
 #define THREEDIMENSIONSOBJECT_H_
 
+#include "../initial3d_basics.hpp"
+
 namespace initial3d {
 namespace objects {
 
@@ -11,6 +13,7 @@ public:
 	 * Put such code in afterOpenGLInit method.
 	 * TODO : create a builder for ThreeDimensionsObject
 	 */
+	ThreeDimensionsObject();
 	ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData);
 	ThreeDimensionsObject(stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath,
 			size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData);
@@ -18,6 +21,7 @@ public:
 
 	void addVertexColorData(void* vertexColorData);
 	void setColor(glm::vec3 &color);
+	void setPosition(glm::vec3 &position);
 
 	/**
 	 * Here comes openGL code for the object initialization
@@ -25,6 +29,8 @@ public:
 	virtual void initAfterOpenGLLoaded();
 	virtual void draw(std::shared_ptr<glm::mat4> &modelViewProjectionMatrix);
 protected:
+	glm::vec3 position;
+
 	stringPtr vertexShaderSource;
 	stringPtr fragmentShaderSource;
 

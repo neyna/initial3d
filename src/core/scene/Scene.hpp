@@ -1,7 +1,9 @@
 #ifndef SCENE_HPP_
 #define SCENE_HPP_
 
+#include "../initial3d_basics.hpp"
 #include "../objects/ThreeDimensionsObject.hpp"
+#include "Camera.hpp"
 
 using initial3d::objects::ThreeDimensionObjectPtr;
 

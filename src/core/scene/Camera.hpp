@@ -1,6 +1,8 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
+#include "../initial3d_basics.hpp"
+
 namespace initial3d {
 namespace scene {
 

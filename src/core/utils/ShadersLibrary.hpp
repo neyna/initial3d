@@ -1,7 +1,7 @@
 #ifndef SHADERSLIBRARY_HPP_
 #define SHADERSLIBRARY_HPP_
 
-#include "../initial3d.hpp"
+#include "../initial3d_basics.hpp"
 
 namespace initial3d {
 namespace utils {

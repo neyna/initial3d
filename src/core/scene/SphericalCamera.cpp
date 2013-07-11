@@ -1,4 +1,4 @@
-#include "../initial3d.hpp"
+#include "SphericalCamera.hpp"
 
 using glm::cross;
 using glm::normalize;
