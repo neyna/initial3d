@@ -7,12 +7,12 @@
 namespace initial3d {
 namespace objects {
 
-class Sphere : ThreeDimensionsObject {
+class Sphere : public ThreeDimensionsObject {
 public:
 	Sphere();
 	virtual ~Sphere();
 protected:
-	float radius;
+	float radius = 1.0f;
 };
 
 } /* namespace objects */

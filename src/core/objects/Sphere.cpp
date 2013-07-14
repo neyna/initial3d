@@ -3,7 +3,7 @@
 namespace initial3d {
 namespace objects {
 
-Sphere::Sphere() {
+Sphere::Sphere() : ThreeDimensionsObject(sizeof(GLfloat), 3) {
 }
 
 Sphere::~Sphere() {

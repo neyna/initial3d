@@ -11,12 +11,12 @@ public:
 	/**
 	 * Object constructor, do not put any openGL code here because the context may not have been initialized !
 	 * Put such code in afterOpenGLInit method.
-	 * TODO : create a builder for ThreeDimensionsObject
 	 */
-	ThreeDimensionsObject();
+	ThreeDimensionsObject(size_t dataSize, uint numberOfComponentPerVertex);
 	ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData);
-	ThreeDimensionsObject(stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath,
-			size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData);
+	ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData,
+							stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath);
+
 	virtual ~ThreeDimensionsObject();
 
 	void addVertexColorData(void* vertexColorData);
@@ -29,23 +29,26 @@ public:
 	virtual void initAfterOpenGLLoaded();
 	virtual void draw(std::shared_ptr<glm::mat4> &modelViewProjectionMatrix);
 protected:
-	glm::vec3 position;
+	ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData,
+								std::string* vertexShaderSource, std::string* fragmentShaderSource);
 
-	stringPtr vertexShaderSource;
-	stringPtr fragmentShaderSource;
+	glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	GLuint vertexbufferId;
-	GLuint colorArrayId;
-	GLuint programId;
+	stringPtr vertexShaderSource = nullptr;
+	stringPtr fragmentShaderSource = nullptr;
+
+	GLuint vertexbufferId = 0;
+	GLuint colorArrayId = 0;
+	GLuint programId = 0;
 
 	// vertices
-	size_t dataSize;
-	ulong vertexNumber;
-	uint numberOfComponentPerVertex;
-	void* vertexPostionData;
+	size_t dataSize = 0;
+	ulong vertexNumber = 0;
+	uint numberOfComponentPerVertex = 3;
+	void* vertexPostionData = NULL;
 
 	// color
-	enum ColorMode {NO_COLOR = 0, ONE_COLOR = 1, ARRAY_COLOR = 2};
+	enum ColorMode : GLint {NO_COLOR = 0, ONE_COLOR = 1, ARRAY_COLOR = 2};
 	/**
 	 * Color mode :
 	 * - NO_COLOR will be no color (see default value in shader)
@@ -53,8 +56,8 @@ protected:
 	 * - ARRAY_COLOR will take color from vertexColorData
 	 */
 	ColorMode colorMode = NO_COLOR;
-	void* vertexColorData;
-	glm::vec3 color;
+	void* vertexColorData = NULL;
+	glm::vec3 color = glm::vec3(0.0f, 0.0f, 0.0f);
 
 };
 

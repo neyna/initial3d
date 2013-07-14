@@ -18,7 +18,7 @@ public:
 	GLFWLauncher(ScenePtr &scene);
 	GLFWLauncher(ScenePtr &scene, WindowPropertiesPtr &windowProperties);
 	virtual ~GLFWLauncher();
-	virtual int run();
+	virtual int run() override;
 protected:
 };
 
