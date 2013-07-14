@@ -16,11 +16,10 @@ static const GLfloat g_vertex_buffer_data[] = {
 SimpleTriangleScene::SimpleTriangleScene() {
 	simpleTriangle = std::shared_ptr<ThreeDimensionsObject>(new ThreeDimensionsObject(
 			sizeof(GLfloat),														// size_t of vertices datatype
-			sizeof(g_vertex_buffer_data) / sizeof(GLfloat),							// number of vertices
-			3, 																		// number of data per vertex
-			(void*) g_vertex_buffer_data 											// vertices data
+			3 																		// number of data per vertex
 			)
 	);
+	simpleTriangle->setVertexData((void*) g_vertex_buffer_data, sizeof(g_vertex_buffer_data) / sizeof(GLfloat));
 	glm::vec3 color = glm::vec3(0.1, 0.7, 0.9);
 	simpleTriangle->setColor(color);
 	addObject(simpleTriangle);

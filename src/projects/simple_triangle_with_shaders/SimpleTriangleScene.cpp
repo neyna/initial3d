@@ -16,12 +16,11 @@ static const GLfloat g_vertex_buffer_data[] = {
 SimpleTriangleScene::SimpleTriangleScene() {
 	simpleTriangle = std::shared_ptr<ThreeDimensionsObject>(new ThreeDimensionsObject(
 			sizeof(GLfloat),														// size_t of vertices datatype
-			sizeof(g_vertex_buffer_data) / sizeof(GLfloat),							// number of vertices
 			3, 																		// number of data per vertex
-			(void*) g_vertex_buffer_data, 											// vertices data
 			stringPtr(new string("SimpleTriangleShader.vert")),	stringPtr(new string("SimpleTriangleShader.frag"))
 			)
 	);
+	simpleTriangle->setVertexData((void*) g_vertex_buffer_data, sizeof(g_vertex_buffer_data) / sizeof(GLfloat));
 
 	addObject(simpleTriangle);
 }

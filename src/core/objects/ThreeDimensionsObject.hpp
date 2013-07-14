@@ -6,20 +6,29 @@
 namespace initial3d {
 namespace objects {
 
+/**
+ * Base object of this framework.
+ *
+ * Notes :
+ * - Do not put any any openGL code in constructors because the context may not have been initialized ! (Put such code in afterOpenGLInit method.)
+ */
 class ThreeDimensionsObject {
 public:
 	/**
-	 * Object constructor, do not put any openGL code here because the context may not have been initialized !
-	 * Put such code in afterOpenGLInit method.
+	 * Use default shaders
+	 * @param dataSize Size of data passed to the openGL pipeline for vertices and color data (for example use sizeof(GLFloat))
+	 * @param numberOfComponentPerVertex number of components per vertex passed to the openGL pipeline (often 3 : x, y, z)
 	 */
 	ThreeDimensionsObject(size_t dataSize, uint numberOfComponentPerVertex);
-	ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData);
-	ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData,
-							stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath);
+	ThreeDimensionsObject(size_t dataSize, uint numberOfComponentPerVertex, stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath);
 
 	virtual ~ThreeDimensionsObject();
 
-	void addVertexColorData(void* vertexColorData);
+	void setVertexData(void* vertexPostionData, ulong vertexNumber);
+	/**
+	 * To add vertex color data, you must use setVertexData first
+	 */
+	void setVertexColorData(void* vertexColorData);
 	void setColor(glm::vec3 &color);
 	void setPosition(glm::vec3 &position);
 
@@ -29,8 +38,8 @@ public:
 	virtual void initAfterOpenGLLoaded();
 	virtual void draw(std::shared_ptr<glm::mat4> &modelViewProjectionMatrix);
 protected:
-	ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData,
-								std::string* vertexShaderSource, std::string* fragmentShaderSource);
+	ThreeDimensionsObject(size_t dataSize, uint numberOfComponentPerVertex,
+			std::string* vertexShaderSource, std::string* fragmentShaderSource);
 
 	glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 

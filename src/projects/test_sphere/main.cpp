@@ -3,6 +3,9 @@
 using namespace initial3d::exception;
 using namespace initial3d::scene;
 using namespace initial3d::system;
+using initial3d::objects::ThreeDimensionsObject;
+using initial3d::objects::ThreeDimensionObjectPtr;
+using initial3d::objects::Sphere;
 
 using namespace log4cxx;
 
@@ -14,6 +17,9 @@ int main(void) {
 	ScenePtr scene = ScenePtr(new Scene());
 	WindowPropertiesPtr windowProperties = WindowPropertiesPtr(new WindowProperties(320, 240));
 	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene, windowProperties));
+
+	ThreeDimensionObjectPtr spherePtr = ThreeDimensionObjectPtr(new Sphere());
+	scene->addObject(spherePtr);
 
 	try {
 		return launcher->run();

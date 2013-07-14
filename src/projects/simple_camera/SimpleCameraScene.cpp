@@ -53,12 +53,11 @@ SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunn
 
 	simpleTetrahedronPtr = std::shared_ptr<ThreeDimensionsObject>(new ThreeDimensionsObject(
 				sizeof(GLfloat),														// size_t of vertices datatype
-				sizeof(g_vertex_buffer_data) / sizeof(GLfloat),							// number of vertices
-				3, 																		// number of data per vertex
-				(void*) g_vertex_buffer_data 											// vertices data
+				3 																		// number of data per vertex
 				)
 		);
-	simpleTetrahedronPtr->addVertexColorData((void*)&g_color_buffer_data);
+	simpleTetrahedronPtr->setVertexData((void*) g_vertex_buffer_data, sizeof(g_vertex_buffer_data) / sizeof(GLfloat));
+	simpleTetrahedronPtr->setVertexColorData((void*)&g_color_buffer_data);
 
 	addObject(simpleTetrahedronPtr);
 }

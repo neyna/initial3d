@@ -40,31 +40,31 @@ void ThreeDimensionsObject::initAfterOpenGLLoaded() {
 }
 
 ThreeDimensionsObject::ThreeDimensionsObject(size_t dataSize, uint numberOfComponentPerVertex) :
-	dataSize(dataSize), numberOfComponentPerVertex(numberOfComponentPerVertex) {
-}
-
-ThreeDimensionsObject::ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData) :
-		ThreeDimensionsObject(dataSize, vertexNumber, numberOfComponentPerVertex, vertexPostionData,
+		ThreeDimensionsObject(dataSize, numberOfComponentPerVertex,
 				new string(ShadersLibrary::DEFAULT_VERTEX_SHADER), new string(ShadersLibrary::DEFAULT_FRAGMENT_SHADER)) {
 }
 
-ThreeDimensionsObject::ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData,
+ThreeDimensionsObject::ThreeDimensionsObject(size_t dataSize, uint numberOfComponentPerVertex,
 		stringPtr vertexShaderFilePath, stringPtr fragmentShaderFilePath) :
-		ThreeDimensionsObject(dataSize, vertexNumber, numberOfComponentPerVertex, vertexPostionData,
+		ThreeDimensionsObject(dataSize, numberOfComponentPerVertex,
 				ShaderLoader::readShaderSourceFromFile(vertexShaderFilePath), ShaderLoader::readShaderSourceFromFile(fragmentShaderFilePath))  {
 }
 
-ThreeDimensionsObject::ThreeDimensionsObject(size_t dataSize, ulong vertexNumber, uint numberOfComponentPerVertex, void* vertexPostionData,
-		std::string* vertexShaderSource, std::string* fragmentShaderSource) : ThreeDimensionsObject(dataSize, numberOfComponentPerVertex) {
-	// assert vertexNumber is a multiple of numberOfComponentPerVertex
-	assert((vertexNumber % numberOfComponentPerVertex) == 0);
-	this->vertexNumber = vertexNumber;
-	this->vertexPostionData = vertexPostionData;
+ThreeDimensionsObject::ThreeDimensionsObject(size_t dataSize, uint numberOfComponentPerVertex,
+		std::string* vertexShaderSource, std::string* fragmentShaderSource) : dataSize(dataSize), numberOfComponentPerVertex(numberOfComponentPerVertex) {
 	this->vertexShaderSource = stringPtr(vertexShaderSource);
 	this->fragmentShaderSource = stringPtr(fragmentShaderSource);
 }
 
-void ThreeDimensionsObject::addVertexColorData(void* vertexColorData) {
+void ThreeDimensionsObject::setVertexData(void* vertexPostionData, ulong vertexNumber) {
+	// assert vertexNumber is a multiple of numberOfComponentPerVertex
+	assert((vertexNumber % numberOfComponentPerVertex) == 0);
+	this->vertexNumber = vertexNumber;
+	this->vertexPostionData = vertexPostionData;
+}
+
+void ThreeDimensionsObject::setVertexColorData(void* vertexColorData) {
+	assert(vertexPostionData != NULL);
 	this->vertexColorData = vertexColorData;
 	this->colorMode = ARRAY_COLOR;
 }
