@@ -2,6 +2,8 @@
 #include "../exception/Initial3dException.hpp"
 #include "../utils/FPSTimer.hpp"
 #include "../system/System.hpp"
+#include "../utils/GameInformations.hpp"
+#include "FontRenderer.hpp"
 
 using namespace std;
 
@@ -11,6 +13,7 @@ using namespace initial3d::scene;
 using log4cxx::LoggerPtr;
 using log4cxx::Logger;
 using initial3d::exception::Initial3dException;
+using initial3d::system::FontRendererPtr;
 using boost::format;
 
 namespace initial3d {
@@ -34,6 +37,7 @@ const array<KeyCode, 255> latin1KeyCode = {{KEY_0, KEY_1, KEY_2, KEY_3, KEY_4, K
 
 int shouldCloseApplication = 0;
 ScenePtr actualScene;
+FontRendererPtr fontRendererPtr;
 
 GLFWLauncher::GLFWLauncher(ScenePtr &scene) : Launcher(scene) {
 }
@@ -92,8 +96,13 @@ int GLFWLauncher::run() {
 		return -1;
 	}
 
+	this->afterOpenGLInit();
+	fontRendererPtr = this->fontRenderPtr;
 	scene->initAfterOpenGLLoaded();
 	actualScene = scene;
+
+	GameInformationPtr fpsGameInformationPtr(new GameInformation(stringPtr(new string("FPS")), stringPtr(new string("Frame per second :"))));
+	GameInformations::getInstance().addGameInformation(fpsGameInformationPtr);
 
 	glfwSetWindowTitle(windowPropertiesPtr->getWindowTitle()->c_str());
 
@@ -109,15 +118,20 @@ int GLFWLauncher::run() {
 		fpsTimer->newFrame();
 		scene->draw();
 
-		// updating title
+		// updating FPS counter
 		double newTime = getTime();
 		if(newTime-lastTime>2) {
 			double fps = fpsTimer->getAndResetFps();
 			char* buff = (char*) malloc(100*sizeof(char));
-			sprintf(buff, "%s - FPS %f", windowPropertiesPtr->getWindowTitle()->c_str(), fps);
-			glfwSetWindowTitle(buff);
+			sprintf(buff, "Frames per second : %f", fps);
+			fpsGameInformationPtr->updateDisplayText(stringPtr(new string(buff)));
 			lastTime = newTime;
 			free(buff);
+		}
+
+		// Render game info to screen
+		if(fontRenderPtr != nullptr) {
+			GameInformations::getInstance().render(fontRenderPtr);
 		}
 
 		// Swap buffers
@@ -138,6 +152,9 @@ int GLFWLauncher::run() {
 
 void GLFWCALL resizeWindowCallback(int width, int height) {
 	glViewport(0, 0, width, height);
+	if(fontRendererPtr != nullptr) {
+		fontRendererPtr->widowResized(width, height);
+	}
 }
 
 KeyCode translateKeyCode(int keyIdentifier) {

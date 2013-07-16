@@ -17,6 +17,10 @@
 #include "scene/SphericalCamera.hpp"
 #include "scene/Scene.hpp"
 
+#include "system/FontRenderer.hpp"
+#include "utils/GameInformation.hpp"
+#include "utils/GameInformations.hpp"
+
 #include "system/System.hpp"
 #include "system/WindowProperties.hpp"
 #include "system/Launcher.hpp"

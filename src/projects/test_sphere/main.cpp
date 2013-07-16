@@ -17,6 +17,7 @@ int main(void) {
 	ScenePtr scene = ScenePtr(new Scene());
 	WindowPropertiesPtr windowProperties = WindowPropertiesPtr(new WindowProperties(320, 240));
 	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene, windowProperties));
+	launcher->setFontPath(initial3d::stringPtr(new std::string("font.ttf")));
 
 	ThreeDimensionObjectPtr spherePtr = ThreeDimensionObjectPtr(new Sphere());
 	scene->addObject(spherePtr);

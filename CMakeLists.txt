@@ -54,6 +54,11 @@ find_package(Boost REQUIRED COMPONENTS filesystem)
 find_package(LOG4CXX REQUIRED)
 find_package(APR REQUIRED)
 
+# Font rendering
+find_package(Freetype REQUIRED)
+find_package(FTGL REQUIRED)
+
+# Some CMake are buggy are do not throw an error if REQUIRED is set and the lib is not found so we have to double check
 if(NOT OPENGL_FOUND)
   message(FATAL_ERROR "OpenGL required !")
 endif()
@@ -82,6 +87,15 @@ if(NOT Boost_FOUND)
   message(FATAL_ERROR "Boost required !")
 endif()
 
+if(NOT FREETYPE_FOUND)
+  message(FATAL_ERROR "Freetype required !")
+endif()
+
+if(NOT FTGL_FOUND)
+  message(FATAL_ERROR "FTGL required !")
+endif()
+
+
 set(ALL_LIBS
 	${OPENGL_LIBRARY}
 	${GLEW_LIBRARY}
@@ -90,6 +104,8 @@ set(ALL_LIBS
 	${APR_LIBRARY}
 	${APRUTIL_LIBRARY}
 	${Boost_LIBRARY}
+	${FREETYPE_LIBRARY}
+	${FTGL_LIBRARY}
 )
 
 set(ALL_INCLUDES
@@ -98,6 +114,8 @@ set(ALL_INCLUDES
     ${GLFW_INCLUDE_DIR}
     ${GLM_INCLUDE_DIR}
     ${Boost_INCLUDE_DIR}
+    ${FREETYPE_INCLUDE_DIRS}
+    ${FTGL_INCLUDE_DIR}
 )
 
 # custom make target to download externals, add DL_DEP_TARGET to target ALL (make all)

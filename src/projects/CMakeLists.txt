@@ -9,7 +9,7 @@ function(BuildInitial3dProject EXECUTABLE_NAME )
 
     FILE(GLOB_RECURSE MY_PROJECT_HEADERS *.hpp)
     FILE(GLOB_RECURSE MY_PROJECT_SOURCES *.cpp)
-    FILE(GLOB_RECURSE MY_PROJECT_DATA_FILES *.properties *.vert *.frag)
+    FILE(GLOB_RECURSE MY_PROJECT_DATA_FILES *.properties *.vert *.frag *.ttf)
 
     FOREACH(PROJECT_DATA_FILE ${MY_PROJECT_DATA_FILES})
         # extract file name from absolute path

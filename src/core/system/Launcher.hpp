@@ -4,6 +4,8 @@
 #include "../initial3d_basics.hpp"
 #include "../scene/Scene.hpp"
 #include "../system/WindowProperties.hpp"
+#include "FontRenderer.hpp"
+#include "FTGLPixmapFontFontRenderer.hpp"
 
 using namespace initial3d::scene;
 
@@ -15,13 +17,22 @@ typedef std::shared_ptr<WindowProperties> WindowPropertiesPtr;
 
 class Launcher {
 public:
+	static log4cxx::LoggerPtr logger;
 	Launcher(ScenePtr &scene);
 	Launcher(ScenePtr &scene, WindowPropertiesPtr &windowProperties);
 	virtual ~Launcher();
 	virtual int run();
+
+	void setFontPath(stringPtr fontPath);
 protected:
 	ScenePtr scene;
 	WindowPropertiesPtr windowPropertiesPtr;
+	FontRendererPtr fontRenderPtr;
+	stringPtr fontPath = nullptr;
+	/**
+	 * Implementations must call this method after OpenGL context is set
+	 */
+	void afterOpenGLInit();
 };
 
 typedef std::shared_ptr<Launcher> LauncherPtr;

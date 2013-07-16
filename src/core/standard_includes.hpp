@@ -29,4 +29,7 @@
 // boost
 #include <boost/format.hpp>
 
+// font rendering
+#include <FTGL/ftgl.h>
+
 #endif /* STANDARD_INCLUDES_H_ */
