@@ -15,6 +15,10 @@ namespace system {
 class WindowProperties;
 typedef std::shared_ptr<WindowProperties> WindowPropertiesPtr;
 
+/**
+ * Notes for implementers :
+ * - you must call widowResized on the fontRenderPtr when the window is resized
+ */
 class Launcher {
 public:
 	static log4cxx::LoggerPtr logger;

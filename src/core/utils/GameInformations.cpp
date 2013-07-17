@@ -11,6 +11,7 @@ void GameInformations::render(FontRendererPtr& fontRenderer) {
 		throw Initial3dException("Tried to render text with a null fontRenderer");
 	}
 
+	fontRenderer->reset();
 	for (GameInformationPtr gameInformationPtr : gameInformations) {
 		fontRenderer->renderNewLine(gameInformationPtr->getDisplayText());
 	}

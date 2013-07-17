@@ -1,5 +1,6 @@
 #include "Launcher.hpp"
 #include "../exception/Initial3dException.hpp"
+#include <fstream>
 
 using log4cxx::LoggerPtr;
 using log4cxx::Logger;
@@ -29,12 +30,18 @@ int Launcher::run() {
 }
 
 void Launcher::setFontPath(stringPtr fontPath) {
+	// check if file exists
+	std::ifstream ttfFile(fontPath->c_str(), std::ios::binary);
+	if ( ! ttfFile) {
+		LOG4CXX_ERROR(logger, format("Font file does not exists '%s'") % fontPath->c_str());
+		throw Initial3dException( (format("Font file does not exists '%s'")  % fontPath->c_str()).str().c_str() );
+	}
 	this->fontPath = fontPath;
 }
 
 void Launcher::afterOpenGLInit() {
 	if(fontPath != nullptr) {
-		fontRenderPtr = FontRendererPtr(new FTGLPixmapFontFontRenderer(stringPtr(new std::string("font.ttf")),
+		fontRenderPtr = FontRendererPtr(new FTGLPixmapFontFontRenderer(fontPath,
 				windowPropertiesPtr->getWidth(), windowPropertiesPtr->getHeight()));
 	}
 }

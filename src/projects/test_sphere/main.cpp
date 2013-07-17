@@ -3,9 +3,14 @@
 using namespace initial3d::exception;
 using namespace initial3d::scene;
 using namespace initial3d::system;
+using std::string;
+using initial3d::stringPtr;
 using initial3d::objects::ThreeDimensionsObject;
 using initial3d::objects::ThreeDimensionObjectPtr;
 using initial3d::objects::Sphere;
+using initial3d::utils::GameInformation;
+using initial3d::utils::GameInformationPtr;
+using initial3d::utils::GameInformations;
 
 using namespace log4cxx;
 
@@ -17,12 +22,17 @@ int main(void) {
 	ScenePtr scene = ScenePtr(new Scene());
 	WindowPropertiesPtr windowProperties = WindowPropertiesPtr(new WindowProperties(320, 240));
 	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene, windowProperties));
-	launcher->setFontPath(initial3d::stringPtr(new std::string("font.ttf")));
 
 	ThreeDimensionObjectPtr spherePtr = ThreeDimensionObjectPtr(new Sphere());
 	scene->addObject(spherePtr);
 
+	GameInformationPtr fpsGameInformationPtr(new GameInformation(
+					stringPtr(new string("PROGRAM_NAME")), stringPtr(new string("Test Sphere"))));
+			GameInformations::getInstance().addGameInformation(fpsGameInformationPtr);
+
 	try {
+		launcher->setFontPath(initial3d::stringPtr(new std::string("Timeless.ttf")));
+
 		return launcher->run();
 		return 0;
 	} catch(Initial3dException &e) {

@@ -101,7 +101,7 @@ int GLFWLauncher::run() {
 	scene->initAfterOpenGLLoaded();
 	actualScene = scene;
 
-	GameInformationPtr fpsGameInformationPtr(new GameInformation(stringPtr(new string("FPS")), stringPtr(new string("Frame per second :"))));
+	GameInformationPtr fpsGameInformationPtr(new GameInformation(stringPtr(new string("FPS")), stringPtr(new string("Frames per second :"))));
 	GameInformations::getInstance().addGameInformation(fpsGameInformationPtr);
 
 	glfwSetWindowTitle(windowPropertiesPtr->getWindowTitle()->c_str());
@@ -123,7 +123,7 @@ int GLFWLauncher::run() {
 		if(newTime-lastTime>2) {
 			double fps = fpsTimer->getAndResetFps();
 			char* buff = (char*) malloc(100*sizeof(char));
-			sprintf(buff, "Frames per second : %f", fps);
+			sprintf(buff, "Frames per second : %.2f", fps);
 			fpsGameInformationPtr->updateDisplayText(stringPtr(new string(buff)));
 			lastTime = newTime;
 			free(buff);
