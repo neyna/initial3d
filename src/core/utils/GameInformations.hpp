@@ -19,6 +19,7 @@ public:
 	}
 	void render(FontRendererPtr &fontRenderer);
 	void addGameInformation(GameInformationPtr gameInformationPtr);
+	GameInformationPtr getOrCreateGameInformation(stringPtr name, stringPtr text = stringPtr(new std::string("")));
 private:
 	GameInformations();
     // We need to declare the following two methods to make sure they

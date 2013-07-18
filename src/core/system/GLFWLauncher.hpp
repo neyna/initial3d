@@ -15,8 +15,8 @@ namespace system {
 class GLFWLauncher : public Launcher {
 public:
 	static log4cxx::LoggerPtr logger;
-	GLFWLauncher(ScenePtr &scene);
-	GLFWLauncher(ScenePtr &scene, WindowPropertiesPtr &windowProperties);
+	GLFWLauncher(ScenePtr scene);
+	GLFWLauncher(ScenePtr scene, WindowPropertiesPtr windowProperties);
 	virtual ~GLFWLauncher();
 	virtual int run() override;
 protected:

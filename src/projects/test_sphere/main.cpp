@@ -8,8 +8,6 @@ using initial3d::stringPtr;
 using initial3d::objects::ThreeDimensionsObject;
 using initial3d::objects::ThreeDimensionObjectPtr;
 using initial3d::objects::Sphere;
-using initial3d::utils::GameInformation;
-using initial3d::utils::GameInformationPtr;
 using initial3d::utils::GameInformations;
 
 using namespace log4cxx;
@@ -19,16 +17,15 @@ LoggerPtr logger(Logger::getLogger("initial3d.projects.testsphere.main"));
 int main(void) {
 
 	LOG4CXX_INFO(logger, "Entering application.");
+
+	GameInformations::getInstance().getOrCreateGameInformation(stringPtr(new string("PROGRAM_NAME")), stringPtr(new string("Test Sphere")));
+
 	ScenePtr scene = ScenePtr(new Scene());
 	WindowPropertiesPtr windowProperties = WindowPropertiesPtr(new WindowProperties(320, 240));
 	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene, windowProperties));
 
 	ThreeDimensionObjectPtr spherePtr = ThreeDimensionObjectPtr(new Sphere());
 	scene->addObject(spherePtr);
-
-	GameInformationPtr fpsGameInformationPtr(new GameInformation(
-					stringPtr(new string("PROGRAM_NAME")), stringPtr(new string("Test Sphere"))));
-			GameInformations::getInstance().addGameInformation(fpsGameInformationPtr);
 
 	try {
 		launcher->setFontPath(initial3d::stringPtr(new std::string("Timeless.ttf")));

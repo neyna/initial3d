@@ -39,13 +39,13 @@ int shouldCloseApplication = 0;
 ScenePtr actualScene;
 FontRendererPtr fontRendererPtr;
 
-GLFWLauncher::GLFWLauncher(ScenePtr &scene) : Launcher(scene) {
+GLFWLauncher::GLFWLauncher(ScenePtr scene) : Launcher(scene) {
 }
 
 GLFWLauncher::~GLFWLauncher() {
 }
 
-GLFWLauncher::GLFWLauncher(ScenePtr &scene, WindowPropertiesPtr &windowProperties) : Launcher(scene, windowProperties) {
+GLFWLauncher::GLFWLauncher(ScenePtr scene, WindowPropertiesPtr windowProperties) : Launcher(scene, windowProperties) {
 }
 
 int GLFWLauncher::run() {
@@ -101,8 +101,9 @@ int GLFWLauncher::run() {
 	scene->initAfterOpenGLLoaded();
 	actualScene = scene;
 
-	GameInformationPtr fpsGameInformationPtr(new GameInformation(stringPtr(new string("FPS")), stringPtr(new string("Frames per second :"))));
-	GameInformations::getInstance().addGameInformation(fpsGameInformationPtr);
+	GameInformationPtr fpsGameInformationPtr = GameInformations::getInstance().getOrCreateGameInformation(
+			stringPtr(new string("FPS")), stringPtr(new string("Frames per second :"))
+			);
 
 	glfwSetWindowTitle(windowPropertiesPtr->getWindowTitle()->c_str());
 

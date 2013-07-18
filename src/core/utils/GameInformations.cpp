@@ -13,12 +13,23 @@ void GameInformations::render(FontRendererPtr& fontRenderer) {
 
 	fontRenderer->reset();
 	for (GameInformationPtr gameInformationPtr : gameInformations) {
-		fontRenderer->renderNewLine(gameInformationPtr->getDisplayText());
+		fontRenderer->renderNewLine(gameInformationPtr->computeAndGetDisplayText());
 	}
 }
 
 void GameInformations::addGameInformation(GameInformationPtr gameInformationPtr) {
 	gameInformations.push_back(gameInformationPtr);
+}
+
+GameInformationPtr GameInformations::getOrCreateGameInformation(stringPtr name, stringPtr text) {
+	for (GameInformationPtr gameInformationPtr : gameInformations) {
+		if( (*gameInformationPtr->getName().get()) == (*name.get()) ) {
+			return gameInformationPtr;
+		}
+	}
+	GameInformationPtr result(new GameInformation(name, text));
+	gameInformations.push_back(result);
+	return result;
 }
 
 GameInformations::GameInformations() {

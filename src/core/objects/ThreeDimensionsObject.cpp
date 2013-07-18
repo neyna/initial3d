@@ -2,6 +2,8 @@
 #include "../utils/ShaderLoader.hpp"
 #include "../utils/ShadersLibrary.hpp"
 #include "../utils/OpenGLUtils.hpp"
+#include "../utils/PolygonNumberGameInformation.hpp"
+#include "../utils/GameInformations.hpp"
 
 using glm::mat4;
 using std::shared_ptr;
@@ -10,6 +12,10 @@ using std::string;
 using initial3d::utils::printOpenGLErrors;
 using initial3d::utils::ShaderLoader;
 using initial3d::utils::ShadersLibrary;
+
+using initial3d::utils::GameInformations;
+using initial3d::utils::GameInformationPtr;
+using initial3d::utils::PolygonNumberGameInformation;
 
 namespace initial3d {
 namespace objects {
@@ -117,6 +123,12 @@ void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
 	if(colorMode == ARRAY_COLOR) {
 		glDisableVertexAttribArray(1);
 	}
+
+	GameInformationPtr polygonGameInfoPtr =
+			GameInformations::getInstance().getOrCreateGameInformation(PolygonNumberGameInformation::POLYGON_NUMBER);
+	PolygonNumberGameInformation* polygonGameInfo = (PolygonNumberGameInformation*)polygonGameInfoPtr.get();
+	polygonGameInfo->addPolygons(vertexNumber / numberOfComponentPerVertex / 3);
+
 
 	printOpenGLErrors();
 }

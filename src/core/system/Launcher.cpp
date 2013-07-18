@@ -1,5 +1,7 @@
 #include "Launcher.hpp"
 #include "../exception/Initial3dException.hpp"
+#include "../utils/PolygonNumberGameInformation.hpp"
+#include "../utils/GameInformations.hpp"
 #include <fstream>
 
 using log4cxx::LoggerPtr;
@@ -7,22 +9,28 @@ using log4cxx::Logger;
 using initial3d::exception::Initial3dException;
 using boost::format;
 
+using initial3d::utils::GameInformations;
+using initial3d::utils::GameInformationPtr;
+using initial3d::utils::PolygonNumberGameInformation;
+
 namespace initial3d {
 namespace system {
 
 LoggerPtr Launcher::logger = LoggerPtr(Logger::getLogger("initial3d.system.Launcher"));
 
-Launcher::Launcher(ScenePtr &scene) {
-	this->scene = scene;
-	this->windowPropertiesPtr = WindowPropertiesPtr(new WindowProperties());
-}
 
 Launcher::~Launcher() {
 }
 
-Launcher::Launcher(ScenePtr &scene, WindowPropertiesPtr &windowProperties) {
+Launcher::Launcher(ScenePtr scene, WindowPropertiesPtr windowProperties) {
 	this->scene = scene;
 	this->windowPropertiesPtr = windowProperties;
+
+	GameInformationPtr PolygonNumberGameInformationPtr = GameInformationPtr(new PolygonNumberGameInformation());
+	GameInformations::getInstance().addGameInformation(PolygonNumberGameInformationPtr);
+}
+
+Launcher::Launcher(ScenePtr scene) : Launcher(scene, WindowPropertiesPtr(new WindowProperties())) {
 }
 
 int Launcher::run() {

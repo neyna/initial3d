@@ -12,11 +12,13 @@ public:
 	virtual ~GameInformation();
 	void updateDisplayText(stringPtr displayText);
 
-	const stringPtr& getDisplayText() const {
-		return displayText;
+	virtual stringPtr computeAndGetDisplayText();
+
+	const stringPtr& getName() const {
+		return name;
 	}
 
-private:
+protected:
 	stringPtr name = nullptr;
 	stringPtr displayText = nullptr;
 };

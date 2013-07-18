@@ -1,6 +1,12 @@
 #include "Scene.hpp"
+#include "../utils/PolygonNumberGameInformation.hpp"
+#include "../utils/GameInformations.hpp"
 
 using namespace std;
+
+using initial3d::utils::GameInformations;
+using initial3d::utils::GameInformationPtr;
+using initial3d::utils::PolygonNumberGameInformation;
 
 namespace initial3d {
 namespace scene {
@@ -44,6 +50,12 @@ void Scene::addObject(ThreeDimensionObjectPtr &threeDimensionObjectPtr) {
 }
 
 void Scene::draw() {
+	GameInformationPtr polygonGameInfoPtr =
+				GameInformations::getInstance().getOrCreateGameInformation(PolygonNumberGameInformation::POLYGON_NUMBER);
+	PolygonNumberGameInformation* polygonGameInfo = (PolygonNumberGameInformation*)polygonGameInfoPtr.get();
+	polygonGameInfo->resetPolygonNumber();
+
+
 	camera->update();
 	std::shared_ptr<glm::mat4> viewProjectionMatrix = camera->getViewProjectionMatrix();
 

@@ -34,6 +34,8 @@ int main(void) {
 	LauncherPtr launcher = LauncherPtr(new GLFWLauncher(scene, windowProperties));
 
 	try {
+		launcher->setFontPath(initial3d::stringPtr(new std::string("Timeless.ttf")));
+
 		return launcher->run();
 	} catch(Initial3dException &e) {
 		LOG4CXX_FATAL(logger, std::string(e.getMessage()));

@@ -22,8 +22,8 @@ typedef std::shared_ptr<WindowProperties> WindowPropertiesPtr;
 class Launcher {
 public:
 	static log4cxx::LoggerPtr logger;
-	Launcher(ScenePtr &scene);
-	Launcher(ScenePtr &scene, WindowPropertiesPtr &windowProperties);
+	Launcher(ScenePtr scene);
+	Launcher(ScenePtr scene, WindowPropertiesPtr windowProperties);
 	virtual ~Launcher();
 	virtual int run();
 
