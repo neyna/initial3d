@@ -19,6 +19,7 @@ public:
 	void moveLeft(double unitsToMove);
 	void moveUp(double unitsToMove);
 	void moveDown(double unitsToMove);
+	virtual void update();
 protected:
 	static log4cxx::LoggerPtr logger;
 	/**

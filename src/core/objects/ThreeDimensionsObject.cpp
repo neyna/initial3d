@@ -127,7 +127,7 @@ void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
 	GameInformationPtr polygonGameInfoPtr =
 			GameInformations::getInstance().getOrCreateGameInformation(PolygonNumberGameInformation::POLYGON_NUMBER);
 	PolygonNumberGameInformation* polygonGameInfo = (PolygonNumberGameInformation*)polygonGameInfoPtr.get();
-	polygonGameInfo->addPolygons(vertexNumber / numberOfComponentPerVertex / 3);
+	polygonGameInfo->addPolygons(vertexNumber / numberOfComponentPerVertex / 3); // 3 because we are in GL_TRIANGLES mode, will change if TRIANGLE_STRIP for example
 
 
 	printOpenGLErrors();

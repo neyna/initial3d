@@ -43,6 +43,15 @@ void Scene::setCamera(shared_ptr<Camera> &camera) {
 }
 
 void Scene::keyPressed(KeyCode keyCode) {
+	for(ControlHandlerPtr controlHandlerPtr : controlHandlers) {
+		controlHandlerPtr->keyPressed(keyCode);
+	}
+}
+
+void Scene::keyReleased(KeyCode keyCode) {
+	for(ControlHandlerPtr controlHandlerPtr : controlHandlers) {
+		controlHandlerPtr->keyReleased(keyCode);
+	}
 }
 
 void Scene::addObject(ThreeDimensionObjectPtr &threeDimensionObjectPtr) {
@@ -68,11 +77,12 @@ void Scene::draw() {
 	}
 }
 
-void Scene::keyReleased(KeyCode keyCode) {
-}
-
 void Scene::setWireFrameRendering(bool status) {
 	this->wireframeRendering = status;
+}
+
+void Scene::registerControlHandler(ControlHandlerPtr controlHandlerPtr) {
+	controlHandlers.push_back(controlHandlerPtr);
 }
 
 void Scene::initRendering() {
@@ -84,6 +94,7 @@ void Scene::initRendering() {
 	glDepthFunc(GL_LESS);
 
 	// Cull triangles which normal is not towards the camera
+	// defined by glFrontFace : front-facing polygons is GL_CCW by default
 	glEnable(GL_CULL_FACE);
 
 	// Clear the screen

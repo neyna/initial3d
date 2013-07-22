@@ -9,6 +9,9 @@
 
 #include "exception/Initial3dException.hpp"
 
+#include "controls/ControlHandler.hpp"
+#include "controls/SphericalCameraControlHandler.hpp"
+
 #include "utils/ShadersLibrary.hpp"
 #include "objects/ThreeDimensionsObject.hpp"
 #include "objects/Sphere.hpp"

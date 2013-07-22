@@ -4,8 +4,10 @@
 #include "../initial3d_basics.hpp"
 #include "../objects/ThreeDimensionsObject.hpp"
 #include "Camera.hpp"
+#include "../controls/ControlHandler.hpp"
 
 using initial3d::objects::ThreeDimensionObjectPtr;
+using initial3d::control::ControlHandlerPtr;
 
 namespace initial3d {
 namespace scene {
@@ -44,9 +46,12 @@ public:
 
 	void setWireFrameRendering(bool status);
 
+	void registerControlHandler(ControlHandlerPtr controlHandlerPtr);
+
 protected:
 	std::shared_ptr<Camera> camera;
 	std::vector<ThreeDimensionObjectPtr> threeDimensionsObjects;
+	std::vector<ControlHandlerPtr> controlHandlers;
 	bool wireframeRendering;
 
 private:

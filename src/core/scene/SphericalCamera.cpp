@@ -45,6 +45,10 @@ void SphericalCamera::moveDown(double unitsToMove) {
 	moveUp(-unitsToMove);
 }
 
+void SphericalCamera::update() {
+	this->lookAt(position, lookAtPoint, up);
+}
+
 /**
  * horizontalVector must be normalized
  */
