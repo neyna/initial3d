@@ -85,6 +85,13 @@ void Scene::registerControlHandler(ControlHandlerPtr controlHandlerPtr) {
 	controlHandlers.push_back(controlHandlerPtr);
 }
 
+void Scene::registerCameraControlHandlers() {
+	std::vector<ControlHandlerPtr> cameraControlHandlers = camera->getControlHandlers();
+	for(ControlHandlerPtr controlHandlerPtr: cameraControlHandlers) {
+		controlHandlers.push_back(controlHandlerPtr);
+	}
+}
+
 void Scene::initRendering() {
 	// Dark background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

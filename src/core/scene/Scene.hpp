@@ -47,6 +47,10 @@ public:
 	void setWireFrameRendering(bool status);
 
 	void registerControlHandler(ControlHandlerPtr controlHandlerPtr);
+	/**
+	 * Register all camera's ControlHandler to this scene
+	 */
+	void registerCameraControlHandlers();
 
 protected:
 	std::shared_ptr<Camera> camera;

@@ -20,9 +20,8 @@ public:
 	 */
 	SphereRunningCamera(const glm::vec3 &initialPosition = glm::vec3(4,3,3),
 			const glm::vec3 &lookAtPoint = glm::vec3(0,0,0), const glm::vec3 &up = glm::vec3(0,0,1),
-			double vecticalSpeed = 0.1f, double horizontalSpeed = -0.1f);
+			double vecticalSpeed = -3.0f, double horizontalSpeed = 3.0f);
 	virtual ~SphereRunningCamera();
-	virtual void update();
 
 	void setRotating(bool rotating);
 
@@ -30,6 +29,9 @@ public:
 	double horizontalSpeed;
 protected:
 	bool isRotating = true;
+
+private:
+	void updateMovement();
 };
 
 } /* namespace simplecamera */

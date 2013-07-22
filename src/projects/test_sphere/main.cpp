@@ -9,9 +9,6 @@ using initial3d::objects::ThreeDimensionsObject;
 using initial3d::objects::ThreeDimensionObjectPtr;
 using initial3d::objects::Sphere;
 using initial3d::utils::GameInformations;
-
-using initial3d::control::ControlHandlerPtr;
-using initial3d::control::SphericalCameraControlHandler;
 using initial3d::scene::SphericalCamera;
 
 using namespace log4cxx;
@@ -27,9 +24,7 @@ int main(void) {
 	std::shared_ptr<Camera> camera(new SphericalCamera());
 	ScenePtr scene = ScenePtr(new Scene(camera));
 	// add controls
-	ControlHandlerPtr controlHandlerPtr(new SphericalCameraControlHandler((SphericalCamera*)camera.get()));
-	scene->registerControlHandler(controlHandlerPtr);
-	// todo (instead of the above code) : scene->registerDefaultCameraControlHandlers();
+	scene->registerCameraControlHandlers();
 
 
 	WindowPropertiesPtr windowProperties = WindowPropertiesPtr(new WindowProperties(320, 240));

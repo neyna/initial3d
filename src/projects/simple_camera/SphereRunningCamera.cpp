@@ -16,25 +16,25 @@ LoggerPtr SphereRunningCamera::logger = LoggerPtr(Logger::getLogger("initial3d.p
 
 SphereRunningCamera::SphereRunningCamera(const vec3 &initialPosition, const vec3 &lookAtPoint, const glm::vec3 &up, double vecticalSpeed, double horizontalSpeed) :
 		SphericalCamera(initialPosition, lookAtPoint, up), vecticalSpeed(vecticalSpeed), horizontalSpeed(horizontalSpeed) {
+	updateMovement();
 }
 
-void SphereRunningCamera::update() {
-	if(isRotating) {
+SphereRunningCamera::~SphereRunningCamera() {
+}
+
+void SphereRunningCamera::updateMovement() {
+	if (isRotating) {
 		this->startMoving(SphericalCamera::Direction::RIGHT, horizontalSpeed);
 		this->startMoving(SphericalCamera::Direction::UP, vecticalSpeed);
 	} else {
 		this->stopMoving(SphericalCamera::Direction::RIGHT);
 		this->stopMoving(SphericalCamera::Direction::UP);
 	}
-
-	SphericalCamera::update();
-}
-
-SphereRunningCamera::~SphereRunningCamera() {
 }
 
 void SphereRunningCamera::setRotating(bool rotating) {
 	isRotating = rotating;
+	updateMovement();
 }
 
 } /* namespace simplecamera */

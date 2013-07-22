@@ -48,8 +48,6 @@ static const GLfloat g_color_buffer_data[] = {
 
 SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunningCamera())) {
 	SphereRunningCamera *sphereRunningCamera = (SphereRunningCamera*) (camera.get());
-	sphereRunningCamera->horizontalSpeed = 3.0f;
-	sphereRunningCamera->vecticalSpeed = -3.0f;
 
 	simpleTetrahedronPtr = std::shared_ptr<ThreeDimensionsObject>(new ThreeDimensionsObject(
 				sizeof(GLfloat),														// size_t of vertices datatype

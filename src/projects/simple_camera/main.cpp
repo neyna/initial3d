@@ -8,9 +8,6 @@ using namespace initial3d::system;
 using namespace initial3d::projects::simplecamera;
 
 using initial3d::utils::GameInformations;
-using initial3d::control::ControlHandlerPtr;
-using initial3d::control::SphericalCameraControlHandler;
-using initial3d::scene::SphericalCamera;
 
 using namespace log4cxx;
 using namespace std;
@@ -45,10 +42,7 @@ int main(void) {
 
 	generateDisplayInformations();
 	ScenePtr scene = ScenePtr(new SimpleCameraScene());
-
-	// add controls
-	ControlHandlerPtr controlHandlerPtr(new SphericalCameraControlHandler((SphericalCamera*)scene->getCamera().get()));
-	scene->registerControlHandler(controlHandlerPtr);
+	scene->registerCameraControlHandlers();
 
 	stringPtr windowTitle;
 	computeWindowTitle(windowTitle);

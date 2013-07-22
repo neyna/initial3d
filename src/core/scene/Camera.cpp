@@ -35,5 +35,9 @@ std::shared_ptr<glm::mat4> Camera::getViewProjectionMatrix() {
 void Camera::update() {
 }
 
+std::vector<ControlHandlerPtr>& Camera::getControlHandlers() {
+	return controlHandlers;
+}
+
 } /* namespace scene */
 } /* namespace initial3d */

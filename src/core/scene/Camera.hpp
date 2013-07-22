@@ -2,6 +2,9 @@
 #define CAMERA_H_
 
 #include "../initial3d_basics.hpp"
+#include "../controls/ControlHandler.hpp"
+
+using initial3d::control::ControlHandlerPtr;
 
 namespace initial3d {
 namespace scene {
@@ -23,9 +26,11 @@ public:
 	 * Implementations should update position, lookAt, etc ...
 	 */
 	virtual void update();
+	std::vector<ControlHandlerPtr> &getControlHandlers();
 protected:
 	glm::mat4 projection;
 	glm::mat4 view;
+	std::vector<ControlHandlerPtr> controlHandlers = std::vector<ControlHandlerPtr>(0);
 };
 
 } /* namespace scene */

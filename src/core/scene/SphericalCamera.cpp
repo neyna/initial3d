@@ -1,5 +1,6 @@
 #include "SphericalCamera.hpp"
 #include "../system/System.hpp"
+#include "../controls/SphericalCameraControlHandler.hpp"
 
 using glm::cross;
 using glm::normalize;
@@ -11,6 +12,7 @@ using log4cxx::Logger;
 using boost::format;
 
 using initial3d::system::getTime;
+using initial3d::control::SphericalCameraControlHandler;
 
 namespace initial3d {
 namespace scene {
@@ -27,6 +29,8 @@ SphericalCamera::SphericalCamera(const glm::vec3 &initialPosition, const glm::ve
 					+ pow(initialPosition.y - lookAtPoint.y, 2)
 					+ pow(initialPosition.z - lookAtPoint.z, 2));
 	lastTime = getTime();
+
+	controlHandlers.push_back(ControlHandlerPtr(new SphericalCameraControlHandler(this)));
 }
 
 SphericalCamera::~SphericalCamera() {
