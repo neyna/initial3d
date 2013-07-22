@@ -1,4 +1,5 @@
 #include "SphericalCamera.hpp"
+#include "../system/System.hpp"
 
 using glm::cross;
 using glm::normalize;
@@ -9,10 +10,14 @@ using log4cxx::LoggerPtr;
 using log4cxx::Logger;
 using boost::format;
 
+using initial3d::system::getTime;
+
 namespace initial3d {
 namespace scene {
 
 LoggerPtr SphericalCamera::logger = LoggerPtr(Logger::getLogger("initial3d.scene.SphericalCamera"));
+std::vector<SphericalCamera::Direction> SphericalCamera::ALL_DIRECTIONS = {
+		SphericalCamera::Direction::UP, SphericalCamera::Direction::DOWN, SphericalCamera::Direction::LEFT, SphericalCamera::Direction::RIGHT};
 
 SphericalCamera::SphericalCamera(const glm::vec3 &initialPosition, const glm::vec3 &lookAtPoint, const glm::vec3 &up)
 	: position(initialPosition), lookAtPoint(lookAtPoint), up(up) {
@@ -21,7 +26,7 @@ SphericalCamera::SphericalCamera(const glm::vec3 &initialPosition, const glm::ve
 			pow(initialPosition.x - lookAtPoint.x, 2)
 					+ pow(initialPosition.y - lookAtPoint.y, 2)
 					+ pow(initialPosition.z - lookAtPoint.z, 2));
-
+	lastTime = getTime();
 }
 
 SphericalCamera::~SphericalCamera() {
@@ -46,7 +51,45 @@ void SphericalCamera::moveDown(double unitsToMove) {
 }
 
 void SphericalCamera::update() {
+	double newTime = getTime();
+	double deltaTime = newTime - lastTime;
+	lastTime = newTime;
+
+	if(deltaTime > 0) {
+		for (SphericalCamera::Direction direction : ALL_DIRECTIONS) {
+			move(direction, deltaTime * movingSpeeds[direction]);
+		}
+	}
 	this->lookAt(position, lookAtPoint, up);
+}
+
+void SphericalCamera::move(Direction direction, double unitsToMove) {
+	switch(direction) {
+	case UP:
+		moveUp(unitsToMove);
+		break;
+	case DOWN:
+		moveDown(unitsToMove);
+		break;
+	case LEFT:
+		moveLeft(unitsToMove);
+		break;
+	case RIGHT:
+		moveRight(unitsToMove);
+		break;
+	default:
+		break;
+	}
+}
+
+void SphericalCamera::startMoving(Direction direction, double speed) {
+	isMoving = true;
+	movingSpeeds[direction] = speed;
+}
+
+void SphericalCamera::stopMoving(Direction direction) {
+	isMoving = false;
+	movingSpeeds[direction] = 0.0f;
 }
 
 /**

@@ -28,16 +28,19 @@ void computeWindowTitle(stringPtr &windowTitle) {
 void generateDisplayInformations() {
 	GameInformations::getInstance().getOrCreateGameInformation(
 			stringPtr(new string("INSTRUCTIONS_1")),
-			stringPtr(new string("Controls : Esc to exit / Space to pause - A to resume ")));
+			stringPtr(new string("Controls : Esc to exit / Space to toggle rotation")));
 	GameInformations::getInstance().getOrCreateGameInformation(
 			stringPtr(new string("INSTRUCTIONS_2")),
 			stringPtr(new string("left-right-up-down to rotate the camera")));
+	GameInformations::getInstance().getOrCreateGameInformation(
+			stringPtr(new string("INSTRUCTIONS_3")),
+			stringPtr(new string("B to toggle wireframe rendering")));
 }
 
 int main(void) {
 
 	LOG4CXX_INFO(logger, "Controls :");
-	LOG4CXX_INFO(logger, "Esc to exit / Space to pause - A to resume / left-right-up-down to rotate the camera");
+	LOG4CXX_INFO(logger, "Esc to exit / Space to toggle rotation / left-right-up-down to rotate the camera");
 	LOG4CXX_INFO(logger, "Entering application.");
 
 	generateDisplayInformations();

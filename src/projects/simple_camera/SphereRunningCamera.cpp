@@ -15,37 +15,26 @@ LoggerPtr SphereRunningCamera::logger = LoggerPtr(Logger::getLogger("initial3d.p
 
 
 SphereRunningCamera::SphereRunningCamera(const vec3 &initialPosition, const vec3 &lookAtPoint, const glm::vec3 &up, double vecticalSpeed, double horizontalSpeed) :
-		SphericalCamera(initialPosition, lookAtPoint, up), vecticalSpeed(vecticalSpeed), horizontalSpeed(horizontalSpeed), isMoving(true) {
-	currentTime = getTime();
+		SphericalCamera(initialPosition, lookAtPoint, up), vecticalSpeed(vecticalSpeed), horizontalSpeed(horizontalSpeed) {
 }
 
 void SphereRunningCamera::update() {
-	double newTime = getTime();
-	double deltaTime = newTime - currentTime;
-	currentTime = newTime;
-
-	if( ! (deltaTime)>0 ) {
-		return;
+	if(isRotating) {
+		this->startMoving(SphericalCamera::Direction::RIGHT, horizontalSpeed);
+		this->startMoving(SphericalCamera::Direction::UP, vecticalSpeed);
+	} else {
+		this->stopMoving(SphericalCamera::Direction::RIGHT);
+		this->stopMoving(SphericalCamera::Direction::UP);
 	}
 
-	if(isMoving) {
-		this->moveRight(horizontalSpeed);
-		this->moveUp(vecticalSpeed);
-	}
-
-	this->lookAt(position, lookAtPoint, up);
+	SphericalCamera::update();
 }
 
 SphereRunningCamera::~SphereRunningCamera() {
-
 }
 
-void SphereRunningCamera::stopRotation() {
-	isMoving = false;
-}
-
-void SphereRunningCamera::continueRotation() {
-	isMoving = true;
+void SphereRunningCamera::setRotating(bool rotating) {
+	isRotating = rotating;
 }
 
 } /* namespace simplecamera */

@@ -191,7 +191,6 @@ void GLFWCALL keyboardCallback(int keyIdentifier, int keyState) {
 }
 
 void GLFWCALL mouseButtonCallback(int buttonIdentifier, int buttonState) {
-	LOG4CXX_DEBUG(GLFWLauncher::logger, format("process id :  %d") % getpid());
 	int x, y;
 	// top left corner
 	glfwGetMousePos(&x, &y);

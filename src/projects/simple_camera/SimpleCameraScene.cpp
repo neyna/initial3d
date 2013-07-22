@@ -48,8 +48,8 @@ static const GLfloat g_color_buffer_data[] = {
 
 SimpleCameraScene::SimpleCameraScene() : Scene(shared_ptr<Camera>(new SphereRunningCamera())) {
 	SphereRunningCamera *sphereRunningCamera = (SphereRunningCamera*) (camera.get());
-	sphereRunningCamera->horizontalSpeed = 0.1f;
-	sphereRunningCamera->vecticalSpeed = -0.1f;
+	sphereRunningCamera->horizontalSpeed = 3.0f;
+	sphereRunningCamera->vecticalSpeed = -3.0f;
 
 	simpleTetrahedronPtr = std::shared_ptr<ThreeDimensionsObject>(new ThreeDimensionsObject(
 				sizeof(GLfloat),														// size_t of vertices datatype
@@ -70,13 +70,12 @@ void SimpleCameraScene::keyPressed(KeyCode keyCode) {
 	SphereRunningCamera *sphereRunningCamera = (SphereRunningCamera*) (camera.get());
 	switch(keyCode) {
 	case KEY_SPACE:
-		sphereRunningCamera->stopRotation();
-		break;
-	case KEY_65: //A
-		sphereRunningCamera->continueRotation();
+		sphereRunningCamera->setRotating(toogleRotation);
+		toogleRotation = !toogleRotation;
 		break;
 	case KEY_66: //B
-		setWireFrameRendering(true);
+		setWireFrameRendering(toogleWireframeRendering);
+		toogleWireframeRendering = !toogleWireframeRendering;
 		break;
 	default:
 		break;

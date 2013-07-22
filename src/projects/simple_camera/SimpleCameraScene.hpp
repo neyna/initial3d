@@ -18,6 +18,8 @@ public:
 	virtual void keyReleased(KeyCode keyCode);
 private:
 	std::shared_ptr<ThreeDimensionsObject> simpleTetrahedronPtr;
+	bool toogleRotation = false;
+	bool toogleWireframeRendering = true;
 };
 
 }

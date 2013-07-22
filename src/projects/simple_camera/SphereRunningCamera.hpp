@@ -24,14 +24,12 @@ public:
 	virtual ~SphereRunningCamera();
 	virtual void update();
 
-	void stopRotation();
-	void continueRotation();
+	void setRotating(bool rotating);
 
 	double vecticalSpeed;
 	double horizontalSpeed;
 protected:
-	double currentTime = 0.0f;
-	bool isMoving = false;
+	bool isRotating = true;
 };
 
 } /* namespace simplecamera */
