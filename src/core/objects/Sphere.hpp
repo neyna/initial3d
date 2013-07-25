@@ -21,10 +21,10 @@ public:
 	Sphere(float radius = 1.0f, int numberOfSubdivision = 0);
 	virtual ~Sphere();
 
-	virtual void draw(std::shared_ptr<glm::mat4> &modelViewProjectionMatrix);
 	void changeNumberOfSubdivision(int numberOfSubdivision);
+	void setRadius(float radius);
+
 protected:
-	float radius = 1.0f;
 	std::vector<glm::vec3> data;
 	std::vector<GLfloat> glData;
 	/**
@@ -36,7 +36,6 @@ private:
 	void computeData();
 	void computeOctahedron();
 	void computeSubdivision();
-	glm::vec3 computeMiddle(const glm::vec3& point1, const glm::vec3& point2);
 };
 
 typedef std::shared_ptr<Sphere> SpherePtr;

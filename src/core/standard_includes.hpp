@@ -22,6 +22,7 @@
 // GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 
 // LOG4CXX
 #include <log4cxx/logger.h>

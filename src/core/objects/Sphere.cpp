@@ -1,6 +1,7 @@
 #include "Sphere.hpp"
 
 using glm::vec3;
+using glm::mat4;
 
 namespace initial3d {
 namespace objects {
@@ -44,11 +45,15 @@ void Sphere::computeOctahedron() {
 	data.push_back(vec3(0, 0, -1));
 }
 
-vec3 Sphere::computeMiddle(const vec3& point1, const vec3& point2) {
+inline vec3 computeMiddle(const vec3& point1, const vec3& point2) {
 	// compute the middle, no need to divide his length by 2 because we normalize it after
 	vec3 middle1 = (point1 + point2);
-	middle1 = middle1 * (radius / glm::length(middle1));
+	middle1 = middle1 / glm::length(middle1);
 	return middle1;
+}
+
+void Sphere::setRadius(float radius) {
+	scalingFactor = radius;
 }
 
 void Sphere::computeSubdivision() {
@@ -103,19 +108,12 @@ void Sphere::computeData() {
 	vertexPostionData = glData.data();
 }
 
-Sphere::Sphere(float radius, int numberOfSubdivision) : ThreeDimensionsObject(sizeof(GLfloat), 3), radius(radius),
-		numberOfSubdivision(numberOfSubdivision) {
+Sphere::Sphere(float radius, int numberOfSubdivision) : ThreeDimensionsObject(sizeof(GLfloat), 3), numberOfSubdivision(numberOfSubdivision) {
+	scalingFactor = radius;
 	computeData();
 }
 
 Sphere::~Sphere() {
-}
-
-void Sphere::draw(std::shared_ptr<glm::mat4>& modelViewProjectionMatrix) {
-	// since we keep the inner model with a radius of 1.0f, we need to scale the object
-//	glm::mat4 modelViewProjectionMatrixWithScale = modelViewProjectionMatrix * glm::scale(radius, radius, radius);
-	ThreeDimensionsObject::draw(modelViewProjectionMatrix);
-	//glm::mat4 myScalingMatrix = glm::scale(2.0f, 2.0f ,2.0f);
 }
 
 void Sphere::changeNumberOfSubdivision(int numberOfSubdivision) {

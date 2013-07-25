@@ -72,11 +72,15 @@ void ThreeDimensionsObject::setPosition(glm::vec3 &position) {
 }
 
 void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
+	// scaling object
+	mat4 modelViewProjectionMatrixWithScale =
+			*modelViewProjectionMatrix.get() * glm::scale(scalingFactor, scalingFactor, scalingFactor);
+
 	// use the shaders
 	glUseProgram(programId);
 
 	GLuint matrixId = glGetUniformLocation(programId, "MVP");
-	glUniformMatrix4fv(matrixId, 1, GL_FALSE, &(*modelViewProjectionMatrix.get())[0][0]);
+	glUniformMatrix4fv(matrixId, 1, GL_FALSE, &modelViewProjectionMatrixWithScale[0][0]);
 
 	GLuint colorModeId = glGetUniformLocation(programId, "colorMode");
 	glUniform1i(colorModeId, colorMode);

@@ -45,6 +45,7 @@ protected:
 	void renewOpenGLBuffers();
 
 	glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
+	float scalingFactor = 1.0f;
 
 	stringPtr vertexShaderSource = nullptr;
 	stringPtr fragmentShaderSource = nullptr;

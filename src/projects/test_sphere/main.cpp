@@ -41,6 +41,8 @@ int main(void) {
 	ThreeDimensionObjectPtr spherePtr = ThreeDimensionObjectPtr(new Sphere());
 	glm::vec3 color(0.3f, 0.5f, 0.3f);
 	spherePtr->setColor(color);
+	((Sphere*)spherePtr.get())->setRadius(1.5f);
+
 	scene->addObject(spherePtr);
 	ControlHandlerPtr sphereControlHandler(new SphereControlHandler((Sphere*)spherePtr.get(), scene));
 	scene->registerControlHandler(sphereControlHandler);
