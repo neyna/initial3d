@@ -21,25 +21,12 @@ namespace initial3d {
 namespace objects {
 
 ThreeDimensionsObject::~ThreeDimensionsObject() {
-	// release buffers
-	glDeleteBuffers(1, &vertexbufferId);
-	if( vertexColorData != NULL ) {
-		glDeleteBuffers(1, &colorArrayId);
-	}
+	destroyOpenGLBuffers();
 }
 
 void ThreeDimensionsObject::initAfterOpenGLLoaded() {
-	// vertex buffer
-	glGenBuffers(1, &vertexbufferId);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbufferId);
-	glBufferData(GL_ARRAY_BUFFER, vertexNumber * dataSize, vertexPostionData, GL_STATIC_DRAW);
 
-	// color buffer
-	if( vertexColorData != NULL ) {
-		glGenBuffers(1, &colorArrayId);
-		glBindBuffer(GL_ARRAY_BUFFER, colorArrayId);
-		glBufferData(GL_ARRAY_BUFFER, vertexNumber * dataSize, vertexColorData, GL_STATIC_DRAW);
-	}
+	createOpenGLBuffers();
 
 	shared_ptr<vector<string>> parameterNamesPtr(new vector<string>( {string("vertexPosition"), string("vertexColor") }));
 	programId = ShaderLoader::loadShaders(vertexShaderSource, fragmentShaderSource, parameterNamesPtr);
@@ -131,6 +118,31 @@ void ThreeDimensionsObject::draw(shared_ptr<mat4> &modelViewProjectionMatrix) {
 
 
 	printOpenGLErrors();
+}
+
+void ThreeDimensionsObject::createOpenGLBuffers() {
+	glGenBuffers(1, &vertexbufferId);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbufferId);
+	glBufferData(GL_ARRAY_BUFFER, vertexNumber * dataSize, vertexPostionData, GL_STATIC_DRAW);
+
+	// color buffer
+	if (vertexColorData != NULL) {
+		glGenBuffers(1, &colorArrayId);
+		glBindBuffer(GL_ARRAY_BUFFER, colorArrayId);
+		glBufferData(GL_ARRAY_BUFFER, vertexNumber * dataSize, vertexColorData, GL_STATIC_DRAW);
+	}
+}
+
+void ThreeDimensionsObject::destroyOpenGLBuffers() {
+	glDeleteBuffers(1, &vertexbufferId);
+		if( vertexColorData != NULL ) {
+			glDeleteBuffers(1, &colorArrayId);
+	}
+}
+
+void ThreeDimensionsObject::renewOpenGLBuffers() {
+	destroyOpenGLBuffers();
+	createOpenGLBuffers();
 }
 
 }

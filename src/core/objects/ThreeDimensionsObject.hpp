@@ -40,6 +40,9 @@ public:
 protected:
 	ThreeDimensionsObject(size_t dataSize, uint numberOfComponentPerVertex,
 			std::string* vertexShaderSource, std::string* fragmentShaderSource);
+	void createOpenGLBuffers();
+	void destroyOpenGLBuffers();
+	void renewOpenGLBuffers();
 
 	glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f);
 

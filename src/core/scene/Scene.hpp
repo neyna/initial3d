@@ -45,6 +45,7 @@ public:
 	virtual void keyReleased(KeyCode keyCode);
 
 	void setWireFrameRendering(bool status);
+	void toggleWireFrameRendering();
 
 	void registerControlHandler(ControlHandlerPtr controlHandlerPtr);
 	/**

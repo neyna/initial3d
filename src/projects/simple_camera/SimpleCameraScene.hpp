@@ -19,7 +19,6 @@ public:
 private:
 	std::shared_ptr<ThreeDimensionsObject> simpleTetrahedronPtr;
 	bool toogleRotation = false;
-	bool toogleWireframeRendering = true;
 };
 
 }

@@ -42,9 +42,9 @@ void SphericalCamera::moveUp(double unitsToMove) {
 	// compute new position which will not be on the sphere
 	vec3 newPositionNotOnSphere = position + (up * vec3(unitsToMove));
 	vec3 lookAtVector = lookAtPoint - newPositionNotOnSphere;
-	double lookAtVectorLength = length(lookAtVector);
+	float lookAtVectorLength = length(lookAtVector);
 	// comute new position
-	this->position = lookAtPoint - (lookAtVector * vec3(radius / lookAtVectorLength));
+	this->position = lookAtPoint - (lookAtVector * (radius / lookAtVectorLength));
 
 	// compute new up vector
 	this->up = normalize(cross(rightVector, lookAtVector));
@@ -106,8 +106,8 @@ void SphericalCamera::horizontalMove(const vec3& horizontalVector, double unitsT
 	// multiplying each coordinate by a scalar will multiply the norm by the absolute value of the same scalar
 	// ||a*v|| = sqrt( a*a*vx*vx + a*a**vy*vy + a*a*vz*vz ) = |a| * ||v||
 	vec3 lookAtVector = lookAtPoint - newPositionNotOnSphere;
-	double lookAtVectorLength = length(lookAtVector);
-	this->position = lookAtPoint - (lookAtVector * vec3(radius / lookAtVectorLength));
+	float lookAtVectorLength = length(lookAtVector);
+	this->position = lookAtPoint - (lookAtVector * (radius / lookAtVectorLength));
 }
 
 void SphericalCamera::moveRight(double unitsToMove) {

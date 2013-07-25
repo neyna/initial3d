@@ -15,7 +15,7 @@ public:
 	void renderNewLine(stringPtr text, double xPosition, double yPosition);
 	virtual FontBoxPtr getFontBox(stringPtr text);
 private:
-	std::shared_ptr<FTGLPixmapFont> fontPtr = nullptr;
+	FTGLPixmapFont *fontPtr = nullptr;
 };
 
 } /* namespace system */

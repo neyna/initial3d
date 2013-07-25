@@ -72,8 +72,7 @@ void SimpleCameraScene::keyPressed(KeyCode keyCode) {
 		toogleRotation = !toogleRotation;
 		break;
 	case KEY_66: //B
-		setWireFrameRendering(toogleWireframeRendering);
-		toogleWireframeRendering = !toogleWireframeRendering;
+		toggleWireFrameRendering();
 		break;
 	default:
 		break;

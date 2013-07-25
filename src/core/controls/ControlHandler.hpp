@@ -13,8 +13,8 @@ class ControlHandler {
 public:
 	ControlHandler();
 	virtual ~ControlHandler();
-	virtual void keyPressed(KeyCode keyCode);
-	virtual void keyReleased(KeyCode keyCode);
+	virtual void keyPressed(KeyCode keyCode) = 0;
+	virtual void keyReleased(KeyCode keyCode) = 0;
 };
 
 typedef std::shared_ptr<ControlHandler> ControlHandlerPtr;

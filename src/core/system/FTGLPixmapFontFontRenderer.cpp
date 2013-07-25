@@ -13,10 +13,17 @@ LoggerPtr FTGLPixmapFontFontRenderer::logger = LoggerPtr(Logger::getLogger("init
 
 FTGLPixmapFontFontRenderer::FTGLPixmapFontFontRenderer(stringPtr fontPath, int screenWidth, int screenHeight):
 		FontRenderer(screenWidth, screenHeight) {
-	fontPtr = std::shared_ptr<FTGLPixmapFont>(new FTGLPixmapFont(fontPath->c_str()));
+	fontPtr = new FTGLPixmapFont(fontPath->c_str());
+	if(fontPtr->Error()) {
+		LOG4CXX_ERROR(logger, format("Failed to initialize font '%s'") % fontPath->c_str());
+		throw Initial3dException( (format("Failed to initialize font '%s'")  % fontPath->c_str()).str().c_str() );
+	}
 }
 
 FTGLPixmapFontFontRenderer::~FTGLPixmapFontFontRenderer() {
+	// TODO find why next line creates a seg fault, seems library issue
+	// this will cause a memory leak but it's better than a seg fault
+	//delete fontPtr;
 }
 
 void FTGLPixmapFontFontRenderer::renderNewLine(stringPtr text, double xPosition, double yPosition) {
@@ -25,7 +32,7 @@ void FTGLPixmapFontFontRenderer::renderNewLine(stringPtr text, double xPosition,
 		throw Initial3dException( (format("Tried to render text '%s' while font is null")  % text->c_str()).str().c_str() );
 	}
 
-	fontPtr->FaceSize(25);
+	fontPtr->FaceSize(16);
 	FTPoint drawingPoint(xPosition, yPosition);
 	fontPtr->Render(text->c_str(), -1, drawingPoint);
 }

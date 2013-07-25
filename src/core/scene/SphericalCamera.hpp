@@ -41,7 +41,7 @@ protected:
 	 */
 	glm::vec3 up;
 
-	double radius;
+	float radius;
 	bool isMoving = false;
 	double movingSpeeds[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 	double lastTime = 0.0f;

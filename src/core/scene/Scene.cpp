@@ -92,6 +92,10 @@ void Scene::registerCameraControlHandlers() {
 	}
 }
 
+void Scene::toggleWireFrameRendering() {
+	wireframeRendering = ! wireframeRendering;
+}
+
 void Scene::initRendering() {
 	// Dark background
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
