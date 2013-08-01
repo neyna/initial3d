@@ -27,10 +27,22 @@ public:
 	 */
 	virtual void update();
 	std::vector<ControlHandlerPtr> &getControlHandlers();
+
+	/**
+	 * Change aspect and recompute projection matrix
+	 */
+	void changeAspect(float aspect = 4.0f/3.0f);
+
 protected:
+	float fovy = 0.0f;
+	float aspect = 4.0f/3.0f;
+	float near = 0.0f;
+	float far = 0.0f;
 	glm::mat4 projection;
 	glm::mat4 view;
 	std::vector<ControlHandlerPtr> controlHandlers = std::vector<ControlHandlerPtr>(0);
+private:
+	void computeProjection();
 };
 
 } /* namespace scene */

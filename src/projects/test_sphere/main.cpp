@@ -23,7 +23,6 @@ int main(void) {
 
 	LOG4CXX_INFO(logger, "Entering application.");
 
-	GameInformations::getInstance().getOrCreateGameInformation(stringPtr(new string("PROGRAM_NAME")), stringPtr(new string("Test Sphere")));
 	generateDisplayInformations();
 
 	// create scene and camera
@@ -58,6 +57,7 @@ int main(void) {
 }
 
 void generateDisplayInformations() {
+	GameInformations::getInstance().getOrCreateGameInformation(stringPtr(new string("PROGRAM_NAME")), stringPtr(new string("Test Sphere")));
 	GameInformations::getInstance().getOrCreateGameInformation(
 			stringPtr(new string("INSTRUCTIONS_1")),
 			stringPtr(new string("Controls : Esc to exit / Space to toggle rotation")));

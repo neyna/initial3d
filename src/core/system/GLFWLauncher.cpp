@@ -156,6 +156,9 @@ void GLFWCALL resizeWindowCallback(int width, int height) {
 	if(fontRendererPtr != nullptr) {
 		fontRendererPtr->widowResized(width, height);
 	}
+	if(actualScene != nullptr) {
+		actualScene->getCamera()->changeAspect(((float)width)/((float)height));
+	}
 }
 
 KeyCode translateKeyCode(int keyIdentifier) {

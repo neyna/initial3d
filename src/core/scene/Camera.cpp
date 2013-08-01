@@ -6,9 +6,9 @@ using glm::mat4;
 namespace initial3d {
 namespace scene {
 
-Camera::Camera() {
+Camera::Camera() : fovy(45.0f), aspect(4.0f / 3.0f), near(0.1f), far(100.0f)  {
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
+	computeProjection();
 	// Camera matrix
 	view = glm::lookAt(	vec3(4, 3, 3), // Camera is at (4,3,3), in World Space
 						vec3(0, 0, 0), // and looks at the origin
@@ -16,8 +16,9 @@ Camera::Camera() {
 			);
 }
 
-Camera::Camera(float & fovy, float & aspect, float & near, float & far) {
-	projection = glm::perspective(fovy, aspect, near, far);
+Camera::Camera(float & fovy, float & aspect, float & near, float & far) :
+		fovy(fovy), aspect(aspect), near(near), far(far) {
+	computeProjection();
 }
 
 Camera::~Camera() {
@@ -37,6 +38,15 @@ void Camera::update() {
 
 std::vector<ControlHandlerPtr>& Camera::getControlHandlers() {
 	return controlHandlers;
+}
+
+void Camera::changeAspect(float aspect) {
+	this->aspect = aspect;
+	computeProjection();
+}
+
+void Camera::computeProjection() {
+	projection = glm::perspective(fovy, aspect, near, far);
 }
 
 } /* namespace scene */
