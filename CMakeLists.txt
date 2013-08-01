@@ -125,7 +125,7 @@ add_custom_target(DL_DEP_TARGET ALL DEPENDS externals/glm-xxxx)
 # this line creates a bug with the eclipse project file generation plugin
 #SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
 
-set(DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/)
+#set(DIST_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/)
 
 add_subdirectory(src)
 
