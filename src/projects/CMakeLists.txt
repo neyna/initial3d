@@ -26,7 +26,7 @@ function(BuildInitial3dProject EXECUTABLE_NAME )
 endfunction(BuildInitial3dProject)
 
 # initial3d projects
-add_subdirectory(simple_camera)
-add_subdirectory(simple_triangle)
-add_subdirectory(simple_triangle_with_shaders)
-add_subdirectory(test_sphere)
+add_subdirectory(01_simple_triangle)
+add_subdirectory(02_simple_triangle_with_shaders)
+add_subdirectory(03_simple_camera)
+add_subdirectory(04_test_sphere)
