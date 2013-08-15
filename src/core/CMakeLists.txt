@@ -9,30 +9,15 @@ configure_file (
   ${CMAKE_CURRENT_BINARY_DIR}/version.hpp
   )
 
+
 # add the binary tree to the search path for include files
 # This enable us to find the test.h generated ealier
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-
-#configure header for default shaders
-SET(DEFAULT_FRAGMENT_SHADER_FILE "${CMAKE_CURRENT_SOURCE_DIR}/data/defaultFragmentShader.frag")
-SET(DEFAULT_VERTEX_SHADER_FILE "${CMAKE_CURRENT_SOURCE_DIR}/data/defaultVertexShader.vert")
-
-FILE(STRINGS ${DEFAULT_FRAGMENT_SHADER_FILE} DEFAULT_FRAGMENT_SHADER_SOURCE NEWLINE_CONSUME)
-FILE(STRINGS ${DEFAULT_VERTEX_SHADER_FILE} DEFAULT_VERTEX_SHADER_SOURCE NEWLINE_CONSUME)
-
-#replace newlines with a string substitute
-STRING(REGEX REPLACE "\n" "\\\\n" DEFAULT_FRAGMENT_SHADER_SOURCE ${DEFAULT_FRAGMENT_SHADER_SOURCE})
-STRING(REGEX REPLACE "\n" "\\\\n" DEFAULT_VERTEX_SHADER_SOURCE ${DEFAULT_VERTEX_SHADER_SOURCE})
-
-SET(SHADERSLIBRARY_CPP_IN ${CMAKE_CURRENT_SOURCE_DIR}/utils/ShadersLibrary.cpp.in)
-configure_file (
-  ${SHADERSLIBRARY_CPP_IN}
-  ${CMAKE_CURRENT_BINARY_DIR}/ShadersLibrary.cpp
-  )
+# Generate empty ShadersLibrary.cpp (we need to do it during CMake generation or it will fail to find the source for initial config. The real file will be generated on each build after)
+execute_process(COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/ShadersLibrary.cpp)
 # need this to compile ShadersLibrary.cpp (add the directory where is its header to -I)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utils)
-
 
 FILE(GLOB_RECURSE INITIAL3D_HEADER *.hpp)
 SET(INITIAL3D_HEADER ${INITIAL3D_HEADER} ${CMAKE_CURRENT_BINARY_DIR}/version.hpp)
@@ -47,15 +32,15 @@ SET(INITIAL3D_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR
 ADD_LIBRARY(initial3d STATIC ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE})
 
 # workaround to be sure that ShadersLibrary.cpp is generated each time there are modification in the shader sources
-# Touch doesnt bother git, it sees there is no modification
-# works on windows through cmake touch
-add_custom_command( OUTPUT refresh_ShadersLibrary_command
-                    DEPENDS ${DEFAULT_FRAGMENT_SHADER_FILE}
-                            ${DEFAULT_VERTEX_SHADER_FILE}
-                    COMMAND ${CMAKE_COMMAND} -E touch ${SHADERSLIBRARY_CPP_IN}
- )
-ADD_CUSTOM_TARGET( refresh_ShadersLibrary DEPENDS refresh_ShadersLibrary_command )
-add_dependencies( initial3d refresh_ShadersLibrary )
+SET(SHADERSLIBRARY_CPP_IN ${CMAKE_CURRENT_SOURCE_DIR}/utils/ShadersLibrary.cpp.in)
+ADD_CUSTOM_TARGET(refresh_ShadersLibrary
+                  DEPENDS ${DEFAULT_FRAGMENT_SHADER_FILE}
+                          ${DEFAULT_VERTEX_SHADER_FILE}
+                  # Note that -P must be the last flag, or the -D flags won't work.
+                  COMMAND ${CMAKE_COMMAND} -DSHADERSLIBRARY_CPP_IN=${SHADERSLIBRARY_CPP_IN} -DMY_CURRENT_SOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -DMY_CURRENT_BINARY_DIR=${CMAKE_CURRENT_BINARY_DIR} -P ${CMAKE_CURRENT_SOURCE_DIR}/shaderLibray.cmake
+)
+
+ADD_DEPENDENCIES( initial3d refresh_ShadersLibrary )
 
 # add dist to clean
 #set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${DIST_DIRECTORY})
