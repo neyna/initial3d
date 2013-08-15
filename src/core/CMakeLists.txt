@@ -15,14 +15,19 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 
 #configure header for default shaders
-FILE(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/data/defaultFragmentShader.frag" DEFAULT_FRAGMENT_SHADER_SOURCE NEWLINE_CONSUME)
-FILE(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/data/defaultVertexShader.vert" DEFAULT_VERTEX_SHADER_SOURCE NEWLINE_CONSUME)
+SET(DEFAULT_FRAGMENT_SHADER_FILE "${CMAKE_CURRENT_SOURCE_DIR}/data/defaultFragmentShader.frag")
+SET(DEFAULT_VERTEX_SHADER_FILE "${CMAKE_CURRENT_SOURCE_DIR}/data/defaultVertexShader.vert")
+
+FILE(STRINGS ${DEFAULT_FRAGMENT_SHADER_FILE} DEFAULT_FRAGMENT_SHADER_SOURCE NEWLINE_CONSUME)
+FILE(STRINGS ${DEFAULT_VERTEX_SHADER_FILE} DEFAULT_VERTEX_SHADER_SOURCE NEWLINE_CONSUME)
+
 #replace newlines with a string substitute
 STRING(REGEX REPLACE "\n" "\\\\n" DEFAULT_FRAGMENT_SHADER_SOURCE ${DEFAULT_FRAGMENT_SHADER_SOURCE})
 STRING(REGEX REPLACE "\n" "\\\\n" DEFAULT_VERTEX_SHADER_SOURCE ${DEFAULT_VERTEX_SHADER_SOURCE})
 
+SET(SHADERSLIBRARY_CPP_IN ${CMAKE_CURRENT_SOURCE_DIR}/utils/ShadersLibrary.cpp.in)
 configure_file (
-  ${CMAKE_CURRENT_SOURCE_DIR}/utils/ShadersLibrary.cpp.in
+  ${SHADERSLIBRARY_CPP_IN}
   ${CMAKE_CURRENT_BINARY_DIR}/ShadersLibrary.cpp
   )
 # need this to compile ShadersLibrary.cpp (add the directory where is its header to -I)
@@ -45,9 +50,9 @@ ADD_LIBRARY(initial3d STATIC ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE})
 # Touch doesnt bother git, it sees there is no modification
 # works on windows through cmake touch
 add_custom_command( OUTPUT refresh_ShadersLibrary_command
-                    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/data/defaultFragmentShader.frag
-                            ${CMAKE_CURRENT_SOURCE_DIR}/data/defaultVertexShader.vert
-                    COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_SOURCE_DIR}/utils/ShadersLibrary.cpp.in
+                    DEPENDS ${DEFAULT_FRAGMENT_SHADER_FILE}
+                            ${DEFAULT_VERTEX_SHADER_FILE}
+                    COMMAND ${CMAKE_COMMAND} -E touch ${SHADERSLIBRARY_CPP_IN}
  )
 ADD_CUSTOM_TARGET( refresh_ShadersLibrary DEPENDS refresh_ShadersLibrary_command )
 add_dependencies( initial3d refresh_ShadersLibrary )
