@@ -1,3 +1,6 @@
+#ifndef VERSION_HPP_
+#define VERSION_HPP_
+
 #define INITIAL3D_VERSION_MAJOR @INITIAL3D_VERSION_MAJOR@
 #define INITIAL3D_VERSION_MINOR @INITIAL3D_VERSION_MINOR@
 
@@ -6,3 +9,5 @@
 
 void print_version();
 void getVersion(std::shared_ptr<std::string> &computedVersion);
+
+#endif /* VERSION_HPP_ */

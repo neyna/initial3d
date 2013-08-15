@@ -13,10 +13,26 @@ configure_file (
 # This enable us to find the test.h generated ealier
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
+
+#configure header for default shaders
+FILE(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/data/defaultFragmentShader.frag" DEFAULT_FRAGMENT_SHADER_SOURCE NEWLINE_CONSUME)
+FILE(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/data/defaultVertexShader.vert" DEFAULT_VERTEX_SHADER_SOURCE NEWLINE_CONSUME)
+#replace newlines with a string substitute
+STRING(REGEX REPLACE "\n" "\\\\n" DEFAULT_FRAGMENT_SHADER_SOURCE ${DEFAULT_FRAGMENT_SHADER_SOURCE})
+STRING(REGEX REPLACE "\n" "\\\\n" DEFAULT_VERTEX_SHADER_SOURCE ${DEFAULT_VERTEX_SHADER_SOURCE})
+
+configure_file (
+  ${CMAKE_CURRENT_SOURCE_DIR}/utils/ShadersLibrary.cpp.in
+  ${CMAKE_CURRENT_BINARY_DIR}/ShadersLibrary.cpp
+  )
+# need this to compile ShadersLibrary.cpp (add the directory where is its header to -I)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utils)
+
 FILE(GLOB_RECURSE INITIAL3D_HEADER *.hpp)
 SET(INITIAL3D_HEADER ${INITIAL3D_HEADER} ${CMAKE_CURRENT_BINARY_DIR}/version.hpp)
 
 FILE(GLOB_RECURSE INITIAL3D_SOURCE *.cpp)
+SET(INITIAL3D_SOURCE ${INITIAL3D_SOURCE} ${CMAKE_CURRENT_BINARY_DIR}/ShadersLibrary.cpp)
 
 # export variable to parent, but care it is undefined for us
 # we add ${CMAKE_CURRENT_BINARY_DIR for version.hpp (TODO : need to look for a nicer solution)

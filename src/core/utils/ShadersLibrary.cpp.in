@@ -1,0 +1,20 @@
+#include "ShadersLibrary.hpp"
+
+namespace initial3d {
+namespace utils {
+
+std::string ShadersLibrary::DEFAULT_VERTEX_SHADER =
+			"@DEFAULT_VERTEX_SHADER_SOURCE@\n";
+
+std::string ShadersLibrary::DEFAULT_FRAGMENT_SHADER =
+			"@DEFAULT_FRAGMENT_SHADER_SOURCE@\n";
+
+ShadersLibrary::ShadersLibrary() {
+}
+
+ShadersLibrary::~ShadersLibrary() {
+}
+
+
+} /* namespace utils */
+} /* namespace initial3d */
