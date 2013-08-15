@@ -28,6 +28,7 @@ configure_file (
 # need this to compile ShadersLibrary.cpp (add the directory where is its header to -I)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/utils)
 
+
 FILE(GLOB_RECURSE INITIAL3D_HEADER *.hpp)
 SET(INITIAL3D_HEADER ${INITIAL3D_HEADER} ${CMAKE_CURRENT_BINARY_DIR}/version.hpp)
 
@@ -39,6 +40,17 @@ SET(INITIAL3D_SOURCE ${INITIAL3D_SOURCE} ${CMAKE_CURRENT_BINARY_DIR}/ShadersLibr
 SET(INITIAL3D_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} PARENT_SCOPE)
 
 ADD_LIBRARY(initial3d STATIC ${INITIAL3D_HEADER} ${INITIAL3D_SOURCE})
+
+# workaround to be sure that ShadersLibrary.cpp is generated each time there are modification in the shader sources
+# Touch doesnt bother git, it sees there is no modification
+# works on windows through cmake touch
+add_custom_command( OUTPUT refresh_ShadersLibrary_command
+                    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/data/defaultFragmentShader.frag
+                            ${CMAKE_CURRENT_SOURCE_DIR}/data/defaultVertexShader.vert
+                    COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_SOURCE_DIR}/utils/ShadersLibrary.cpp.in
+ )
+ADD_CUSTOM_TARGET( refresh_ShadersLibrary DEPENDS refresh_ShadersLibrary_command )
+add_dependencies( initial3d refresh_ShadersLibrary )
 
 # add dist to clean
 #set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${DIST_DIRECTORY})
